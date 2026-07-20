@@ -33,10 +33,10 @@ None. This is a foundational task.
 
 ## Acceptance Criteria
 
-- [ ] `framer-motion`, `@dnd-kit/core` (and needed dnd-kit helpers), and the chosen Radix primitive packages appear in `package.json` dependencies.
-- [ ] `yarn install` completes without errors.
-- [ ] `yarn build` still succeeds (no code changes should break the build).
-- [ ] No new state-management library added.
+- [x] `framer-motion`, `@dnd-kit/core` (and needed dnd-kit helpers), and the chosen Radix primitive packages appear in `package.json` dependencies.
+- [x] `yarn install` completes without errors.
+- [x] `yarn build` still succeeds (no code changes should break the build).
+- [x] No new state-management library added.
 
 ## Testing Requirements
 

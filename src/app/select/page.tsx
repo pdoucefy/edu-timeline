@@ -1,3 +1,4 @@
-export default function SelectPage() {
-  return <div>Select</div>;
-}
+const SelectPage = () => <div>Select</div>;
+
+// eslint-disable-next-line import/no-default-export
+export default SelectPage;

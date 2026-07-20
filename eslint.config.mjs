@@ -2,24 +2,26 @@ import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
 import prettierConfig from 'eslint-config-prettier';
 import prettierPlugin from 'eslint-plugin-prettier';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
-const eslintConfig = defineConfig([
+// eslint-disable-next-line import/no-default-export
+export default defineConfig([
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+
   ...nextVitals,
   ...nextTs,
 
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
-
-  // Prettier integration
+  // Prettier integration (must be last)
   prettierConfig,
   {
     plugins: {
       prettier: prettierPlugin,
+      'react-refresh': reactRefresh,
     },
     rules: {
       'prettier/prettier': 'warn',
 
-      /*
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/default-param-last': 'warn',
       '@typescript-eslint/no-empty-interface': 'warn',
@@ -128,7 +130,7 @@ const eslintConfig = defineConfig([
       'no-useless-return': 'warn',
       'no-void': 'warn',
       'object-shorthand': 'warn',
-      'one-var': 'warn',
+      'one-var': 'off',
       'operator-assignment': 'warn',
       'prefer-arrow-callback': 'warn',
       'prefer-const': 'warn',
@@ -137,7 +139,6 @@ const eslintConfig = defineConfig([
       'prefer-object-spread': 'warn',
       'prefer-regex-literals': 'warn',
       'prefer-template': 'warn',
-      'prettier/prettier': 'off',
       quotes: ['warn', 'single', { avoidEscape: true, allowTemplateLiterals: false }],
       radix: 'warn',
 
@@ -177,9 +178,6 @@ const eslintConfig = defineConfig([
 
       'spaced-comment': 'warn',
       yoda: 'warn',
-      */
     },
   },
 ]);
-
-export default eslintConfig;

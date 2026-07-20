@@ -12,7 +12,7 @@ The Product Specification ("Level Selection") and Technical Specification (secti
 - **Summary mode** – the chapter plus all preceding chapters in the same school year (e.g. selecting chapter 3 of year 1 in summary → chapters 1, 2, 3 of year 1).
 - **For-fun mode** – every chapter from every year.
 
-This resolver is separate from `combineEventPools()` (Task 8): this one decides *which chapters*, Task 8 decides *which events*.
+This resolver is separate from `combineEventPools()` (Task 8): this one decides _which chapters_, Task 8 decides _which events_.
 
 ## MVP Status
 
@@ -47,6 +47,7 @@ Required for MVP. Drives what the selection screen produces and what the game lo
 ## Testing Requirements
 
 Unit tests (Jest):
+
 - Summary at chapter 3 of a year → chapters 1,2,3 of that year and nothing from other years.
 - Summary at chapter 1 → just chapter 1.
 - Single → one chapter.

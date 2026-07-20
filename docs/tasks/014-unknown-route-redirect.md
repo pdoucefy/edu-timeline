@@ -43,7 +43,7 @@ Required for MVP. It's an explicit routing requirement and prevents dead ends.
 
 ## Out of Scope
 
-- The full-screen *error* pages (data/network failures) — that's Task 24.
+- The full-screen _error_ pages (data/network failures) — that's Task 24.
 - Play-route invalid-state redirect to `/select` — that's Task 21.
 
 ## Recommended Agent Capability

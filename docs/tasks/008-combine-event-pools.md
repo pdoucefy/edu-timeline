@@ -40,6 +40,7 @@ Required for MVP. Without a correct combined pool, gameplay cannot start.
 ## Testing Requirements
 
 Unit tests (Jest) covering, per spec section 9:
+
 - Single chapter, easy vs hard tier sizes differ correctly.
 - Multiple chapters merged.
 - Cross-chapter duplicate removed (uses the Task 6 fixture).

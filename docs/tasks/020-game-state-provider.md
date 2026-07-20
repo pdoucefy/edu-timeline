@@ -47,6 +47,7 @@ Required for MVP. Gameplay cannot function without it.
 ## Testing Requirements
 
 Unit tests (Jest) on the reducer:
+
 - START seeds first event + current.
 - Correct placement advances and reveals; last correct placement → `won`.
 - Incorrect placement → `lost` with correct `placedCount`/`remainingCount`/misplaced event.

@@ -29,7 +29,7 @@ Required for MVP. It's the gateway into gameplay and enforces the valid-state re
   - `difficulty` is a valid `DifficultyLevel`.
   - Resolved pool has enough events to play (at least 2 — one to seed, one to place). Define the minimum and treat below-minimum as invalid.
 - If invalid/missing → seamless redirect to the localized `/select` route (server-side `redirect()` preferred; verify Next 16 API in docs).
-- If valid → resolve the pool with `combineEventPools` (Task 8), shuffle, mount `GameProvider` (Task 20), and dispatch `START_GAME` with the shuffled pool. Because refresh/external access should start a *new* game, deriving state purely from the URL each load is correct (no persistence needed).
+- If valid → resolve the pool with `combineEventPools` (Task 8), shuffle, mount `GameProvider` (Task 20), and dispatch `START_GAME` with the shuffled pool. Because refresh/external access should start a _new_ game, deriving state purely from the URL each load is correct (no persistence needed).
 - Render the game surface: the timeline (Task 18) + the current event to place (Task 17) — the actual drag wiring and loop come in Tasks 22/23, but this task should render the initial game state (seeded first event + current event) so the route is demonstrably "started". If Tasks 22/23 aren't done yet, it's acceptable to render the static initial state and leave placement interaction as a TODO for those tasks.
 - Keep the redirect seamless (no flash of an error).
 

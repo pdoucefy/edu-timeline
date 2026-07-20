@@ -48,6 +48,7 @@ Required for MVP. This defines win/lose for every move.
 ## Testing Requirements
 
 Unit tests (Jest) covering spec section 9 scenarios:
+
 - Correct middle insertion; incorrect middle insertion.
 - Insertion at start and end (valid + invalid).
 - Same full date placed either side → valid.

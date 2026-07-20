@@ -33,10 +33,10 @@ None.
 
 ## Acceptance Criteria
 
-- [ ] `yarn lint` exits with no errors.
-- [ ] A Prettier format command exists and the codebase is fully formatted.
-- [ ] Import sorting is configured and applied.
-- [ ] The `TODOS` "finish ESLint/Prettier" line can be considered done (update `TODOS` accordingly).
+- [x] `yarn lint` exits with no errors.
+- [x] A Prettier format command exists and the codebase is fully formatted.
+- [x] Import sorting is configured and applied.
+- [x] The `TODOS` "finish ESLint/Prettier" line can be considered done (update `TODOS` accordingly).
 
 ## Testing Requirements
 

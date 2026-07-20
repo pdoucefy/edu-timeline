@@ -1,1 +1,3 @@
-// TODO: folder name?
+export default function SelectPage() {
+  return <div>Select</div>;
+}

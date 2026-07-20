@@ -145,6 +145,12 @@ Critical path to a playable game:
 - **Strong coding model:** `002`, `004`, `007`, `008`, `010`, `013`, `014`, `016`, `018`, `024`, `026`, `028`.
 - **Cheap coding model:** `001`, `003`, `005`, `006`, `012`, `015`, `017`, `019`, `025`, `027`, `030`.
 
+### Models to use
+
+- **Cheap coding model:** DeepSeek V4 Flash
+- **Strong coding model:** Kimi K2.6
+- **Reasoning model:** Claude Opus 4.8
+
 ---
 
 ## 7. Assumptions made during task creation

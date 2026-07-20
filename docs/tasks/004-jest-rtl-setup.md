@@ -35,11 +35,11 @@ None (can run in parallel with Tasks 1–3).
 
 ## Acceptance Criteria
 
-- [ ] `yarn test` runs and the smoke test passes.
-- [ ] The `@/*` alias resolves inside tests.
-- [ ] `@testing-library/jest-dom` matchers are available in tests.
-- [ ] A coverage command exists.
-- [ ] `yarn build` and `yarn lint` still pass.
+- [x] `yarn test` runs and the smoke test passes.
+- [x] The `@/*` alias resolves inside tests.
+- [x] `@testing-library/jest-dom` matchers are available in tests.
+- [x] A coverage command exists.
+- [x] `yarn build` and `yarn lint` still pass.
 
 ## Testing Requirements
 

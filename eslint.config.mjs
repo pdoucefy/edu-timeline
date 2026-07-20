@@ -4,6 +4,7 @@ import prettierConfig from 'eslint-config-prettier';
 import prettierPlugin from 'eslint-plugin-prettier';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig([
@@ -11,6 +12,16 @@ export default defineConfig([
 
   ...nextVitals,
   ...nextTs,
+
+  // Test file overrides
+  {
+    files: ['**/*.test.{ts,tsx}', '**/jest.setup.ts', 'jest.config.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+  },
 
   // Prettier integration (must be last)
   prettierConfig,

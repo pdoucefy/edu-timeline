@@ -34,10 +34,10 @@ Required for MVP. Every UI component depends on styled-components rendering corr
 
 ## Acceptance Criteria
 
-- [ ] A styled-components registry client component exists and compiles.
-- [ ] `src/styles/theme.ts` exports a typed theme object with at least colors, spacing, typography, and radii.
-- [ ] `DefaultTheme` is augmented so `props.theme` is typed in styled templates.
-- [ ] `yarn build` succeeds.
+- [x] A styled-components registry client component exists and compiles.
+- [x] `src/styles/theme.ts` exports a typed theme object with at least colors, spacing, typography, and radii.
+- [x] `DefaultTheme` is augmented so `props.theme` is typed in styled templates.
+- [x] `yarn build` succeeds.
 
 ## Testing Requirements
 

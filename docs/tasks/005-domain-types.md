@@ -44,10 +44,10 @@ Notes:
 
 ## Acceptance Criteria
 
-- [ ] All five types exist and match the spec's shapes and names.
-- [ ] Types compile with `strict` mode (no `any`).
-- [ ] A barrel export (if added) re-exports every type.
-- [ ] `yarn build` and `yarn lint` pass.
+- [x] All five types exist and match the spec's shapes and names.
+- [x] Types compile with `strict` mode (no `any`).
+- [x] A barrel export (if added) re-exports every type.
+- [x] `yarn build` and `yarn lint` pass.
 
 ## Testing Requirements
 

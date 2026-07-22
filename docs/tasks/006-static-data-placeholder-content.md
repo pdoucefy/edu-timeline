@@ -36,12 +36,12 @@ Required for MVP (as a scaffold). The **structure** is required; the **placehold
 
 ## Acceptance Criteria
 
-- [ ] `src/data/` exports a typed `SchoolYear[]` (or equivalent) that type-checks against Task 5 types.
-- [ ] At least 2 years × 3 chapters, each with `easy` and `hard` event arrays.
-- [ ] At least one cross-chapter duplicate event (same `id`), plus same-date and same-year fixtures exist.
-- [ ] Referenced image files exist under `public/events/`.
-- [ ] A top-of-file comment flags the content as placeholder.
-- [ ] `yarn build` and `yarn lint` pass.
+- [x] `src/data/` exports a typed `SchoolYear[]` (or equivalent) that type-checks against Task 5 types.
+- [x] At least 2 years × 3 chapters, each with `easy` and `hard` event arrays.
+- [x] At least one cross-chapter duplicate event (same `id`), plus same-date and same-year fixtures exist.
+- [x] Referenced image files exist under `public/events/`.
+- [x] A top-of-file comment flags the content as placeholder.
+- [x] `yarn build` and `yarn lint` pass.
 
 ## Testing Requirements
 

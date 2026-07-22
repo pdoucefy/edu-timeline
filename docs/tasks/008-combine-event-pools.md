@@ -31,11 +31,11 @@ Required for MVP. Without a correct combined pool, gameplay cannot start.
 
 ## Acceptance Criteria
 
-- [ ] Pure function merges selected chapters' events for the requested difficulty.
-- [ ] `hard` yields base + extra events; `easy` yields base only.
-- [ ] Duplicates across chapters are removed by `id`.
-- [ ] Output order is deterministic (no shuffle inside this function).
-- [ ] `yarn test`, `yarn lint`, `yarn build` pass.
+- [x] Pure function merges selected chapters' events for the requested difficulty.
+- [x] `hard` yields base + extra events; `easy` yields base only.
+- [x] Duplicates across chapters are removed by `id`.
+- [x] Output order is deterministic (no shuffle inside this function).
+- [x] `yarn test`, `yarn lint`, `yarn build` pass.
 
 ## Testing Requirements
 

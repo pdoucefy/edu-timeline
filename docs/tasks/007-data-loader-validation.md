@@ -25,17 +25,17 @@ Required for MVP. Selection and gameplay both read data through this layer, and 
 
 - Expose functions such as: `getSchoolYears()`, `getChapterById(id)`, and a way to list years/chapters for the selection screen. Keep the API minimal and driven by what Tasks 10, 16, and 21 will need.
 - **Date hydration:** if Task 6 stored dates as ISO strings, convert them to `Date` here; if they are already `Date`, pass through. Either way, downstream consumers should always receive `Date` objects (per the type).
-- **Validation:** detect events with an invalid/unparseable date (`isNaN(date.getTime())`). Skip such events and collect a signal (e.g. return a `{ events, warnings }` shape or expose a `getLoadWarnings()`) so the UI can show the specified toast "Some events could not be loaded." Do NOT throw for a single bad event.
+- **Validation:** detect events with an invalid/unparsable date (`isNaN(date.getTime())`). Skip such events and collect a signal (e.g. return a `{ events, warnings }` shape or expose a `getLoadWarnings()`) so the UI can show the specified toast "Some events could not be loaded." Do NOT throw for a single bad event.
 - **Missing image handling:** provide a helper that resolves an event's image path (`/events/<fileName>`) and a known placeholder path to fall back to. Actual DOM `onError` fallback + console warning happens in the Event card (Task 17) and error handling (Task 24); this task just centralizes the placeholder path constant and the resolution helper.
 - Keep this pure and framework-agnostic (no React) so it is easy to unit test and usable from server components.
 
 ## Acceptance Criteria
 
-- [ ] A loader module exposes typed accessors for years/chapters/events.
-- [ ] Dates are guaranteed to be `Date` objects at the boundary.
-- [ ] Events with invalid dates are skipped and surfaced as warnings (not thrown).
-- [ ] An image-path resolver and a placeholder-path constant are exported.
-- [ ] `yarn build`, `yarn lint`, and `yarn test` pass.
+- [x] A loader module exposes typed accessors for years/chapters/events.
+- [x] Dates are guaranteed to be `Date` objects at the boundary.
+- [x] Events with invalid dates are skipped and surfaced as warnings (not thrown).
+- [x] An image-path resolver and a placeholder-path constant are exported.
+- [x] `yarn build`, `yarn lint`, and `yarn test` pass.
 
 ## Testing Requirements
 

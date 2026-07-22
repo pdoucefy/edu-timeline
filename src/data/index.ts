@@ -1,1 +1,2 @@
-export { schoolYears } from './years.ts';
+export * from './years.ts';
+export * from './loader.ts';

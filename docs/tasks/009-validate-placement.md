@@ -38,12 +38,12 @@ Required for MVP. This defines win/lose for every move.
 
 ## Acceptance Criteria
 
-- [ ] Pure function returns a correct boolean for a given timeline, inserted event, and index.
-- [ ] Uses full-date comparison, not year rounding.
-- [ ] Same-date neighbors accepted in either order.
-- [ ] Same-year/different-date ordering enforced strictly.
-- [ ] Start/end insertions handled.
-- [ ] `yarn test`, `yarn lint`, `yarn build` pass.
+- [x] Pure function returns a correct boolean for a given timeline, inserted event, and index.
+- [x] Uses full-date comparison, not year rounding.
+- [x] Same-date neighbors accepted in either order.
+- [x] Same-year/different-date ordering enforced strictly.
+- [x] Start/end insertions handled.
+- [x] `yarn test`, `yarn lint`, `yarn build` pass.
 
 ## Testing Requirements
 

@@ -37,12 +37,12 @@ Required for MVP. It's a mandatory step in the user flow and defines the game's 
 
 ## Acceptance Criteria
 
-- [ ] Chapters are listed grouped by school year using real data from the loader.
-- [ ] User can pick single chapter, enable summary mode, or enable for-fun mode.
-- [ ] User can pick `easy` or `hard`.
-- [ ] "Start" navigates to `/fr/play?chapters=<ids>&difficulty=<level>` with correctly resolved IDs.
-- [ ] All copy from the French catalog.
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] Chapters are listed grouped by school year using real data from the loader.
+- [x] User can pick single chapter, enable summary mode, or enable for-fun mode.
+- [x] User can pick `easy` or `hard`.
+- [x] "Start" navigates to `/fr/play?chapters=<ids>&difficulty=<level>` with correctly resolved IDs.
+- [x] All copy from the French catalog.
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

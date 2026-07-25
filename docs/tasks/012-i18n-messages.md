@@ -38,11 +38,11 @@ Required for MVP. French-only is a hard requirement and every screen shows text.
 
 ## Acceptance Criteria
 
-- [ ] `fr.json` contains organized namespaces covering home, select, game, end-game, common, and errors.
-- [ ] All copy is in French and interpolation uses next-intl message arguments where counts/values appear.
-- [ ] JSON is valid and `Messages` type compiles.
-- [ ] A page using `useTranslations`/`getTranslations` can render at least one key (smoke check).
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] `fr.json` contains organized namespaces covering home, select, game, end-game, common, and errors.
+- [x] All copy is in French and interpolation uses next-intl message arguments where counts/values appear.
+- [x] JSON is valid and `Messages` type compiles.
+- [x] A page using `useTranslations`/`getTranslations` can render at least one key (smoke check).
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

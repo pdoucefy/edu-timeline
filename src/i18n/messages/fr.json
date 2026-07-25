@@ -1,1 +1,58 @@
-{}
+{
+  "common": {
+    "appName": "Frise Chrono",
+    "backToHome": "Retour à l'accueil",
+    "loading": "Chargement…",
+    "genericError": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "home": {
+    "heroTitle": "Remettez l'histoire dans l'ordre !",
+    "heroSubtitle": "Testez vos connaissances chronologiques en replaçant les événements historiques sur une frise interactive.",
+    "startButton": "Commencer"
+  },
+  "select": {
+    "title": "Choisissez votre chapitre",
+    "chapterLabel": "Chapitre {number}",
+    "chapterDescription": "Chapitre {number} — {description}",
+    "summaryToggle": "Résumé",
+    "forFunToggle": "Mode libre",
+    "difficultyEasy": "Facile",
+    "difficultyHard": "Difficile",
+    "startGame": "Lancer la partie",
+    "noChaptersAvailable": "Aucun chapitre disponible pour le moment."
+  },
+  "game": {
+    "placeEventPrompt": "Placez cet événement sur la frise :",
+    "yearLabel": "Année",
+    "submitAnswer": "Valider",
+    "nextEvent": "Événement suivant",
+    "eventCounter": "Événement {current} sur {total}",
+    "feedbackCorrect": "Correct !",
+    "feedbackIncorrect": "Incorrect",
+    "score": "Score : {score}/{total}",
+    "dragToTimeline": "Faites glisser l'événement vers l'année correspondante",
+    "eventPlacedAt": "{eventName} placé en {year}"
+  },
+  "endGame": {
+    "successTitle": "Bravo !",
+    "successMessage": "Vous avez terminé le jeu avec {score} bonne(s) réponse(s) sur {total}.",
+    "perfectScore": "Score parfait ! Vous êtes incollable !",
+    "failureTitle": "Partie terminée",
+    "failureMessage": "Vous avez obtenu {score} bonne(s) réponse(s) sur {total}. Continuez à vous entraîner !",
+    "eventsPlaced": "{count} événement(s) placé(s)",
+    "eventsRemaining": "{count} événement(s) restant(s)",
+    "misplacedEvent": "Année incorrecte pour « {eventName} » : attendue {expectedYear}, reçue {actualYear}",
+    "backToHome": "Retour à l'accueil",
+    "playAgain": "Rejouer"
+  },
+  "errors": {
+    "dataLoadFailure": "Échec du chargement des données",
+    "dataLoadFailureDescription": "Impossible de charger les données. Vérifiez votre connexion et réessayez.",
+    "networkError": "Erreur réseau",
+    "someEventsNotLoaded": "Certains événements n'ont pas pu être chargés.",
+    "missingImageAlt": "Illustration : {eventName}",
+    "imagePlaceholder": "Image non disponible",
+    "pageNotFound": "Page introuvable",
+    "pageNotFoundDescription": "La page que vous cherchez n'existe pas ou a été déplacée."
+  }
+}

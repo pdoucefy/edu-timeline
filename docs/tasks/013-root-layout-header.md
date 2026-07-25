@@ -6,7 +6,7 @@ Implement the locale-aware root layout that wraps the app with the i18n provider
 
 ## Context
 
-Product Spec ("Styling and Layout"): the layout must include the school's logo, and clicking it redirects to the school's main website (https://coopcvm.com/). Technical Spec section 10 item 1: "Layout wrapper (header with school logo, locale prefix)". The current `src/app/layout.tsx` is default boilerplate (`lang="en"`, Geist fonts, default metadata) and is not locale-aware. This task turns it into the real app shell now living under the `[locale]` segment.
+Product Spec ("Styling and Layout"): the layout must include the school's logo, and clicking it redirects to the school's main website (<https://coopcvm.com/>). Technical Spec section 10 item 1: "Layout wrapper (header with school logo, locale prefix)". The current `src/app/layout.tsx` is default boilerplate (`lang="en"`, Geist fonts, default metadata) and is not locale-aware. This task turns it into the real app shell now living under the `[locale]` segment.
 
 ## MVP Status
 

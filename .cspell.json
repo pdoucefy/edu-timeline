@@ -1,0 +1,3 @@
+{
+  "ignorePaths": ["src/i18n/messages/*.json"]
+}

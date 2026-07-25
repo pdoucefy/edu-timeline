@@ -32,11 +32,11 @@ Required for MVP. It's the entry point of the user flow.
 
 ## Acceptance Criteria
 
-- [ ] `/fr` shows a hero with title, intro, and a start button.
-- [ ] The start button navigates to `/fr/select`.
-- [ ] All text is from the French catalog.
-- [ ] Renders within the shared layout/header with no console errors.
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] `/fr` shows a hero with title, intro, and a start button.
+- [x] The start button navigates to `/fr/select`.
+- [x] All text is from the French catalog.
+- [x] Renders within the shared layout/header with no console errors.
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

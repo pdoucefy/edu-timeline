@@ -31,10 +31,10 @@ Required for MVP. It's an explicit routing requirement and prevents dead ends.
 
 ## Acceptance Criteria
 
-- [ ] Visiting a nonexistent path (e.g. `/fr/does-not-exist` and `/nope`) lands on the home page.
-- [ ] No redirect loop; valid routes are unaffected.
-- [ ] The redirect is seamless (no visible raw 404).
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] Visiting a nonexistent path (e.g. `/fr/does-not-exist` and `/nope`) lands on the home page.
+- [x] No redirect loop; valid routes are unaffected.
+- [x] The redirect is seamless (no visible raw 404).
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

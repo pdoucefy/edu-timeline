@@ -37,12 +37,12 @@ Required for MVP. Nothing renders at the correct URLs without this, and it is a 
 
 ## Acceptance Criteria
 
-- [ ] All app routes live under `src/app/[locale]/`.
-- [ ] Visiting `/`, `/select`, `/play` redirects to the `/fr/...` equivalents.
-- [ ] `/fr`, `/fr/select`, `/fr/play` all resolve (even if stub content).
-- [ ] next-intl plugin applied; `useTranslations`/`getTranslations` work in a page (can be validated in Task 13).
-- [ ] The interception file uses the correct Next 16 filename/API (per local docs), not the legacy `middleware` if renamed.
-- [ ] `yarn build`, `yarn lint` pass; `yarn dev` serves the redirects.
+- [x] All app routes live under `src/app/[locale]/`.
+- [x] Visiting `/`, `/select`, `/play` redirects to the `/fr/...` equivalents.
+- [x] `/fr`, `/fr/select`, `/fr/play` all resolve (even if stub content).
+- [x] next-intl plugin applied; `useTranslations`/`getTranslations` work in a page (can be validated in Task 13).
+- [x] The interception file uses the correct Next 16 filename/API (per local docs), not the legacy `middleware` if renamed.
+- [x] `yarn build`, `yarn lint` pass; `yarn dev` serves the redirects.
 
 ## Testing Requirements
 

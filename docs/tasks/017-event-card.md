@@ -19,7 +19,7 @@ Required for MVP. It's the primary visual unit of gameplay.
 ## Files / Areas Likely Affected
 
 - New `EventCard` component under `src/components/`.
-- Possibly a small `EventImage` subcomponent handling the placeholder fallback.
+- Possibly a small `EventImage` sub-component handling the placeholder fallback.
 
 ## Implementation Guidance
 
@@ -32,12 +32,12 @@ Required for MVP. It's the primary visual unit of gameplay.
 
 ## Acceptance Criteria
 
-- [ ] Renders image, name, and year (or hidden state) based on props.
-- [ ] Only the year is shown when revealed — never the full date.
-- [ ] Broken image falls back to the placeholder and logs a console warning.
-- [ ] Alt/labels come from the French catalog.
-- [ ] Styled with theme tokens; no game logic inside.
-- [ ] `yarn build`, `yarn lint`, `yarn test` pass.
+- [x] Renders image, name, and year (or hidden state) based on props.
+- [x] Only the year is shown when revealed — never the full date.
+- [x] Broken image falls back to the placeholder and logs a console warning.
+- [x] Alt/labels come from the French catalog.
+- [x] Styled with theme tokens; no game logic inside.
+- [x] `yarn build`, `yarn lint`, `yarn test` pass.
 
 ## Testing Requirements
 

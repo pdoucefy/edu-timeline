@@ -38,11 +38,11 @@ Required for MVP. Drives what the selection screen produces and what the game lo
 
 ## Acceptance Criteria
 
-- [ ] Single mode returns exactly the chosen chapter.
-- [ ] Summary mode returns the chosen chapter plus all lower-numbered chapters in the same year only.
-- [ ] For-fun mode returns all chapters across all years.
-- [ ] A helper maps between chapter IDs (URL form) and `Chapter[]`.
-- [ ] `yarn test`, `yarn lint`, `yarn build` pass.
+- [x] Single mode returns exactly the chosen chapter.
+- [x] Summary mode returns the chosen chapter plus all lower-numbered chapters in the same year only.
+- [x] For-fun mode returns all chapters across all years.
+- [x] A helper maps between chapter IDs (URL form) and `Chapter[]`.
+- [x] `yarn test`, `yarn lint`, `yarn build` pass.
 
 ## Testing Requirements
 

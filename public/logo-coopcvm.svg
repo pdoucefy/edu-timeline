@@ -1,0 +1,10 @@
+<!--
+  Placeholder logo for CoopCVM.
+  TODO: Replace with the official school logo.
+-->
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="8" fill="#2563EB"/>
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold">
+    CVM
+  </text>
+</svg>

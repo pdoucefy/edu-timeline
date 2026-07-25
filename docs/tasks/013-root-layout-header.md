@@ -35,12 +35,12 @@ Required for MVP. Every screen renders inside this layout; it's the first point 
 
 ## Acceptance Criteria
 
-- [ ] `src/app/[locale]/layout.tsx` renders with `<html lang={locale}>` and wraps children in registry + ThemeProvider + i18n provider.
-- [ ] A header with the school logo renders on every route; clicking the logo navigates to `https://coopcvm.com/`.
-- [ ] Header text (e.g. logo alt) comes from the French catalog, not hardcoded.
-- [ ] styled-components render server-side without FOUC/hydration warnings.
-- [ ] Default boilerplate styling that conflicts with the theme is removed.
-- [ ] `yarn build`, `yarn lint` pass; `yarn dev` shows the header on `/fr`.
+- [x] `src/app/[locale]/layout.tsx` renders with `<html lang={locale}>` and wraps children in registry + ThemeProvider + i18n provider.
+- [x] A header with the school logo renders on every route; clicking the logo navigates to `https://coopcvm.com/`.
+- [x] Header text (e.g. logo alt) comes from the French catalog, not hardcoded.
+- [x] styled-components render server-side without FOUC/hydration warnings.
+- [x] Default boilerplate styling that conflicts with the theme is removed.
+- [x] `yarn build`, `yarn lint` pass; `yarn dev` shows the header on `/fr`.
 
 ## Testing Requirements
 

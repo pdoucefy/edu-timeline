@@ -5,6 +5,10 @@
     "loading": "Chargement…",
     "genericError": "Une erreur est survenue. Veuillez réessayer."
   },
+  "header": {
+    "logoAlt": "Logo CoopCVM — Coopérative de solidarité en éducation",
+    "logoText": "CoopCVM"
+  },
   "home": {
     "heroTitle": "Remettez l'histoire dans l'ordre !",
     "heroSubtitle": "Testez vos connaissances chronologiques en replaçant les événements historiques sur une frise interactive.",

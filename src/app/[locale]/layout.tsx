@@ -1,23 +1,14 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Geist, Geist_Mono as geistMono } from 'next/font/google';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
+import { Header } from '@/components/Header.tsx';
 import { routing } from '@/i18n/routing.ts';
+import { StyledComponentsRegistry } from '@/styles/StyledComponentsRegistry.tsx';
 
 import '../globals.css';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMonoFont = geistMono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -49,10 +40,17 @@ const RootLayout = async ({
   // server-side i18n APIs (`getTranslations`, etc.).
   setRequestLocale(locale);
 
+  const messages = await getMessages();
+
   return (
-    <html lang={locale} className={`${geistSans.variable} ${geistMonoFont.variable}`}>
+    <html lang={locale}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <StyledComponentsRegistry>
+          <NextIntlClientProvider messages={messages}>
+            <Header />
+            <main>{children}</main>
+          </NextIntlClientProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

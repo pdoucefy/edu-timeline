@@ -2,7 +2,9 @@
 
 import { useServerInsertedHTML } from 'next/navigation';
 import React, { useState } from 'react';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
+
+import { theme } from './theme.ts';
 
 export const StyledComponentsRegistry = ({ children }: { children: React.ReactNode }) => {
   // Only create stylesheet once with lazy initial state
@@ -15,9 +17,13 @@ export const StyledComponentsRegistry = ({ children }: { children: React.ReactNo
     return styles;
   });
 
-  if (typeof window !== 'undefined') return children;
+  if (typeof window !== 'undefined') {
+    return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  }
 
   return (
-    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>
+    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </StyleSheetManager>
   );
 };

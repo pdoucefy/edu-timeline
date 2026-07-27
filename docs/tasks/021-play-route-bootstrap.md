@@ -35,11 +35,11 @@ Required for MVP. It's the gateway into gameplay and enforces the valid-state re
 
 ## Acceptance Criteria
 
-- [ ] `/fr/play?chapters=<ids>&difficulty=<level>` with valid params starts a game (first event seeded + current event shown).
-- [ ] Missing/invalid params (bad ids, bad difficulty, too-few events, no query) → seamless redirect to `/fr/select`.
-- [ ] Refreshing a valid `/play` URL starts a fresh game (state derived from URL).
-- [ ] Uses Task 8 + Task 10 resolvers and Task 20 provider — no reimplementation.
-- [ ] `yarn build`, `yarn lint` pass; `yarn dev` demonstrates both paths.
+- [x] `/fr/play?chapters=<ids>&difficulty=<level>` with valid params starts a game (first event seeded + current event shown).
+- [x] Missing/invalid params (bad ids, bad difficulty, too-few events, no query) → seamless redirect to `/fr/select`.
+- [x] Refreshing a valid `/play` URL starts a fresh game (state derived from URL).
+- [x] Uses Task 8 + Task 10 resolvers and Task 20 provider — no re-implementation.
+- [x] `yarn build`, `yarn lint` pass; `yarn dev` demonstrates both paths.
 
 ## Testing Requirements
 

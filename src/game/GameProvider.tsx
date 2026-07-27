@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import type { Event } from '../types';
 import { gameReducer, initialGameState } from './gameReducer.ts';
 import type { GameState } from './gameReducer.ts';
+import { shuffle } from './shuffle.ts';
 
 /**
  * The value exposed by {@link useGame}: the live game state plus the actions
@@ -28,24 +29,24 @@ export type GameContextValue = {
 const GameContext = createContext<GameContextValue | null>(null);
 
 /**
- * Returns a new array containing the same elements in a random order using the
- * Fisher–Yates shuffle. Does not mutate the input.
- */
-const shuffle = <T,>(items: readonly T[]): T[] => {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-};
-
-/**
  * Client-side provider holding the global game state via `useReducer`. Wrap the
  * play route in this and read the state/actions through {@link useGame}.
+ *
+ * An optional `initialPool` seeds a game synchronously on first render (so the
+ * started state renders during SSR with no flash). The pool must already be
+ * shuffled by the caller — otherwise the server and client would shuffle
+ * differently and cause a hydration mismatch.
  */
-export const GameProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(gameReducer, initialGameState);
+export const GameProvider = ({
+  children,
+  initialPool,
+}: {
+  children: ReactNode;
+  initialPool?: Event[];
+}) => {
+  const [state, dispatch] = useReducer(gameReducer, initialPool, (pool) =>
+    pool ? gameReducer(initialGameState, { type: 'START_GAME', pool }) : initialGameState,
+  );
 
   const startGame = useCallback((pool: Event[]) => {
     dispatch({ type: 'START_GAME', pool: shuffle(pool) });
@@ -73,8 +74,7 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
 // eslint-disable-next-line react-refresh/only-export-components
 export const useGame = (): GameContextValue => {
   const value = useContext(GameContext);
-  if (!value) {
-    throw new Error('useGame must be used within a GameProvider');
-  }
+
+  if (!value) throw new Error('useGame must be used within a GameProvider');
   return value;
 };

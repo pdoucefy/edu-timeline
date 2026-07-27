@@ -313,6 +313,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
   );
 
   const handleModeChange = useCallback((value: string) => {
+    if (!value) return; // prevent unselecting the active mode
     if (value === 'summary') {
       setMode('summary');
     } else if (value === 'forFun') {
@@ -376,10 +377,13 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
         <SectionLabel>Mode</SectionLabel>
         <ModeToggleGroup
           type="single"
-          value={mode === 'single' ? '' : mode}
+          value={mode}
           onValueChange={handleModeChange}
           aria-label="Mode de sélection"
         >
+          <ModeToggle value="single" $pressed={mode === 'single'} aria-pressed={mode === 'single'}>
+            {t('standardToggle')}
+          </ModeToggle>
           <ModeToggle
             value="summary"
             $pressed={mode === 'summary'}

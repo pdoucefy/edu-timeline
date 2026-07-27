@@ -18,6 +18,7 @@
     "title": "Choisissez votre chapitre",
     "chapterLabel": "Chapitre {number}",
     "chapterDescription": "Chapitre {number} — {description}",
+    "standardToggle": "Standard",
     "summaryToggle": "Résumé",
     "forFunToggle": "Mode libre",
     "difficultyEasy": "Facile",

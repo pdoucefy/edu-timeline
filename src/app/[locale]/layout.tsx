@@ -39,9 +39,7 @@ const RootLayout = async ({
 }>) => {
   const { locale } = await params;
 
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
+  if (!hasLocale(routing.locales, locale)) notFound();
 
   // Enable static rendering by making the resolved locale available to
   // server-side i18n APIs (`getTranslations`, etc.).

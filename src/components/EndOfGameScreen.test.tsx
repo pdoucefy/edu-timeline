@@ -28,9 +28,20 @@ describe('EndOfGameScreen', () => {
       expect(screen.getByText('successTitle')).toBeInTheDocument();
     });
 
-    it('renders the success message', () => {
+    it('renders the success message (plural) when score is not 1', () => {
       renderWithTheme(<EndOfGameScreen outcome="success" score={5} total={5} />);
-      expect(screen.getByText((content) => content.includes('successMessage'))).toBeInTheDocument();
+      expect(
+        screen.getByText((content) => content.includes('successMessagePlural')),
+      ).toBeInTheDocument();
+    });
+
+    it('renders the singular success message when score is 1', () => {
+      renderWithTheme(<EndOfGameScreen outcome="success" score={1} total={5} />);
+      expect(
+        screen.getByText(
+          (content) => content.includes('successMessage') && !content.includes('Plural'),
+        ),
+      ).toBeInTheDocument();
     });
 
     it('renders the perfect score message when score equals total', () => {
@@ -52,93 +63,64 @@ describe('EndOfGameScreen', () => {
   });
 
   describe('failure variant', () => {
+    const failureProps = {
+      outcome: 'failure' as const,
+      score: 3,
+      total: 5,
+      placedCount: 3,
+      remainingCount: 2,
+      misplacedEventName: 'Bataille de Vouillé',
+      misplacedEventYear: 507,
+    };
+
     it('renders the failure title', () => {
-      renderWithTheme(
-        <EndOfGameScreen
-          outcome="failure"
-          score={3}
-          total={5}
-          placedCount={3}
-          remainingCount={2}
-          misplacedEventName="Bataille de Vouillé"
-          misplacedEventYear={507}
-        />,
-      );
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
       expect(screen.getByText('failureTitle')).toBeInTheDocument();
     });
 
-    it('renders the failure message', () => {
-      renderWithTheme(
-        <EndOfGameScreen
-          outcome="failure"
-          score={3}
-          total={5}
-          placedCount={3}
-          remainingCount={2}
-          misplacedEventName="Bataille de Vouillé"
-          misplacedEventYear={507}
-        />,
-      );
-      expect(screen.getByText('failureMessage')).toBeInTheDocument();
+    it('renders the failure message (plural) when score is not 1', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
+      expect(
+        screen.getByText((content) => content.includes('failureMessagePlural')),
+      ).toBeInTheDocument();
     });
 
-    it('renders the placed count stat', () => {
-      renderWithTheme(
-        <EndOfGameScreen
-          outcome="failure"
-          score={3}
-          total={5}
-          placedCount={3}
-          remainingCount={2}
-          misplacedEventName="Bataille de Vouillé"
-          misplacedEventYear={507}
-        />,
-      );
+    it('renders the singular failure message when score is 1', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} score={1} />);
+      expect(
+        screen.getByText(
+          (content) => content.includes('failureMessage') && !content.includes('Plural'),
+        ),
+      ).toBeInTheDocument();
+    });
+
+    it('renders the placed count stat (plural) when placedCount is not 1', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
+      expect(screen.getByText('eventsPlacedPlural')).toBeInTheDocument();
+    });
+
+    it('renders the singular placed count stat when placedCount is 1', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} placedCount={1} />);
       expect(screen.getByText('eventsPlaced')).toBeInTheDocument();
     });
 
-    it('renders the remaining count stat', () => {
-      renderWithTheme(
-        <EndOfGameScreen
-          outcome="failure"
-          score={3}
-          total={5}
-          placedCount={3}
-          remainingCount={2}
-          misplacedEventName="Bataille de Vouillé"
-          misplacedEventYear={507}
-        />,
-      );
+    it('renders the remaining count stat (plural) when remainingCount is not 1', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
+      expect(screen.getByText('eventsRemainingPlural')).toBeInTheDocument();
+    });
+
+    it('renders the singular remaining count stat when remainingCount is 1', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} remainingCount={1} placedCount={3} />);
       expect(screen.getByText('eventsRemaining')).toBeInTheDocument();
     });
 
     it('renders the misplaced event info', () => {
-      renderWithTheme(
-        <EndOfGameScreen
-          outcome="failure"
-          score={3}
-          total={5}
-          placedCount={3}
-          remainingCount={2}
-          misplacedEventName="Bataille de Vouillé"
-          misplacedEventYear={507}
-        />,
-      );
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
       expect(screen.getByText('misplacedEvent')).toBeInTheDocument();
     });
 
     it('renders the back-to-home button linking to /', () => {
-      renderWithTheme(
-        <EndOfGameScreen
-          outcome="failure"
-          score={3}
-          total={5}
-          placedCount={3}
-          remainingCount={2}
-          misplacedEventName="Bataille de Vouillé"
-          misplacedEventYear={507}
-        />,
-      );
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
       const button = screen.getByText('backToHome');
       expect(button).toBeInTheDocument();
       expect(button).toHaveAttribute('href', '/');

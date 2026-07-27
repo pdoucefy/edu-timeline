@@ -83,15 +83,14 @@ const BackButton = styled(Link)`
 
 export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const t = useTranslations('endGame');
-  const { outcome } = props;
+  const { score, total, outcome } = props;
 
   if (outcome === 'success') {
-    const { score, total } = props;
     return (
       <Container>
         <Title>{t('successTitle')}</Title>
         <Message>
-          {t('successMessage', { score, total })}
+          {t(score === 1 ? 'successMessage' : 'successMessagePlural', { score, total })}
           {score === total && <> {t('perfectScore')}</>}
         </Message>
         <BackButton href="/">{t('backToHome')}</BackButton>
@@ -99,20 +98,27 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
     );
   }
 
-  const { score, total, placedCount, remainingCount, misplacedEventName, misplacedEventYear } =
-    props;
+  const { placedCount, remainingCount, misplacedEventName, misplacedEventYear } = props;
+
   return (
     <Container>
       <Title>{t('failureTitle')}</Title>
-      <Message>{t('failureMessage', { score, total })}</Message>
+      <Message>
+        {t(score === 1 ? 'failureMessage' : 'failureMessagePlural', { score, total })}
+      </Message>
       <StatsList>
-        <StatItem>{t('eventsPlaced', { count: placedCount })}</StatItem>
-        <StatItem>{t('eventsRemaining', { count: remainingCount })}</StatItem>
+        <StatItem>
+          {t(placedCount === 1 ? 'eventsPlaced' : 'eventsPlacedPlural', { count: placedCount })}
+        </StatItem>
+        <StatItem>
+          {t(remainingCount === 1 ? 'eventsRemaining' : 'eventsRemainingPlural', {
+            count: remainingCount,
+          })}
+        </StatItem>
         <StatItem>
           {t('misplacedEvent', {
             eventName: misplacedEventName,
-            expectedYear: misplacedEventYear,
-            actualYear: misplacedEventYear,
+            eventYear: misplacedEventYear,
           })}
         </StatItem>
       </StatsList>

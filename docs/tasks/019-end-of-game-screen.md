@@ -35,12 +35,12 @@ Required for MVP. It closes the user flow.
 
 ## Acceptance Criteria
 
-- [ ] Success variant shows a congratulatory message + back-to-home button.
-- [ ] Failure variant shows placed count, remaining count, and the misplaced event's year.
-- [ ] Back-to-home navigates to `/fr`.
-- [ ] All copy from the French catalog with correct interpolation.
-- [ ] Pure/presentational — no game logic.
-- [ ] `yarn build`, `yarn lint`, `yarn test` pass.
+- [x] Success variant shows a congratulatory message + back-to-home button.
+- [x] Failure variant shows placed count, remaining count, and the misplaced event's year.
+- [x] Back-to-home navigates to `/fr`.
+- [x] All copy from the French catalog with correct interpolation.
+- [x] Pure/presentational — no game logic.
+- [x] `yarn build`, `yarn lint`, `yarn test` pass.
 
 ## Testing Requirements
 

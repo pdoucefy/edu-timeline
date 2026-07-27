@@ -99,9 +99,9 @@ describe('Timeline', () => {
     const slot1 = screen.getByTestId('slot-1');
     const slot2 = screen.getByTestId('slot-2');
 
-    expect(slot0).not.toHaveStyle('border-color: #2563EB');
-    expect(slot1).toHaveStyle('border-color: #2563EB');
-    expect(slot2).not.toHaveStyle('border-color: #2563EB');
+    expect(slot0).not.toHaveStyle('border-color: #60A5FA');
+    expect(slot1).toHaveStyle('border-color: #60A5FA');
+    expect(slot2).not.toHaveStyle('border-color: #60A5FA');
   });
 
   it('calls onSlotClick with the slot index when a slot is clicked', () => {

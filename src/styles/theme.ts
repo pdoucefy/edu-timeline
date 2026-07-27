@@ -1,40 +1,40 @@
 export const theme = {
   colors: {
-    // Brand
-    primary: '#2563EB',
-    primaryHover: '#1D4ED8',
-    primaryActive: '#1E40AF',
-    primaryMuted: '#DBEAFE',
+    // Brand (slightly softened blue to work well on dark)
+    primary: '#60A5FA',
+    primaryHover: '#3B82F6',
+    primaryActive: '#2563EB',
+    primaryMuted: '#1E3A8A',
 
-    secondary: '#7C3AED',
-    secondaryHover: '#6D28D9',
-    secondaryActive: '#5B21B6',
-    secondaryMuted: '#EDE9FE',
+    secondary: '#A78BFA',
+    secondaryHover: '#8B5CF6',
+    secondaryActive: '#7C3AED',
+    secondaryMuted: '#3B166E',
 
     // Backgrounds
-    background: '#F8FAFC',
-    surface: '#FFFFFF',
-    surfaceHover: '#F1F5F9',
-    surfaceActive: '#E2E8F0',
+    background: '#0B1120',
+    surface: '#141A2A',
+    surfaceHover: '#1C2333',
+    surfaceActive: '#252E40',
 
     // Text
-    text: '#0F172A',
-    textMuted: '#475569',
-    textInverse: '#FFFFFF',
+    text: '#E2E8F0',
+    textMuted: '#94A3B8',
+    textInverse: '#0F172A',
 
     // Borders
-    border: '#E2E8F0',
-    borderStrong: '#CBD5E1',
+    border: '#334155',
+    borderStrong: '#475569',
 
     // Semantic
-    success: '#10B981',
-    successMuted: '#D1FAE5',
-    warning: '#F59E0B',
-    warningMuted: '#FEF3C7',
-    error: '#EF4444',
-    errorMuted: '#FEE2E2',
-    info: '#3B82F6',
-    infoMuted: '#DBEAFE',
+    success: '#34D399',
+    successMuted: '#064E3B',
+    warning: '#FBBF24',
+    warningMuted: '#451A03',
+    error: '#F87171',
+    errorMuted: '#450A0A',
+    info: '#60A5FA',
+    infoMuted: '#1E3A8A',
   },
 
   spacing: {

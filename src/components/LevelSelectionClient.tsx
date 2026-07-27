@@ -147,7 +147,7 @@ const DifficultyItem = styled.div`
 const DifficultyRadio = styled(RadioGroup.Item)`
   width: 1.25rem;
   height: 1.25rem;
-  border-radius: 9999px;
+  border-radius: ${({ theme }) => theme.radii.round};
   border: 2px solid ${({ theme }) => theme.colors.borderStrong};
   background: ${({ theme }) => theme.colors.surface};
   cursor: pointer;
@@ -169,7 +169,7 @@ const DifficultyIndicator = styled(RadioGroup.Indicator)`
   display: block;
   width: 0.6rem;
   height: 0.6rem;
-  border-radius: 9999px;
+  border-radius: ${({ theme }) => theme.radii.round};
   background: ${({ theme }) => theme.colors.primary};
   margin: auto;
 `;
@@ -214,6 +214,19 @@ const EmptyState = styled.p`
   text-align: center;
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: ${({ theme }) => theme.typography.fontSize.md};
+`;
+
+const ModeToggleContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs};
+`;
+
+const ModeToggleDescription = styled.span`
+  font-size: ${({ theme }) => theme.typography.fontSize.sm};
+  color: ${({ theme }) => theme.colors.textMuted};
+  text-align: center;
 `;
 
 /* ------------------------------------------------------------------ */
@@ -386,38 +399,26 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
           aria-label="Mode de sélection"
         >
           <ModeToggle value="single" $pressed={mode === 'single'} aria-pressed={mode === 'single'}>
-            <div
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}
-            >
+            <ModeToggleContent>
               <span>{t('standardToggle')}</span>
-              <span style={{ fontSize: '0.85em', color: '#888', textAlign: 'center' }}>
-                {t('standardDescription')}
-              </span>
-            </div>
+              <ModeToggleDescription>{t('standardDescription')}</ModeToggleDescription>
+            </ModeToggleContent>
           </ModeToggle>
           <ModeToggle
             value="summary"
             $pressed={mode === 'summary'}
             aria-pressed={mode === 'summary'}
           >
-            <div
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}
-            >
+            <ModeToggleContent>
               <span>{t('summaryToggle')}</span>
-              <span style={{ fontSize: '0.85em', color: '#888', textAlign: 'center' }}>
-                {t('summaryDescription')}
-              </span>
-            </div>
+              <ModeToggleDescription>{t('summaryDescription')}</ModeToggleDescription>
+            </ModeToggleContent>
           </ModeToggle>
           <ModeToggle value="forFun" $pressed={mode === 'forFun'} aria-pressed={mode === 'forFun'}>
-            <div
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}
-            >
+            <ModeToggleContent>
               <span>{t('forFunToggle')}</span>
-              <span style={{ fontSize: '0.85em', color: '#888', textAlign: 'center' }}>
-                {t('forFunDescription')}
-              </span>
-            </div>
+              <ModeToggleDescription>{t('forFunDescription')}</ModeToggleDescription>
+            </ModeToggleContent>
           </ModeToggle>
         </ModeToggleGroup>
       </Section>

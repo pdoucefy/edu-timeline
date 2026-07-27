@@ -32,12 +32,12 @@ Required for MVP. It's the central play surface.
 
 ## Acceptance Criteria
 
-- [ ] Renders placed events left-to-right using `EventCard` (revealed).
-- [ ] Renders insertion slots at indices 0..N (both ends + between cards) with stable identifiers.
-- [ ] Overflow scrolls horizontally without breaking layout.
-- [ ] Exposes props/identifiers sufficient for dnd-kit (Task 22) and the game loop (Task 23) to consume.
-- [ ] No drag logic embedded.
-- [ ] `yarn build`, `yarn lint`, `yarn test` pass.
+- [x] Renders placed events left-to-right using `EventCard` (revealed).
+- [x] Renders insertion slots at indices 0..N (both ends + between cards) with stable identifiers.
+- [x] Overflow scrolls horizontally without breaking layout.
+- [x] Exposes props/identifiers sufficient for dnd-kit (Task 22) and the game loop (Task 23) to consume.
+- [x] No drag logic embedded.
+- [x] `yarn build`, `yarn lint`, `yarn test` pass.
 
 ## Testing Requirements
 

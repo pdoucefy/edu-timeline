@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
+import { SafeImage } from '@/components/SafeImage.tsx';
 import { PLACEHOLDER_IMAGE_PATH, resolveImagePath } from '@/data/loader.ts';
 import type { Event } from '@/types/event.ts';
 
@@ -32,10 +32,6 @@ const ImageWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.surfaceHover};
 `;
 
-const StyledImage = styled(Image)`
-  object-fit: cover;
-`;
-
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,26 +55,35 @@ const DateLabel = styled.span`
   letter-spacing: 0.05em;
 `;
 
+const imageStyle = { objectFit: 'cover' as const };
+
 export const EventCard = ({ event, revealed }: EventCardProps) => {
   const t = useTranslations('game');
   const errorsT = useTranslations('errors');
-  const [imgSrc, setImgSrc] = useState(resolveImagePath(event.fileName));
+  const [isFallback, setIsFallback] = useState(false);
 
-  const handleImageError = () => {
+  const handleImageError = useCallback(() => {
     console.warn(`Failed to load image for event "${event.name}": ${event.fileName}`);
-    setImgSrc(PLACEHOLDER_IMAGE_PATH);
-  };
+    setIsFallback(true);
+  }, [event.name, event.fileName]);
 
-  const altText =
-    imgSrc === PLACEHOLDER_IMAGE_PATH
-      ? errorsT('imagePlaceholder')
-      : errorsT('missingImageAlt', { eventName: event.name });
+  const altText = isFallback
+    ? errorsT('imagePlaceholder')
+    : errorsT('missingImageAlt', { eventName: event.name });
 
   return (
     <CardContainer>
       <ImageWrapper>
-        {/* eslint-disable-next-line react/jsx-no-bind */}
-        <StyledImage src={imgSrc} alt={altText} fill sizes="280px" onError={handleImageError} />
+        <SafeImage
+          src={resolveImagePath(event.fileName)}
+          fallbackSrc={PLACEHOLDER_IMAGE_PATH}
+          alt={altText}
+          fill
+          imageName={event.name}
+          onFallback={handleImageError}
+          sizes="280px"
+          style={imageStyle}
+        />
       </ImageWrapper>
       <Content>
         <EventName>{event.name}</EventName>

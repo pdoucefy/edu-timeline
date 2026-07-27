@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { Header } from '@/components/Header.tsx';
+import { LoadWarningsToast } from '@/components/LoadWarningsToast.tsx';
 import { routing } from '@/i18n/routing.ts';
 import { StyledComponentsRegistry } from '@/styles/StyledComponentsRegistry.tsx';
 
@@ -49,6 +50,7 @@ const RootLayout = async ({
           <NextIntlClientProvider messages={messages}>
             <Header />
             <main>{children}</main>
+            <LoadWarningsToast />
           </NextIntlClientProvider>
         </StyledComponentsRegistry>
       </body>

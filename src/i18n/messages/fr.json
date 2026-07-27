@@ -53,6 +53,8 @@
     "dataLoadFailure": "Échec du chargement des données",
     "dataLoadFailureDescription": "Impossible de charger les données. Vérifiez votre connexion et réessayez.",
     "networkError": "Erreur réseau",
+    "networkErrorDescription": "Impossible de charger les ressources. Vérifiez votre connexion et réessayez.",
+    "retryLabel": "Réessayer",
     "someEventsNotLoaded": "Certains événements n'ont pas pu être chargés.",
     "missingImageAlt": "Illustration : {eventName}",
     "imagePlaceholder": "Image non disponible",

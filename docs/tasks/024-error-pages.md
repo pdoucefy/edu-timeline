@@ -37,11 +37,11 @@ Required for MVP for the invalid-data toast and a basic error boundary; the netw
 
 ## Acceptance Criteria
 
-- [ ] A full-screen error boundary renders localized error copy when a render/data error is thrown.
-- [ ] When events are skipped by the loader, a non-intrusive French toast appears.
-- [ ] Missing images consistently show the placeholder + console warning app-wide.
-- [ ] All error/toast copy from the French catalog.
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] A full-screen error boundary renders localized error copy when a render/data error is thrown.
+- [x] When events are skipped by the loader, a non-intrusive French toast appears.
+- [x] Missing images consistently show the placeholder + console warning app-wide.
+- [x] All error/toast copy from the French catalog.
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

@@ -1,8 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import styled from 'styled-components';
+
+import { SafeImage } from '@/components/SafeImage.tsx';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -40,7 +41,7 @@ export const Header = () => {
   return (
     <HeaderContainer>
       <LogoLink href="https://coopcvm.com/" target="_blank" rel="noopener noreferrer">
-        <Image src="/logo-coopcvm.svg" alt={t('logoAlt')} width={40} height={40} priority />
+        <SafeImage src="/logo-coopcvm.svg" alt={t('logoAlt')} width={40} height={40} priority />
         <LogoText>{t('logoText')}</LogoText>
       </LogoLink>
     </HeaderContainer>

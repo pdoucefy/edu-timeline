@@ -7,7 +7,6 @@ const LayoutContentWrapper = styled.main`
   display: flex;
   flex: 1;
   width: 100%;
-  max-width: 800px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;

@@ -26,6 +26,7 @@
     "noChaptersAvailable": "Aucun chapitre disponible pour le moment."
   },
   "game": {
+    "title": "Jouer",
     "placeEventPrompt": "Placez cet événement sur la frise :",
     "yearLabel": "Année",
     "submitAnswer": "Valider",

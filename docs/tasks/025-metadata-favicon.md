@@ -31,11 +31,11 @@ Nice-to-have. Not gameplay-critical, but cheap and improves the client's first i
 
 ## Acceptance Criteria
 
-- [ ] Browser tab shows a proper app title (not "Create Next App"), ideally per-route.
-- [ ] A non-default favicon is set.
-- [ ] Description metadata is present and in French.
-- [ ] `TODOS` favicon/title item can be marked done.
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] Browser tab shows a proper app title (not "Create Next App"), ideally per-route.
+- [x] A non-default favicon is set.
+- [x] Description metadata is present and in French.
+- [x] `TODOS` favicon/title item can be marked done.
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

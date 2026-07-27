@@ -16,8 +16,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
   const t = await getTranslations('common');
 
   return {
-    title: t('appName'),
+    title: {
+      default: t('appName'),
+      template: `%s | ${t('appName')}`,
+    },
     description: "Frise chronologique interactive pour apprendre l'histoire",
+    icons: {
+      icon: '/favicon.svg',
+    },
   };
 };
 

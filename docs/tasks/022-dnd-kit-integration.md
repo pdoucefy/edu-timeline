@@ -34,12 +34,12 @@ Required for MVP. Drag-and-drop is the primary interaction (keyboard fallback is
 
 ## Acceptance Criteria
 
-- [ ] The current event can be dragged and dropped into any timeline insertion slot.
-- [ ] Dropping reports the correct insertion index (0..N) to a callback.
-- [ ] Active slot is visually highlighted during drag; motion feedback is smooth.
-- [ ] Dropping outside a slot cancels with no state change.
-- [ ] No validation/state logic embedded here (delegated to Task 23).
-- [ ] `yarn build`, `yarn lint` pass.
+- [x] The current event can be dragged and dropped into any timeline insertion slot.
+- [x] Dropping reports the correct insertion index (0..N) to a callback.
+- [x] Active slot is visually highlighted during drag; motion feedback is smooth.
+- [x] Dropping outside a slot cancels with no state change.
+- [x] No validation/state logic embedded here (delegated to Task 23).
+- [x] `yarn build`, `yarn lint` pass.
 
 ## Testing Requirements
 

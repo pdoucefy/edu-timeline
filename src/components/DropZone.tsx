@@ -8,6 +8,17 @@ export type DropZoneProps = {
   isActive?: boolean;
   onClick?: (index: number) => void;
   'data-testid'?: string;
+  /**
+   * Optional ref setter injected by a drag-and-drop wrapper
+   * (e.g. dnd-kit's `useDroppable().setNodeRef`). Left undefined for the plain
+   * timeline so the base component stays drag-free.
+   */
+  dropRef?: (element: HTMLElement | null) => void;
+  /**
+   * Optional extra DOM attributes injected by a drag-and-drop wrapper
+   * (e.g. `data-droppable-id`). Spread onto the slot only when provided.
+   */
+  dropAttributes?: Record<string, unknown>;
 };
 
 const SlotContainer = styled.div<{ $isActive?: boolean }>`
@@ -33,7 +44,7 @@ const SlotContainer = styled.div<{ $isActive?: boolean }>`
 `;
 
 export const DropZone = React.memo((props: DropZoneProps) => {
-  const { index, isActive, onClick, 'data-testid': dataTestId } = props;
+  const { index, isActive, onClick, 'data-testid': dataTestId, dropRef, dropAttributes } = props;
 
   const handleClick = useCallback(() => {
     onClick?.(index);
@@ -41,6 +52,7 @@ export const DropZone = React.memo((props: DropZoneProps) => {
 
   return (
     <SlotContainer
+      ref={dropRef}
       $isActive={isActive}
       onClick={handleClick}
       data-slot-index={index}
@@ -48,6 +60,7 @@ export const DropZone = React.memo((props: DropZoneProps) => {
       role="button"
       aria-label={`Insertion slot ${index}`}
       tabIndex={onClick ? 0 : -1}
+      {...dropAttributes}
     />
   );
 });

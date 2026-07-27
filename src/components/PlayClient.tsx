@@ -3,9 +3,8 @@
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { DragDropTimeline } from '@/components/DragDropTimeline.tsx';
 import { EndOfGameScreen } from '@/components/EndOfGameScreen.tsx';
-import { EventCard } from '@/components/EventCard.tsx';
-import { Timeline } from '@/components/Timeline.tsx';
 import { GameProvider, useGame } from '@/game/GameProvider.tsx';
 import type { Event } from '@/types';
 
@@ -30,17 +29,6 @@ const Counter = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.sm};
   color: ${({ theme }) => theme.colors.textMuted};
   margin: 0;
-`;
-
-const CurrentEventArea = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
-
-const TimelineArea = styled.section`
-  width: 100%;
 `;
 
 /**
@@ -88,12 +76,11 @@ const GameSurface = () => {
         <Prompt>{t('placeEventPrompt')}</Prompt>
         <Counter>{t('eventCounter', { current: placedSoFar + 1, total: totalToPlace })}</Counter>
       </div>
-      <CurrentEventArea>
-        <EventCard event={state.current} revealed={false} />
-      </CurrentEventArea>
-      <TimelineArea>
-        <Timeline events={state.timeline} onSlotClick={placeCurrent} />
-      </TimelineArea>
+      <DragDropTimeline
+        events={state.timeline}
+        currentEvent={state.current}
+        onPlace={placeCurrent}
+      />
     </Page>
   );
 };

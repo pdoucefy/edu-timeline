@@ -9,10 +9,21 @@ import type { Event } from '@/types/event.ts';
 import { DropZone } from './DropZone.tsx';
 import { EventCard } from './EventCard.tsx';
 
+export type SlotInjection = {
+  dropRef?: (element: HTMLElement | null) => void;
+  dropAttributes?: Record<string, unknown>;
+};
+
 export type TimelineProps = {
   events: Event[];
   activeSlotIndex?: number | null;
   onSlotClick?: (index: number) => void;
+  /**
+   * Optional per-slot props supplied by a drag-and-drop wrapper
+   * (e.g. {@link DragDropTimeline}) to register each slot as a droppable.
+   * When omitted, the timeline renders as a plain, drag-free component.
+   */
+  getSlotProps?: (index: number) => SlotInjection;
 };
 
 const TimelineContainer = styled.div`
@@ -30,23 +41,28 @@ const TimelineTrack = styled.div`
 `;
 
 export const Timeline = React.memo((props: TimelineProps) => {
-  const { events, activeSlotIndex, onSlotClick } = props;
+  const { events, activeSlotIndex, onSlotClick, getSlotProps } = props;
   const slotsCount = events.length + 1;
 
   return (
     <TimelineContainer data-testid="timeline-container">
       <TimelineTrack data-testid="timeline-track">
-        {Array.from({ length: slotsCount }, (_, i) => (
-          <React.Fragment key={`slot-${i}`}>
-            <DropZone
-              index={i}
-              isActive={activeSlotIndex === i}
-              onClick={onSlotClick}
-              data-testid={`slot-${i}`}
-            />
-            {events[i] && <EventCard key={`event-${events[i].id}`} event={events[i]} revealed />}
-          </React.Fragment>
-        ))}
+        {Array.from({ length: slotsCount }, (_, i) => {
+          const injected = getSlotProps?.(i);
+          return (
+            <React.Fragment key={`slot-${i}`}>
+              <DropZone
+                index={i}
+                isActive={activeSlotIndex === i}
+                onClick={onSlotClick}
+                data-testid={`slot-${i}`}
+                dropRef={injected?.dropRef}
+                dropAttributes={injected?.dropAttributes}
+              />
+              {events[i] && <EventCard key={`event-${events[i].id}`} event={events[i]} revealed />}
+            </React.Fragment>
+          );
+        })}
       </TimelineTrack>
     </TimelineContainer>
   );

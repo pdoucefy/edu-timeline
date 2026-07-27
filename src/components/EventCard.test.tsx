@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '@/styles/theme.ts';
 import type { Event } from '@/types/event.ts';
 
+// eslint-disable-next-line import/order
 import { EventCard } from './EventCard.tsx';
 
 jest.mock('next-intl', () => ({

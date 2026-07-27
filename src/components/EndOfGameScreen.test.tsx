@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { theme } from '@/styles/theme.ts';
 
+// eslint-disable-next-line import/order
 import { EndOfGameScreen } from './EndOfGameScreen.tsx';
 
 jest.mock('next-intl', () => ({

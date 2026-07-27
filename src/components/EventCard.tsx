@@ -77,6 +77,7 @@ export const EventCard = ({ event, revealed }: EventCardProps) => {
   return (
     <CardContainer>
       <ImageWrapper>
+        {/* eslint-disable-next-line react/jsx-no-bind */}
         <StyledImage src={imgSrc} alt={altText} fill sizes="280px" onError={handleImageError} />
       </ImageWrapper>
       <Content>

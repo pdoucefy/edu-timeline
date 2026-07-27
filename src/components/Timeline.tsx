@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// eslint-disable-next-line import/order
 import type { Event } from '@/types/event.ts';
 
 import { DropZone } from './DropZone.tsx';

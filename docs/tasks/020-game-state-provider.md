@@ -38,11 +38,11 @@ Required for MVP. Gameplay cannot function without it.
 
 ## Acceptance Criteria
 
-- [ ] Context + reducer + provider + `useGame()` hook implemented, no external state lib.
-- [ ] `START_GAME` seeds the first event (revealed) and draws a `current` to place.
-- [ ] `PLACE_CURRENT` uses `validatePlacement`; correct → advance, incorrect → `lost` with failure details; pool exhausted → `won`.
-- [ ] Reducer is pure/deterministic (shuffle injected, not done inside the reducer).
-- [ ] `yarn test`, `yarn lint`, `yarn build` pass.
+- [x] Context + reducer + provider + `useGame()` hook implemented, no external state lib.
+- [x] `START_GAME` seeds the first event (revealed) and draws a `current` to place.
+- [x] `PLACE_CURRENT` uses `validatePlacement`; correct → advance, incorrect → `lost` with failure details; pool exhausted → `won`.
+- [x] Reducer is pure/deterministic (shuffle injected, not done inside the reducer).
+- [x] `yarn test`, `yarn lint`, `yarn build` pass.
 
 ## Testing Requirements
 

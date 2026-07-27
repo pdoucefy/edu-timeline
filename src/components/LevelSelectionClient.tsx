@@ -101,7 +101,11 @@ const ModeToggleGroup = styled(ToggleGroup.Root)`
 `;
 
 const ModeToggle = styled(ToggleGroup.Item)<{ $pressed: boolean }>`
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.lg}`};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.xs};
+  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`};
   border-radius: ${({ theme }) => theme.radii.round};
   border: 1px solid
     ${({ theme, $pressed }) => ($pressed ? theme.colors.primary : theme.colors.border)};
@@ -382,17 +386,38 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
           aria-label="Mode de sélection"
         >
           <ModeToggle value="single" $pressed={mode === 'single'} aria-pressed={mode === 'single'}>
-            {t('standardToggle')}
+            <div
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}
+            >
+              <span>{t('standardToggle')}</span>
+              <span style={{ fontSize: '0.85em', color: '#888', textAlign: 'center' }}>
+                {t('standardDescription')}
+              </span>
+            </div>
           </ModeToggle>
           <ModeToggle
             value="summary"
             $pressed={mode === 'summary'}
             aria-pressed={mode === 'summary'}
           >
-            {t('summaryToggle')}
+            <div
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}
+            >
+              <span>{t('summaryToggle')}</span>
+              <span style={{ fontSize: '0.85em', color: '#888', textAlign: 'center' }}>
+                {t('summaryDescription')}
+              </span>
+            </div>
           </ModeToggle>
           <ModeToggle value="forFun" $pressed={mode === 'forFun'} aria-pressed={mode === 'forFun'}>
-            {t('forFunToggle')}
+            <div
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}
+            >
+              <span>{t('forFunToggle')}</span>
+              <span style={{ fontSize: '0.85em', color: '#888', textAlign: 'center' }}>
+                {t('forFunDescription')}
+              </span>
+            </div>
           </ModeToggle>
         </ModeToggleGroup>
       </Section>

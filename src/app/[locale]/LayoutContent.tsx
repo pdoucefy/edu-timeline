@@ -8,7 +8,7 @@ const LayoutContentWrapper = styled.main`
   flex: 1;
   width: 100%;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.background};
   padding: 120px 60px;

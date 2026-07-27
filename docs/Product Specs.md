@@ -6,7 +6,7 @@ The goal of EduTimeline is to be a clone of [Wikitrivia](https://wikitrivia.tomj
 
 The product will be available as a web app, and accessible as a sub-domain of the [school's coop website](https://coopcvm.com/).
 
-There is no fixed due date, however the client mentioned it would be nice to have the first version of the website available in early june for the next exam period.
+There is no fixed due date, however the client mentioned it would be nice to have the first version of the website available in early June for the next exam period.
 
 ## User Flow
 

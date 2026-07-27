@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
@@ -59,6 +60,27 @@ describe('EndOfGameScreen', () => {
       const button = screen.getByText('backToHome');
       expect(button).toBeInTheDocument();
       expect(button).toHaveAttribute('href', '/');
+    });
+
+    it('does not render the play-again button when onPlayAgain is omitted', () => {
+      renderWithTheme(<EndOfGameScreen outcome="success" score={5} total={5} />);
+      expect(screen.queryByText('playAgain')).not.toBeInTheDocument();
+    });
+
+    it('renders the play-again button when onPlayAgain is provided', () => {
+      renderWithTheme(
+        <EndOfGameScreen outcome="success" score={5} total={5} onPlayAgain={jest.fn()} />,
+      );
+      expect(screen.getByText('playAgain')).toBeInTheDocument();
+    });
+
+    it('calls onPlayAgain when the play-again button is clicked', async () => {
+      const onPlayAgain = jest.fn();
+      renderWithTheme(
+        <EndOfGameScreen outcome="success" score={5} total={5} onPlayAgain={onPlayAgain} />,
+      );
+      await userEvent.click(screen.getByText('playAgain'));
+      expect(onPlayAgain).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -124,6 +146,23 @@ describe('EndOfGameScreen', () => {
       const button = screen.getByText('backToHome');
       expect(button).toBeInTheDocument();
       expect(button).toHaveAttribute('href', '/');
+    });
+
+    it('does not render the play-again button when onPlayAgain is omitted', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} />);
+      expect(screen.queryByText('playAgain')).not.toBeInTheDocument();
+    });
+
+    it('renders the play-again button when onPlayAgain is provided', () => {
+      renderWithTheme(<EndOfGameScreen {...failureProps} onPlayAgain={jest.fn()} />);
+      expect(screen.getByText('playAgain')).toBeInTheDocument();
+    });
+
+    it('calls onPlayAgain when the play-again button is clicked', async () => {
+      const onPlayAgain = jest.fn();
+      renderWithTheme(<EndOfGameScreen {...failureProps} onPlayAgain={onPlayAgain} />);
+      await userEvent.click(screen.getByText('playAgain'));
+      expect(onPlayAgain).toHaveBeenCalledTimes(1);
     });
   });
 });

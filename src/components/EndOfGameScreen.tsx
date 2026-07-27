@@ -10,6 +10,7 @@ export type EndOfGameScreenProps =
       outcome: 'success';
       score: number;
       total: number;
+      onPlayAgain?: () => void;
     }
   | {
       outcome: 'failure';
@@ -19,6 +20,7 @@ export type EndOfGameScreenProps =
       remainingCount: number;
       misplacedEventName: string;
       misplacedEventYear: number;
+      onPlayAgain?: () => void;
     };
 
 const Container = styled.section`
@@ -60,6 +62,13 @@ const StatItem = styled.li`
   color: ${({ theme }) => theme.colors.text};
 `;
 
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
 const BackButton = styled(Link)`
   display: inline-flex;
   align-items: center;
@@ -81,9 +90,45 @@ const BackButton = styled(Link)`
   }
 `;
 
+const PlayAgainButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.xxl}`};
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  border-radius: ${({ theme }) => theme.radii.lg};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primaryMuted};
+  }
+
+  &:active {
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.textInverse};
+  }
+`;
+
 export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const t = useTranslations('endGame');
-  const { score, total, outcome } = props;
+  const { score, total, outcome, onPlayAgain } = props;
+
+  const actionButtons = (
+    <ButtonGroup>
+      {onPlayAgain && (
+        <PlayAgainButton type="button" onClick={onPlayAgain}>
+          {t('playAgain')}
+        </PlayAgainButton>
+      )}
+      <BackButton href="/">{t('backToHome')}</BackButton>
+    </ButtonGroup>
+  );
 
   if (outcome === 'success') {
     return (
@@ -93,7 +138,7 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
           {t(score === 1 ? 'successMessage' : 'successMessagePlural', { score, total })}
           {score === total && <> {t('perfectScore')}</>}
         </Message>
-        <BackButton href="/">{t('backToHome')}</BackButton>
+        {actionButtons}
       </Container>
     );
   }
@@ -122,7 +167,7 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
           })}
         </StatItem>
       </StatsList>
-      <BackButton href="/">{t('backToHome')}</BackButton>
+      {actionButtons}
     </Container>
   );
 };

@@ -9,6 +9,9 @@ import { LoadWarningsToast } from '@/components/LoadWarningsToast.tsx';
 import { routing } from '@/i18n/routing.ts';
 import { StyledComponentsRegistry } from '@/styles/StyledComponentsRegistry.tsx';
 
+// eslint-disable-next-line import/order
+import { LayoutContent } from './LayoutContent.tsx';
+
 import '../globals.css';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -53,7 +56,7 @@ const RootLayout = async ({
         <StyledComponentsRegistry>
           <NextIntlClientProvider messages={messages}>
             <Header />
-            <main>{children}</main>
+            <LayoutContent>{children}</LayoutContent>
             <LoadWarningsToast />
           </NextIntlClientProvider>
         </StyledComponentsRegistry>

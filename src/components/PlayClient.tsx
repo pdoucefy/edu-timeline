@@ -41,13 +41,25 @@ const Counter = styled.p`
  * to `placeCurrent` via the timeline slots, closing the full loop:
  * drag → drop → validate → reveal/advance, then the end-of-game screen.
  */
-const GameSurface = () => {
+const GameSurface = ({ originalPool }: { originalPool: Event[] }) => {
   const t = useTranslations('game');
-  const { state, placeCurrent } = useGame();
+  const { state, placeCurrent, startGame } = useGame();
+
+  const handlePlayAgain = () => {
+    startGame(originalPool);
+  };
 
   if (state.status === 'won') {
     const total = state.timeline.length - 1;
-    return <EndOfGameScreen outcome="success" score={total} total={total} />;
+    return (
+      <EndOfGameScreen
+        outcome="success"
+        score={total}
+        total={total}
+        // eslint-disable-next-line react/jsx-no-bind
+        onPlayAgain={handlePlayAgain}
+      />
+    );
   }
 
   if (state.status === 'lost' && state.failure) {
@@ -61,6 +73,8 @@ const GameSurface = () => {
         remainingCount={remainingCount}
         misplacedEventName={misplacedEvent.name}
         misplacedEventYear={misplacedEvent.date.getFullYear()}
+        // eslint-disable-next-line react/jsx-no-bind
+        onPlayAgain={handlePlayAgain}
       />
     );
   }
@@ -88,6 +102,8 @@ const GameSurface = () => {
 export type PlayClientProps = {
   /** The resolved, already-shuffled event pool derived from the URL params. */
   pool: Event[];
+  /** The unshuffled original pool so the player can restart with the same chapters, mode, and difficulty. */
+  originalPool: Event[];
 };
 
 /**
@@ -96,8 +112,8 @@ export type PlayClientProps = {
  * the pool is shuffled on the server, SSR and hydration agree, and refreshing
  * the URL starts a new game with a new order.
  */
-export const PlayClient = ({ pool }: PlayClientProps) => (
+export const PlayClient = ({ pool, originalPool }: PlayClientProps) => (
   <GameProvider initialPool={pool}>
-    <GameSurface />
+    <GameSurface originalPool={originalPool} />
   </GameProvider>
 );

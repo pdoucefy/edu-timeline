@@ -44,7 +44,7 @@ const PlayPage = async ({
 
   // Shuffle server-side so the same order is used for SSR and hydration
   // (avoiding a mismatch) and so refreshing always yields a fresh order.
-  return <PlayClient pool={shuffle(result.pool)} />;
+  return <PlayClient pool={shuffle(result.pool)} originalPool={result.pool} />;
 };
 
 // eslint-disable-next-line import/no-default-export

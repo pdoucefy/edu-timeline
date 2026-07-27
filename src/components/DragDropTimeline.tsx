@@ -106,16 +106,14 @@ export type DragDropTimelineProps = {
   /** The event the player is currently placing (rendered as the draggable). */
   currentEvent: Event;
   /**
-   * Called with the chosen insertion index (0..events.length) when the current
-   * event is dropped onto a slot, or when a slot is clicked. This layer only
-   * produces the index — validation and state transitions live elsewhere
-   * (game reducer / Task 23).
+   * Called with the chosen insertion index (0..events.length) when the current event is dropped onto a slot, or when a slot is clicked.
+   * This layer only produces the index — validation and state transitions live elsewhere (the game reducer).
    */
   onPlace: (index: number) => void;
 };
 
 /**
- * Drag-and-drop surface for timeline placement (Task 22).
+ * Drag-and-drop surface for timeline placement.
  *
  * Wraps the current event as a dnd-kit draggable and each timeline insertion
  * slot as a droppable, mapping every drop to its insertion index and surfacing
@@ -124,7 +122,7 @@ export type DragDropTimelineProps = {
  * and settling feedback. Clicking a slot remains supported as a fallback.
  *
  * No validation or win/lose logic lives here — the drag layer only reports the
- * chosen index, keeping the game-loop decision decoupled (Task 23).
+ * chosen index, keeping the game-loop decision decoupled.
  */
 export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTimelineProps) => {
   const t = useTranslations('game');

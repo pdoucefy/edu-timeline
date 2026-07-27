@@ -38,8 +38,8 @@ const Counter = styled.p`
  *
  * The game is seeded synchronously by the provider (via `initialPool`), so the
  * started state renders immediately (SSR-safe). Placement interaction is wired
- * to `placeCurrent` via the timeline slots. The full loop and richer feedback
- * come in Tasks 22/23.
+ * to `placeCurrent` via the timeline slots, closing the full loop:
+ * drag → drop → validate → reveal/advance, then the end-of-game screen.
  */
 const GameSurface = () => {
   const t = useTranslations('game');

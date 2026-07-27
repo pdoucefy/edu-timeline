@@ -34,12 +34,12 @@ Required for MVP. This is the moment the MVP becomes a working game.
 
 ## Acceptance Criteria
 
-- [ ] A full game can be played: drag → drop → validate → reveal/advance, repeating.
-- [ ] Correct placement reveals the year and advances; exhausting the pool → success end screen.
-- [ ] Incorrect placement → failure end screen with correct placed/remaining counts and misplaced-event year.
-- [ ] End-of-Game screen renders on the play route; back-to-home returns to `/fr`.
-- [ ] No validation logic duplicated outside the reducer/Task 9.
-- [ ] `yarn build`, `yarn lint` pass; `yarn dev` allows completing both a winning and losing game.
+- [x] A full game can be played: drag → drop → validate → reveal/advance, repeating.
+- [x] Correct placement reveals the year and advances; exhausting the pool → success end screen.
+- [x] Incorrect placement → failure end screen with correct placed/remaining counts and misplaced-event year.
+- [x] End-of-Game screen renders on the play route; back-to-home returns to `/fr`.
+- [x] No validation logic duplicated outside the reducer/Task 9.
+- [x] `yarn build`, `yarn lint` pass; `yarn dev` allows completing both a winning and losing game.
 
 ## Testing Requirements
 

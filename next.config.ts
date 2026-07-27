@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   compiler: {
     styledComponents: true,
   },
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 // eslint-disable-next-line import/no-default-export

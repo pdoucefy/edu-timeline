@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { DragDropTimeline } from '@/components/DragDropTimeline.tsx';
-import { EndOfGameScreen } from '@/components/EndOfGameScreen.tsx';
 import { GameProvider, useGame } from '@/game/GameProvider.tsx';
 import type { Event } from '@/types';
 
@@ -49,51 +48,27 @@ const GameSurface = ({ originalPool }: { originalPool: Event[] }) => {
     startGame(originalPool);
   };
 
-  if (state.status === 'won') {
-    const total = state.timeline.length - 1;
-    return (
-      <EndOfGameScreen
-        outcome="success"
-        score={total}
-        total={total}
-        // eslint-disable-next-line react/jsx-no-bind
-        onPlayAgain={handlePlayAgain}
-      />
-    );
-  }
-
-  if (state.status === 'lost' && state.failure) {
-    const { misplacedEvent, placedCount, remainingCount } = state.failure;
-    return (
-      <EndOfGameScreen
-        outcome="failure"
-        score={placedCount}
-        total={placedCount + remainingCount}
-        placedCount={placedCount}
-        remainingCount={remainingCount}
-        misplacedEventName={misplacedEvent.name}
-        misplacedEventYear={misplacedEvent.date.getFullYear()}
-        // eslint-disable-next-line react/jsx-no-bind
-        onPlayAgain={handlePlayAgain}
-      />
-    );
-  }
-
-  if (state.status !== 'playing' || !state.current) return null;
+  if (state.status === 'idle') return null;
 
   const placedSoFar = state.timeline.length - 1;
-  const totalToPlace = placedSoFar + state.pool.length + 1;
+  const totalToPlace = placedSoFar + (state.pool?.length ?? 0) + (state.current ? 1 : 0);
 
   return (
     <Page>
-      <div>
-        <Prompt>{t('placeEventPrompt')}</Prompt>
-        <Counter>{t('eventCounter', { current: placedSoFar + 1, total: totalToPlace })}</Counter>
-      </div>
+      {state.status === 'playing' && (
+        <div>
+          <Prompt>{t('placeEventPrompt')}</Prompt>
+          <Counter>{t('eventCounter', { current: placedSoFar + 1, total: totalToPlace })}</Counter>
+        </div>
+      )}
       <DragDropTimeline
         events={state.timeline}
         currentEvent={state.current}
         onPlace={placeCurrent}
+        gameStatus={state.status}
+        failure={state.failure}
+        // eslint-disable-next-line react/jsx-no-bind
+        onPlayAgain={handlePlayAgain}
       />
     </Page>
   );

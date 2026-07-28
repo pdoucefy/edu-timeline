@@ -21,6 +21,8 @@ export type GameFailure = {
    * plus the misplaced event itself.
    */
   remainingCount: number;
+  /** The slot index the player attempted to drop the event into. */
+  attemptedIndex: number;
 };
 
 /**
@@ -112,6 +114,7 @@ export const gameReducer = (state: GameState, action: GameAction): GameState => 
             placedCount: timeline.length - 1,
             // The undrawn pool plus the event that was just misplaced.
             remainingCount: pool.length + 1,
+            attemptedIndex: action.index,
           },
         };
       }

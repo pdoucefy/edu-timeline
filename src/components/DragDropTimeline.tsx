@@ -19,6 +19,7 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
+import { EndOfGameScreen } from '@/components/EndOfGameScreen.tsx';
 import { EventCard } from '@/components/EventCard.tsx';
 import { type SlotInjection, Timeline } from '@/components/Timeline.tsx';
 import type { Event } from '@/types/event.ts';
@@ -103,13 +104,24 @@ const DraggableEventCard = ({ event }: { event: Event }) => {
 export type DragDropTimelineProps = {
   /** Events already placed on the timeline, chronologically ordered. */
   events: Event[];
-  /** The event the player is currently placing (rendered as the draggable). */
-  currentEvent: Event;
+  /** The event the player is currently placing (rendered as the draggable). Null when the game is over. */
+  currentEvent: Event | null;
   /**
    * Called with the chosen insertion index (0..events.length) when the current event is dropped onto a slot, or when a slot is clicked.
    * This layer only produces the index — validation and state transitions live elsewhere (the game reducer).
    */
   onPlace: (index: number) => void;
+  /** Game status so the timeline can render end-of-game state inline. */
+  gameStatus?: 'playing' | 'won' | 'lost';
+  /** Failure details shown when the game is lost. */
+  failure?: {
+    misplacedEvent: Event;
+    placedCount: number;
+    remainingCount: number;
+    attemptedIndex: number;
+  } | null;
+  /** Callback to restart the game; rendered as a play-again button on end-of-game. */
+  onPlayAgain?: () => void;
 };
 
 /**
@@ -124,7 +136,14 @@ export type DragDropTimelineProps = {
  * No validation or win/lose logic lives here — the drag layer only reports the
  * chosen index, keeping the game-loop decision decoupled.
  */
-export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTimelineProps) => {
+export const DragDropTimeline = ({
+  events,
+  currentEvent,
+  onPlace,
+  gameStatus = 'playing',
+  failure = null,
+  onPlayAgain,
+}: DragDropTimelineProps) => {
   const t = useTranslations('game');
   const [activeSlotIndex, setActiveSlotIndex] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -133,7 +152,21 @@ export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTime
   // SlotDroppable registrars and read back by the Timeline via getSlotProps.
   const [injections] = useState(() => new Map<number, SlotInjection>());
 
-  const slotCount = events.length + 1;
+  // Build a display timeline that includes the misplaced event at the
+  // attempted slot index when the game is lost, so it appears on the timeline
+  // in red where the player tried to drop it.
+  const displayEvents = useMemo(() => {
+    if (gameStatus === 'lost' && failure) {
+      return [
+        ...events.slice(0, failure.attemptedIndex),
+        failure.misplacedEvent,
+        ...events.slice(failure.attemptedIndex),
+      ];
+    }
+    return events;
+  }, [events, failure, gameStatus]);
+
+  const displaySlotCount = displayEvents.length + 1;
 
   // A pointer activation constraint lets a plain click through (fallback) while
   // still starting a drag once the pointer moves a few pixels. The keyboard
@@ -153,6 +186,14 @@ export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTime
   const getSlotProps = useCallback(
     (index: number): SlotInjection => injections.get(index) ?? {},
     [injections],
+  );
+
+  const handleSlotClick = useCallback(
+    (index: number) => {
+      if (gameStatus !== 'playing') return;
+      onPlace(index);
+    },
+    [onPlace, gameStatus],
   );
 
   const handleDragStart = useCallback((_event: DragStartEvent) => {
@@ -183,10 +224,10 @@ export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTime
 
   const registrars = useMemo(
     () =>
-      Array.from({ length: slotCount }, (_, i) => (
+      Array.from({ length: displaySlotCount }, (_, i) => (
         <SlotDroppable key={`droppable-${i}`} index={i} onReady={registerInjection} />
       )),
-    [slotCount, registerInjection],
+    [displaySlotCount, registerInjection],
   );
 
   return (
@@ -200,19 +241,42 @@ export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTime
     >
       {registrars}
       <CurrentEventArea aria-label={t('dragToTimeline')}>
-        <DraggableEventCard event={currentEvent} />
+        {gameStatus === 'playing' && currentEvent && <DraggableEventCard event={currentEvent} />}
+        {gameStatus === 'won' && (
+          <EndOfGameScreen
+            outcome="success"
+            score={events.length - 1}
+            total={events.length - 1}
+            isCompact
+            onPlayAgain={onPlayAgain}
+          />
+        )}
+        {gameStatus === 'lost' && failure && (
+          <EndOfGameScreen
+            outcome="failure"
+            score={failure.placedCount}
+            total={failure.placedCount + failure.remainingCount}
+            placedCount={failure.placedCount}
+            remainingCount={failure.remainingCount}
+            misplacedEventName={failure.misplacedEvent.name}
+            misplacedEventYear={failure.misplacedEvent.date.getFullYear()}
+            isCompact
+            onPlayAgain={onPlayAgain}
+          />
+        )}
       </CurrentEventArea>
       <TimelineArea>
         <Timeline
-          events={events}
+          events={displayEvents}
           activeSlotIndex={activeSlotIndex}
-          onSlotClick={onPlace}
+          onSlotClick={handleSlotClick}
           getSlotProps={getSlotProps}
+          failedEventId={failure?.misplacedEvent.id}
         />
       </TimelineArea>
       <DragOverlay dropAnimation={{ duration: 200, easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)' }}>
         <AnimatePresence>
-          {isDragging ? (
+          {isDragging && currentEvent ? (
             <motion.div
               initial={{ scale: 1 }}
               animate={{ scale: 1.05, rotate: -2 }}

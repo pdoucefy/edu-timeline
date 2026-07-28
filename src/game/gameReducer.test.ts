@@ -111,6 +111,7 @@ describe('gameReducer', () => {
       expect(state.failure?.placedCount).toBe(0);
       // Undrawn pool (2020, 2030) + the misplaced event = 3.
       expect(state.failure?.remainingCount).toBe(3);
+      expect(state.failure?.attemptedIndex).toBe(0);
     });
 
     it('reports placedCount excluding the seed after some successful placements', () => {
@@ -124,6 +125,7 @@ describe('gameReducer', () => {
       expect(state.failure?.placedCount).toBe(1);
       // Undrawn pool (2030) + the misplaced event = 2.
       expect(state.failure?.remainingCount).toBe(2);
+      expect(state.failure?.attemptedIndex).toBe(0);
     });
 
     it('does not change state once the game is already over', () => {

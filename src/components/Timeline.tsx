@@ -24,6 +24,8 @@ export type TimelineProps = {
    * When omitted, the timeline renders as a plain, drag-free component.
    */
   getSlotProps?: (index: number) => SlotInjection;
+  /** If provided, the event with this id is rendered as the failed (misplaced) card. */
+  failedEventId?: number;
 };
 
 const TimelineContainer = styled.div`
@@ -41,7 +43,7 @@ const TimelineTrack = styled.div`
 `;
 
 export const Timeline = React.memo((props: TimelineProps) => {
-  const { events, activeSlotIndex, onSlotClick, getSlotProps } = props;
+  const { events, activeSlotIndex, onSlotClick, getSlotProps, failedEventId } = props;
   const slotsCount = events.length + 1;
 
   return (
@@ -59,7 +61,14 @@ export const Timeline = React.memo((props: TimelineProps) => {
                 dropRef={injected?.dropRef}
                 dropAttributes={injected?.dropAttributes}
               />
-              {events[i] && <EventCard key={`event-${events[i].id}`} event={events[i]} revealed />}
+              {events[i] && (
+                <EventCard
+                  key={`event-${events[i].id}`}
+                  event={events[i]}
+                  revealed
+                  isFailed={events[i].id === failedEventId}
+                />
+              )}
             </React.Fragment>
           );
         })}

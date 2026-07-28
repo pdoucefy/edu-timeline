@@ -11,6 +11,7 @@ import type { Event } from '@/types/event.ts';
 type EventCardProps = {
   event: Event;
   revealed: boolean;
+  isFailed?: boolean;
 };
 
 const CardContainer = styled.article`
@@ -23,6 +24,11 @@ const CardContainer = styled.article`
   overflow: hidden;
   width: 100%;
   max-width: 280px;
+
+  &[data-failed='true'] {
+    border: 2px solid ${({ theme }) => theme.colors.error};
+    box-shadow: 0 0 12px ${({ theme }) => theme.colors.errorMuted};
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -57,7 +63,7 @@ const DateLabel = styled.span`
 
 const imageStyle = { objectFit: 'cover' as const };
 
-export const EventCard = ({ event, revealed }: EventCardProps) => {
+export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
   const t = useTranslations('game');
   const errorsT = useTranslations('errors');
   const [isFallback, setIsFallback] = useState(false);
@@ -72,7 +78,7 @@ export const EventCard = ({ event, revealed }: EventCardProps) => {
     : errorsT('missingImageAlt', { eventName: event.name });
 
   return (
-    <CardContainer>
+    <CardContainer data-failed={isFailed}>
       <ImageWrapper>
         <SafeImage
           src={resolveImagePath(event.fileName)}

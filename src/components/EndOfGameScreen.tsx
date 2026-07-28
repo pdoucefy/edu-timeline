@@ -11,6 +11,7 @@ export type EndOfGameScreenProps =
       score: number;
       total: number;
       onPlayAgain?: () => void;
+      isCompact?: boolean;
     }
   | {
       outcome: 'failure';
@@ -21,6 +22,7 @@ export type EndOfGameScreenProps =
       misplacedEventName: string;
       misplacedEventYear: number;
       onPlayAgain?: () => void;
+      isCompact?: boolean;
     };
 
 const Container = styled.section`
@@ -28,9 +30,12 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 73px);
   padding: ${({ theme }) => theme.spacing.xl};
   text-align: center;
+
+  &[data-compact='false'] {
+    min-height: calc(100vh - 73px);
+  }
 `;
 
 const Title = styled.h1`
@@ -38,6 +43,10 @@ const Title = styled.h1`
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
   color: ${({ theme }) => theme.colors.text};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
+
+  [data-compact='true'] & {
+    font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  }
 `;
 
 const Message = styled.p`
@@ -117,7 +126,7 @@ const PlayAgainButton = styled.button`
 
 export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const t = useTranslations('endGame');
-  const { score, total, outcome, onPlayAgain } = props;
+  const { score, total, outcome, onPlayAgain, isCompact } = props;
 
   const actionButtons = (
     <ButtonGroup>
@@ -132,7 +141,7 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
 
   if (outcome === 'success') {
     return (
-      <Container>
+      <Container data-compact={String(isCompact)}>
         <Title>{t('successTitle')}</Title>
         <Message>
           {t(score === 1 ? 'successMessage' : 'successMessagePlural', { score, total })}
@@ -146,7 +155,7 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const { placedCount, remainingCount, misplacedEventName, misplacedEventYear } = props;
 
   return (
-    <Container>
+    <Container data-compact={String(isCompact)}>
       <Title>{t('failureTitle')}</Title>
       <Message>
         {t(score === 1 ? 'failureMessage' : 'failureMessagePlural', { score, total })}

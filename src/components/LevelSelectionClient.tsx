@@ -71,7 +71,7 @@ const ChapterGrid = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
 `;
 
-const ChapterButton = styled.button<{ $active: boolean }>`
+const ChapterButton = styled.button<{ $active: boolean; $disabled?: boolean }>`
   padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
   border-radius: ${({ theme }) => theme.radii.md};
   border: 1px solid
@@ -80,12 +80,16 @@ const ChapterButton = styled.button<{ $active: boolean }>`
     $active ? theme.colors.primaryMuted : theme.colors.surface};
   color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
   font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  cursor: pointer;
+  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
+  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
   transition: all 0.15s ease;
 
   &:hover {
-    background: ${({ theme, $active }) =>
-      $active ? theme.colors.primaryMuted : theme.colors.surfaceHover};
+    background: ${({ theme, $active, $disabled }) => {
+      if ($disabled) return undefined;
+      return $active ? theme.colors.primaryMuted : theme.colors.surfaceHover;
+    }};
   }
 
   &:focus-visible {
@@ -242,16 +246,32 @@ type ChapterItemProps = {
   chapterId: ID;
   label: string;
   active: boolean;
+  disabled?: boolean;
   onSelect: (id: ID) => void;
 };
 
-const ChapterItem = ({ chapterId, label, active, onSelect }: ChapterItemProps) => {
+const ChapterItem = ({
+  chapterId,
+  label,
+  active,
+  disabled = false,
+  onSelect,
+}: ChapterItemProps) => {
   const handleClick = useCallback(() => {
-    onSelect(chapterId);
-  }, [onSelect, chapterId]);
+    if (!disabled) {
+      onSelect(chapterId);
+    }
+  }, [onSelect, chapterId, disabled]);
 
   return (
-    <ChapterButton $active={active} onClick={handleClick} aria-pressed={active}>
+    <ChapterButton
+      $active={active}
+      $disabled={disabled}
+      disabled={disabled}
+      onClick={handleClick}
+      aria-pressed={active}
+      aria-disabled={disabled}
+    >
       {label}
     </ChapterButton>
   );
@@ -261,6 +281,7 @@ type YearSectionProps = {
   year: SchoolYear;
   selectedYearId: ID | null;
   selectedChapterNumber: number | null;
+  disabled?: boolean;
   onSelectChapter: (yearId: ID, chapterNumber: number) => void;
 };
 
@@ -268,18 +289,20 @@ const YearSection = ({
   year,
   selectedYearId,
   selectedChapterNumber,
+  disabled = false,
   onSelectChapter,
 }: YearSectionProps) => {
   const t = useTranslations('select');
 
   const handleSelect = useCallback(
     (chapterId: ID) => {
+      if (disabled) return;
       const chapter = year.chapters.find((c) => c.id === chapterId);
       if (chapter) {
         onSelectChapter(year.id, chapter.chapterNumber);
       }
     },
-    [year, onSelectChapter],
+    [year, onSelectChapter, disabled],
   );
 
   return (
@@ -295,6 +318,7 @@ const YearSection = ({
               chapterId={chapter.id}
               label={t('chapterLabel', { number: chapter.chapterNumber })}
               active={active}
+              disabled={disabled}
               onSelect={handleSelect}
             />
           );
@@ -437,6 +461,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
             year={year}
             selectedYearId={selectedYearId}
             selectedChapterNumber={selectedChapterNumber}
+            disabled={mode === 'forFun'}
             onSelectChapter={handleChapterClick}
           />
         ))}

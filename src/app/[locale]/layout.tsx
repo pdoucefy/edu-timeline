@@ -13,8 +13,6 @@ import { StyledComponentsRegistry } from '@/styles/StyledComponentsRegistry.tsx'
 // eslint-disable-next-line import/order
 import { LayoutContent } from './LayoutContent.tsx';
 
-import '../globals.css';
-
 const font = notoSansSymbols({
   weight: '400',
   subsets: ['symbols'],

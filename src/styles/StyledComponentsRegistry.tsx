@@ -4,6 +4,7 @@ import { useServerInsertedHTML } from 'next/navigation';
 import React, { useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
 
+import { GlobalStyle } from './GlobalStyle.ts';
 import { theme } from './theme.ts';
 
 export const StyledComponentsRegistry = ({ children }: { children: React.ReactNode }) => {
@@ -18,12 +19,20 @@ export const StyledComponentsRegistry = ({ children }: { children: React.ReactNo
   });
 
   if (typeof window !== 'undefined') {
-    return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+    return (
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        {children}
+      </ThemeProvider>
+    );
   }
 
   return (
     <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        {children}
+      </ThemeProvider>
     </StyleSheetManager>
   );
 };

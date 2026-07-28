@@ -49,7 +49,7 @@ export const theme = {
 
   typography: {
     fontFamily: {
-      base: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      base: 'var(--font-noto-sans-symbols), "Noto Sans Symbols", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
       mono: '"SF Mono", Monaco, Inconsolata, "Roboto Mono", "Courier New", monospace',
       symbols: 'var(--font-noto-sans-symbols), "Noto Sans Symbols"',
     },

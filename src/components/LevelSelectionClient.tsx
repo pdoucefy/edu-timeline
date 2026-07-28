@@ -174,6 +174,11 @@ const DifficultyIndicator = styled(RadioGroup.Indicator)`
   margin: auto;
 `;
 
+const DifficultyLabel = styled.label<{ $active: boolean }>`
+  color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
+  cursor: pointer;
+`;
+
 const StartButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -391,7 +396,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
 
       {/* Mode toggles */}
       <Section>
-        <SectionLabel>Mode</SectionLabel>
+        <SectionLabel>{t('mode')}</SectionLabel>
         <ModeToggleGroup
           type="single"
           value={mode}
@@ -439,23 +444,27 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
 
       {/* Difficulty selector */}
       <Section>
-        <SectionLabel>Difficulté</SectionLabel>
+        <SectionLabel>{t('difficulty')}</SectionLabel>
         <DifficultyRadioGroup
           value={difficulty}
           onValueChange={handleDifficultyChange}
-          aria-label="Niveau de difficulté"
+          aria-label={t('difficulty')}
         >
           <DifficultyItem>
             <DifficultyRadio value="easy" id="diff-easy">
               <DifficultyIndicator />
             </DifficultyRadio>
-            <label htmlFor="diff-easy">{t('difficultyEasy')}</label>
+            <DifficultyLabel htmlFor="diff-easy" $active={difficulty === 'easy'}>
+              {t('difficultyEasy')}
+            </DifficultyLabel>
           </DifficultyItem>
           <DifficultyItem>
             <DifficultyRadio value="hard" id="diff-hard">
               <DifficultyIndicator />
             </DifficultyRadio>
-            <label htmlFor="diff-hard">{t('difficultyHard')}</label>
+            <DifficultyLabel htmlFor="diff-hard" $active={difficulty === 'hard'}>
+              {t('difficultyHard')}
+            </DifficultyLabel>
           </DifficultyItem>
         </DifficultyRadioGroup>
       </Section>

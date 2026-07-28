@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { Noto_Sans_Symbols as notoSansSymbols } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -13,6 +14,13 @@ import { StyledComponentsRegistry } from '@/styles/StyledComponentsRegistry.tsx'
 import { LayoutContent } from './LayoutContent.tsx';
 
 import '../globals.css';
+
+const font = notoSansSymbols({
+  weight: '400',
+  subsets: ['symbols'],
+  display: 'swap',
+  variable: '--font-noto-sans-symbols',
+});
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const generateMetadata = async (): Promise<Metadata> => {
@@ -51,7 +59,7 @@ const RootLayout = async ({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={font.variable}>
       <body>
         <StyledComponentsRegistry>
           <NextIntlClientProvider messages={messages}>

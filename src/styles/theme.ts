@@ -51,6 +51,7 @@ export const theme = {
     fontFamily: {
       base: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
       mono: '"SF Mono", Monaco, Inconsolata, "Roboto Mono", "Courier New", monospace',
+      symbols: 'var(--font-noto-sans-symbols), "Noto Sans Symbols"',
     },
     fontSize: {
       xs: '0.75rem',

@@ -191,6 +191,7 @@ export const DragDropTimeline = ({ events, currentEvent, onPlace }: DragDropTime
 
   return (
     <DndContext
+      id="timeline-dnd"
       sensors={sensors}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}

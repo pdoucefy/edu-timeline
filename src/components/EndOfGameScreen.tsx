@@ -126,7 +126,7 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
           {t('playAgain')}
         </PlayAgainButton>
       )}
-      <BackButton href="/">{t('backToHome')}</BackButton>
+      <BackButton href="/select">{t('backToHome')}</BackButton>
     </ButtonGroup>
   );
 

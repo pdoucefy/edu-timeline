@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -48,6 +49,8 @@ type ToastProps = {
 };
 
 export const Toast = ({ message, open = true, duration = 5000, onClose }: ToastProps) => {
+  const t = useTranslations('common');
+
   const [visible, setVisible] = useState(open);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -74,7 +77,7 @@ export const Toast = ({ message, open = true, duration = 5000, onClose }: ToastP
   return (
     <ToastRoot $open={visible} role="status" aria-live="polite">
       <span>{message}</span>
-      <DismissButton onClick={handleDismiss} aria-label="Dismiss" type="button">
+      <DismissButton onClick={handleDismiss} aria-label={t('dismiss')} type="button">
         ×
       </DismissButton>
     </ToastRoot>

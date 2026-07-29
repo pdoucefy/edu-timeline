@@ -12,7 +12,7 @@ export const generateMetadata = async () => {
 
   return {
     title: t('title'),
-    description: 'Choisissez un chapitre et testez vos connaissances chronologiques',
+    description: t('description'),
   };
 };
 

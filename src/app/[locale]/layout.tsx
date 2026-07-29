@@ -29,7 +29,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       default: t('appName'),
       template: `%s | ${t('appName')}`,
     },
-    description: "Frise chronologique interactive pour apprendre l'histoire",
+    description: t('appDescription'),
     icons: {
       icon: '/favicon.svg',
     },

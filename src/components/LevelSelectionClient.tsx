@@ -307,7 +307,9 @@ const YearSection = ({
 
   return (
     <YearCard>
-      <YearTitle>Année {year.year}</YearTitle>
+      <YearTitle>
+        {t('yearLabel')} {year.year}
+      </YearTitle>
       <ChapterGrid>
         {year.chapters.map((chapter) => {
           const active =
@@ -425,7 +427,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
           type="single"
           value={mode}
           onValueChange={handleModeChange}
-          aria-label="Mode de sélection"
+          aria-label={t('mode')}
         >
           <ModeToggle value="single" $pressed={mode === 'single'} aria-pressed={mode === 'single'}>
             <ModeToggleContent>

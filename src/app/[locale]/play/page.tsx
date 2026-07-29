@@ -12,10 +12,10 @@ initLoader(schoolYears);
 // eslint-disable-next-line react-refresh/only-export-components
 export const generateMetadata = async () => {
   const t = await getTranslations('game');
-  const tCommon = await getTranslations('common');
+
   return {
     title: t('title'),
-    description: `Jeu de frise chronologique — ${tCommon('appName')}`,
+    description: t('description'),
   };
 };
 

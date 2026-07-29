@@ -29,6 +29,8 @@ export type TimelineProps = {
 };
 
 const TimelineContainer = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
   overflow-x: auto;
   padding: ${({ theme }) => theme.spacing.md} 0;

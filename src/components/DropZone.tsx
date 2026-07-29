@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -45,6 +46,7 @@ const SlotContainer = styled.div<{ $isActive?: boolean }>`
 
 export const DropZone = React.memo((props: DropZoneProps) => {
   const { index, isActive, onClick, 'data-testid': dataTestId, dropRef, dropAttributes } = props;
+  const t = useTranslations('game');
 
   const handleClick = useCallback(() => {
     onClick?.(index);
@@ -58,7 +60,7 @@ export const DropZone = React.memo((props: DropZoneProps) => {
       data-slot-index={index}
       data-testid={dataTestId ?? `slot-${index}`}
       role="button"
-      aria-label={`Insertion slot ${index}`}
+      aria-label={`${t('dropZone')} ${index}`}
       tabIndex={onClick ? 0 : -1}
       {...dropAttributes}
     />

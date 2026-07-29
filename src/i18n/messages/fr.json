@@ -1,8 +1,10 @@
 {
   "common": {
     "appName": "Frise Chrono",
+    "appDescription": "Frise chronologique interactive pour apprendre l'histoire",
     "backToHome": "Retour à l'accueil",
     "loading": "Chargement…",
+    "dismiss": "Fermer",
     "genericError": "Une erreur est survenue. Veuillez réessayer."
   },
   "header": {
@@ -16,6 +18,7 @@
   },
   "select": {
     "title": "Choisissez votre chapitre",
+    "description": "Choisissez un chapitre et testez vos connaissances chronologiques",
     "chapterLabel": "Chapitre {number}",
     "chapterDescription": "Chapitre {number} — {description}",
     "mode": "Mode",
@@ -29,10 +32,12 @@
     "difficultyEasy": "Facile",
     "difficultyHard": "Difficile",
     "startGame": "Lancer la partie",
+    "yearLabel": "Année",
     "noChaptersAvailable": "Aucun chapitre disponible pour le moment."
   },
   "game": {
     "title": "Jouer",
+    "description": "Jeu de frise chronologique — Frise Chrono",
     "placeEventPrompt": "Placez cet événement sur la frise :",
     "yearLabel": "Année",
     "submitAnswer": "Valider",
@@ -42,6 +47,7 @@
     "feedbackIncorrect": "Incorrect",
     "score": "Score : {score}/{total}",
     "dragToTimeline": "Faites glisser l'événement vers l'année correspondante",
+    "dropZone": "Zone de dépôt",
     "eventPlacedAt": "{eventName} placé en {year}"
   },
   "endGame": {

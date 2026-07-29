@@ -26,7 +26,7 @@ const Page = styled.div`
   padding: ${({ theme }) => theme.spacing.xl};
   gap: ${({ theme }) => theme.spacing.xl};
   max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
 `;
 
 const Title = styled.h1`

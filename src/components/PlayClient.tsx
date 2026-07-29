@@ -14,7 +14,7 @@ const Page = styled.main`
   gap: ${({ theme }) => theme.spacing.xl};
   padding: ${({ theme }) => theme.spacing.xl};
   max-width: 1024px;
-  margin: 0 auto;
+  width: 100%;
 `;
 
 const Prompt = styled.h1`

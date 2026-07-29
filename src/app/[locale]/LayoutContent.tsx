@@ -11,7 +11,7 @@ const LayoutContentWrapper = styled.main`
   align-items: center;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.colors.background};
-  padding: 120px 60px;
+  padding: 60px 60px;
 `;
 
 export const LayoutContent = ({ children }: { children: ReactNode }) => (

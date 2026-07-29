@@ -23,7 +23,6 @@ const Page = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${({ theme }) => theme.spacing.xl};
   gap: ${({ theme }) => theme.spacing.xl};
   max-width: 800px;
   width: 100%;

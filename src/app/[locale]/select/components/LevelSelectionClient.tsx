@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
+import { Page } from '@/components/common/Page.tsx';
 import {
   type SelectionDescriptor,
   resolveSelectedChapters,
@@ -18,15 +19,6 @@ import type { DifficultyLevel, ID, SchoolYear } from '@/types';
 /* ------------------------------------------------------------------ */
 /*  Styled components                                                 */
 /* ------------------------------------------------------------------ */
-
-const Page = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xl};
-  max-width: 800px;
-  width: 100%;
-`;
 
 const Title = styled.h1`
   font-size: ${({ theme }) => theme.typography.fontSize.xxl};

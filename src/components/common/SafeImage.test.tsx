@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import React from 'react';
 
-import { SafeImage } from '@/components/SafeImage.tsx';
+import { SafeImage } from './SafeImage.tsx';
 
 const warnSpy = jest.spyOn(console, 'warn').mockImplementation(jest.fn());
 

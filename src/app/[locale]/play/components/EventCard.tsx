@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-import { SafeImage } from '@/components/SafeImage.tsx';
+import { SafeImage } from '@/components/common/SafeImage.tsx';
 import { PLACEHOLDER_IMAGE_PATH, resolveImagePath } from '@/data/loader.ts';
 import type { Event } from '@/types/event.ts';
 

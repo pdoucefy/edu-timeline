@@ -1,8 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
-import { LevelSelectionClient } from '@/components/LevelSelectionClient.tsx';
 import { getSchoolYears, initLoader } from '@/data/loader.ts';
 import { schoolYears } from '@/data/years.ts';
+
+// eslint-disable-next-line import/order
+import { LevelSelectionClient } from './components/LevelSelectionClient.tsx';
 
 initLoader(schoolYears);
 

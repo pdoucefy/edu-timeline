@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { SafeImage } from '@/components/SafeImage.tsx';
+import { SafeImage } from './common/SafeImage.tsx';
 
 const HeaderContainer = styled.header`
   display: flex;

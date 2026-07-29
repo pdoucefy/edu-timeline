@@ -19,10 +19,12 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
-import { EndOfGameScreen } from '@/components/EndOfGameScreen.tsx';
-import { EventCard } from '@/components/EventCard.tsx';
-import { type SlotInjection, Timeline } from '@/components/Timeline.tsx';
+// eslint-disable-next-line import/order
 import type { Event } from '@/types/event.ts';
+
+import { EndOfGameScreen } from './EndOfGameScreen.tsx';
+import { EventCard } from './EventCard.tsx';
+import { type SlotInjection, Timeline } from './Timeline.tsx';
 
 /**
  * dnd-kit id for the single draggable current event. There is only ever one
@@ -101,7 +103,7 @@ const DraggableEventCard = ({ event }: { event: Event }) => {
   );
 };
 
-export type DragDropTimelineProps = {
+type DragDropTimelineProps = {
   /** Events already placed on the timeline, chronologically ordered. */
   events: Event[];
   /** The event the player is currently placing (rendered as the draggable). Null when the game is over. */

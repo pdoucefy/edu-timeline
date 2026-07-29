@@ -3,18 +3,10 @@
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { DragDropTimeline } from '@/components/DragDropTimeline.tsx';
+import { DragDropTimeline } from '@/app/[locale]/play/components/DragDropTimeline.tsx';
+import { Page } from '@/components/common/Page.tsx';
 import { GameProvider, useGame } from '@/game/GameProvider.tsx';
 import type { Event } from '@/types';
-
-const Page = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xl};
-  max-width: 1024px;
-  width: 100%;
-`;
 
 const Prompt = styled.h1`
   font-size: ${({ theme }) => theme.typography.fontSize.xl};

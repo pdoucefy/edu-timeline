@@ -1,11 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 
-import { PlayClient } from '@/components/PlayClient.tsx';
 import { getSchoolYears, initLoader } from '@/data/loader.ts';
 import { schoolYears } from '@/data/years.ts';
 import { parsePlayParams } from '@/game/parsePlayParams.ts';
 import { shuffle } from '@/game/shuffle.ts';
 import { redirect } from '@/i18n/navigation.ts';
+
+// eslint-disable-next-line import/order
+import { PlayClient } from './components/PlayClient.tsx';
 
 initLoader(schoolYears);
 

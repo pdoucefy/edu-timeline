@@ -3,9 +3,11 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import { LoadWarningsToast } from '@/components/LoadWarningsToast.tsx';
 import { getLoadWarnings } from '@/data/loader.ts';
 import { theme } from '@/styles/theme.ts';
+
+// eslint-disable-next-line import/order
+import { LoadWarningsToast } from './LoadWarningsToast.tsx';
 
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);

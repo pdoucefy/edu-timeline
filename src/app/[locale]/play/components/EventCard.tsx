@@ -30,6 +30,8 @@ const Content = styled.div(
     flex-direction: column;
     gap: ${theme.spacing.xs};
     padding: ${theme.spacing.md};
+    min-height: 6rem;
+    justify-content: center;
   `,
 );
 
@@ -55,6 +57,10 @@ const DateLabel = styled.span(
 
 const imageStyle = { objectFit: 'cover' as const };
 
+const CardWrapper = styled.div`
+  width: 280px;
+`;
+
 export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
   const t = useTranslations('game');
   const errorsT = useTranslations('errors');
@@ -70,23 +76,25 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
     : errorsT('missingImageAlt', { eventName: event.name });
 
   return (
-    <Card $failed={isFailed}>
-      <ImageWrapper>
-        <SafeImage
-          src={resolveImagePath(event.fileName)}
-          fallbackSrc={PLACEHOLDER_IMAGE_PATH}
-          alt={altText}
-          fill
-          imageName={event.name}
-          onFallback={handleImageError}
-          sizes="280px"
-          style={imageStyle}
-        />
-      </ImageWrapper>
-      <Content>
-        <EventName>{event.name}</EventName>
-        <DateLabel>{revealed ? `${t('yearLabel')} ${event.date.getFullYear()}` : '?'}</DateLabel>
-      </Content>
-    </Card>
+    <CardWrapper>
+      <Card $failed={isFailed}>
+        <ImageWrapper>
+          <SafeImage
+            src={resolveImagePath(event.fileName)}
+            fallbackSrc={PLACEHOLDER_IMAGE_PATH}
+            alt={altText}
+            fill
+            imageName={event.name}
+            onFallback={handleImageError}
+            sizes="280px"
+            style={imageStyle}
+          />
+        </ImageWrapper>
+        <Content>
+          <EventName>{event.name}</EventName>
+          <DateLabel>{revealed ? `${t('yearLabel')} ${event.date.getFullYear()}` : '?'}</DateLabel>
+        </Content>
+      </Card>
+    </CardWrapper>
   );
 };

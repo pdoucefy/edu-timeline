@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
+import { Card } from '@/components/common/Card.tsx';
 import { SafeImage } from '@/components/common/SafeImage.tsx';
 import { PLACEHOLDER_IMAGE_PATH, resolveImagePath } from '@/data/loader.ts';
 import type { Event } from '@/types/event.ts';
@@ -13,23 +14,6 @@ type EventCardProps = {
   revealed: boolean;
   isFailed?: boolean;
 };
-
-const CardContainer = styled.article`
-  display: flex;
-  flex-direction: column;
-  border-radius: ${({ theme }) => theme.radii.lg};
-  background-color: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  box-shadow: ${({ theme }) => theme.shadows.sm};
-  overflow: hidden;
-  width: 100%;
-  max-width: 280px;
-
-  &[data-failed='true'] {
-    border: 2px solid ${({ theme }) => theme.colors.error};
-    box-shadow: 0 0 12px ${({ theme }) => theme.colors.errorMuted};
-  }
-`;
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -78,7 +62,7 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
     : errorsT('missingImageAlt', { eventName: event.name });
 
   return (
-    <CardContainer data-failed={isFailed}>
+    <Card data-failed={isFailed}>
       <ImageWrapper>
         <SafeImage
           src={resolveImagePath(event.fileName)}
@@ -95,6 +79,6 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
         <EventName>{event.name}</EventName>
         <DateLabel>{revealed ? `${t('yearLabel')} ${event.date.getFullYear()}` : '?'}</DateLabel>
       </Content>
-    </CardContainer>
+    </Card>
   );
 };

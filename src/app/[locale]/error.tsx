@@ -4,6 +4,9 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
+import { Button } from '@/components/common/Button.tsx';
+import { Typography } from '@/components/common/Typography.tsx';
+
 const ErrorContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,44 +18,12 @@ const ErrorContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-const ErrorTitle = styled.h1`
-  font-size: ${({ theme }) => theme.typography.fontSize.xxxl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.error};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`;
-
 const ErrorDescription = styled.p`
   font-size: ${({ theme }) => theme.typography.fontSize.md};
   color: ${({ theme }) => theme.colors.textMuted};
   margin-bottom: ${({ theme }) => theme.spacing.xl};
   max-width: 480px;
   line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
-`;
-
-const RetryButton = styled.button`
-  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.xxl}`};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.textInverse};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  border: none;
-  border-radius: ${({ theme }) => theme.radii.lg};
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryHover};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.colors.primaryActive};
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
 `;
 
 type ErrorBoundaryProps = {
@@ -77,11 +48,13 @@ const ErrorBoundary = ({ error, reset }: ErrorBoundaryProps) => {
 
   return (
     <ErrorContainer role="alert">
-      <ErrorTitle>{t('dataLoadFailure')}</ErrorTitle>
+      <Typography $variant="h1" $color="error">
+        {t('dataLoadFailure')}
+      </Typography>
       <ErrorDescription>{t('dataLoadFailureDescription')}</ErrorDescription>
-      <RetryButton onClick={reset} type="button">
+      <Button $variant="primary" onClick={reset} type="button">
         {t('retryLabel')}
-      </RetryButton>
+      </Button>
     </ErrorContainer>
   );
 };

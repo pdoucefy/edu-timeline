@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Link } from '@/i18n/navigation.ts';
+import { Button } from '@/components/common/Button.tsx';
 
 export type EndOfGameScreenProps =
   | {
@@ -78,52 +78,6 @@ const ButtonGroup = styled.div`
   justify-content: center;
 `;
 
-const BackButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.xxl}`};
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.textInverse};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  border-radius: ${({ theme }) => theme.radii.lg};
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryHover};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.colors.primaryActive};
-  }
-`;
-
-const PlayAgainButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.xxl}`};
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  border-radius: ${({ theme }) => theme.radii.lg};
-  border: 2px solid ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryMuted};
-  }
-
-  &:active {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.textInverse};
-  }
-`;
-
 export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const t = useTranslations('endGame');
   const { score, total, outcome, onPlayAgain, isCompact } = props;
@@ -131,11 +85,13 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const actionButtons = (
     <ButtonGroup>
       {onPlayAgain && (
-        <PlayAgainButton type="button" onClick={onPlayAgain}>
+        <Button $variant="secondary" type="button" onClick={onPlayAgain}>
           {t('playAgain')}
-        </PlayAgainButton>
+        </Button>
       )}
-      <BackButton href="/select">{t('backToHome')}</BackButton>
+      <Button $variant="link" href="/select">
+        {t('backToHome')}
+      </Button>
     </ButtonGroup>
   );
 

@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
+import { Button } from '@/components/common/Button.tsx';
+import { Card } from '@/components/common/Card.tsx';
 import { Page } from '@/components/common/Page.tsx';
 import {
   type SelectionDescriptor,
@@ -38,16 +40,6 @@ const SectionLabel = styled.h2`
   font-size: ${({ theme }) => theme.typography.fontSize.lg};
   font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
   color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-const YearCard = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.radii.lg};
-  padding: ${({ theme }) => theme.spacing.lg};
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
 `;
 
 const YearTitle = styled.h3`
@@ -174,42 +166,6 @@ const DifficultyLabel = styled.label<{ $active: boolean }>`
   cursor: pointer;
 `;
 
-const StartButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.xxl}`};
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.textInverse};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  border: none;
-  border-radius: ${({ theme }) => theme.radii.lg};
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: 100%;
-  max-width: 400px;
-  margin-top: ${({ theme }) => theme.spacing.lg};
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.primaryHover};
-  }
-
-  &:active {
-    background: ${({ theme }) => theme.colors.primaryActive};
-  }
-
-  &:disabled {
-    background: ${({ theme }) => theme.colors.borderStrong};
-    cursor: not-allowed;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
-`;
-
 const EmptyState = styled.p`
   text-align: center;
   color: ${({ theme }) => theme.colors.textMuted};
@@ -297,7 +253,7 @@ const YearSection = ({
   );
 
   return (
-    <YearCard>
+    <Card>
       <YearTitle>
         {t('yearLabel')} {year.year}
       </YearTitle>
@@ -317,7 +273,7 @@ const YearSection = ({
           );
         })}
       </ChapterGrid>
-    </YearCard>
+    </Card>
   );
 };
 
@@ -487,9 +443,14 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
         </DifficultyRadioGroup>
       </Section>
 
-      <StartButton onClick={handleStart} disabled={!canStart} aria-disabled={!canStart}>
+      <Button
+        $variant="primary"
+        onClick={handleStart}
+        disabled={!canStart}
+        aria-disabled={!canStart}
+      >
         {t('startGame')}
-      </StartButton>
+      </Button>
     </Page>
   );
 };

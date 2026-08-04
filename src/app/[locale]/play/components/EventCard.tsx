@@ -70,7 +70,7 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
     : errorsT('missingImageAlt', { eventName: event.name });
 
   return (
-    <Card data-failed={isFailed}>
+    <Card $failed={isFailed}>
       <ImageWrapper>
         <SafeImage
           src={resolveImagePath(event.fileName)}

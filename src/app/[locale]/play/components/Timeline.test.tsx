@@ -15,9 +15,9 @@ jest.mock('next-intl', () => ({
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+  default: ({ fill: _fill, ...props }: Record<string, unknown>) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img {...props} src={props.src} alt={props.alt ?? ''} />
+    <img {...props} src={props.src as string} alt={(props.alt as string) ?? ''} />
   ),
 }));
 
@@ -51,7 +51,7 @@ describe('Timeline', () => {
     renderWithTheme(<Timeline events={events} />);
 
     const track = screen.getByTestId('timeline-track');
-    const cards = track.querySelectorAll('article');
+    const cards = track.querySelectorAll('h3');
 
     expect(cards[0]).toHaveTextContent('First Event');
     expect(cards[1]).toHaveTextContent('Second Event');

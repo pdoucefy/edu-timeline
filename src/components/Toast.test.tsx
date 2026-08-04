@@ -6,6 +6,10 @@ import { ThemeProvider } from 'styled-components';
 import { Toast } from '@/components/Toast.tsx';
 import { theme } from '@/styles/theme.ts';
 
+jest.mock('next-intl', () => ({
+  useTranslations: jest.fn(() => (key: string) => key),
+}));
+
 const renderWithTheme = (ui: React.ReactElement) =>
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
 

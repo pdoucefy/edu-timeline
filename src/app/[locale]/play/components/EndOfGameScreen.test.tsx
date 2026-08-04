@@ -59,7 +59,7 @@ describe('EndOfGameScreen', () => {
       renderWithTheme(<EndOfGameScreen outcome="success" score={5} total={5} />);
       const button = screen.getByText('backToHome');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveAttribute('href', '/');
+      expect(button).toHaveAttribute('href', '/select');
     });
 
     it('does not render the play-again button when onPlayAgain is omitted', () => {
@@ -145,7 +145,7 @@ describe('EndOfGameScreen', () => {
       renderWithTheme(<EndOfGameScreen {...failureProps} />);
       const button = screen.getByText('backToHome');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveAttribute('href', '/');
+      expect(button).toHaveAttribute('href', '/select');
     });
 
     it('does not render the play-again button when onPlayAgain is omitted', () => {

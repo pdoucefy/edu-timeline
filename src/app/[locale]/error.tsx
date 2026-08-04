@@ -2,29 +2,30 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Button } from '@/components/common/Button.tsx';
 import { Typography } from '@/components/common/Typography.tsx';
 
-const ErrorContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: ${({ theme }) => theme.spacing.xl};
-  text-align: center;
-  background-color: ${({ theme }) => theme.colors.background};
-`;
+const ErrorContainer = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: ${theme.spacing.xl};
+    text-align: center;
+    background-color: ${theme.colors.background};
+  `,
+);
 
-const ErrorDescription = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  color: ${({ theme }) => theme.colors.textMuted};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  max-width: 480px;
-  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
-`;
+const DescriptionWrapper = styled.div(
+  ({ theme }) => css`
+    margin-bottom: ${theme.spacing.xl};
+    max-width: 480px;
+  `,
+);
 
 type ErrorBoundaryProps = {
   error: Error & { digest?: string };
@@ -51,7 +52,9 @@ const ErrorBoundary = ({ error, reset }: ErrorBoundaryProps) => {
       <Typography $variant="h1" $color="error">
         {t('dataLoadFailure')}
       </Typography>
-      <ErrorDescription>{t('dataLoadFailureDescription')}</ErrorDescription>
+      <DescriptionWrapper>
+        <Typography $variant="light">{t('dataLoadFailureDescription')}</Typography>
+      </DescriptionWrapper>
       <Button $variant="primary" onClick={reset} type="button">
         {t('retryLabel')}
       </Button>

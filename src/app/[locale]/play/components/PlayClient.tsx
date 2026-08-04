@@ -1,25 +1,12 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import styled from 'styled-components';
 
 import { DragDropTimeline } from '@/app/[locale]/play/components/DragDropTimeline.tsx';
 import { Page } from '@/components/common/Page.tsx';
+import { Typography } from '@/components/common/Typography.tsx';
 import { GameProvider, useGame } from '@/game/GameProvider.tsx';
 import type { Event } from '@/types';
-
-const Prompt = styled.h1`
-  font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text};
-  text-align: center;
-`;
-
-const Counter = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ theme }) => theme.colors.textMuted};
-  margin: 0;
-`;
 
 /**
  * The interactive game surface. Reads live state from {@link useGame} and
@@ -48,8 +35,12 @@ const GameSurface = ({ originalPool }: { originalPool: Event[] }) => {
     <Page>
       {state.status === 'playing' && (
         <div>
-          <Prompt>{t('placeEventPrompt')}</Prompt>
-          <Counter>{t('eventCounter', { current: placedSoFar + 1, total: totalToPlace })}</Counter>
+          <Typography $variant="h1" $centered>
+            {t('placeEventPrompt')}
+          </Typography>
+          <Typography $variant="light">
+            {t('eventCounter', { current: placedSoFar + 1, total: totalToPlace })}
+          </Typography>
         </div>
       )}
       <DragDropTimeline

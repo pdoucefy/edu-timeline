@@ -1,86 +1,76 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Button } from '@/components/common/Button.tsx';
+import { Typography } from '@/components/common/Typography.tsx';
 
-export type EndOfGameScreenProps =
+export type EndOfGameScreenProps = {
+  score: number;
+  total: number;
+  onPlayAgain?: () => void;
+} & (
   | {
       outcome: 'success';
-      score: number;
-      total: number;
-      onPlayAgain?: () => void;
-      isCompact?: boolean;
     }
   | {
       outcome: 'failure';
-      score: number;
-      total: number;
       placedCount: number;
       remainingCount: number;
       misplacedEventName: string;
       misplacedEventYear: number;
-      onPlayAgain?: () => void;
-      isCompact?: boolean;
-    };
+    }
+);
 
-const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => theme.spacing.xl};
-  text-align: center;
+const Container = styled.section(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: ${theme.spacing.xl};
+    text-align: center;
+  `,
+);
 
-  &[data-compact='false'] {
-    min-height: calc(100vh - 73px);
-  }
-`;
+const Message = styled.div(
+  ({ theme }) => css`
+    margin-bottom: ${theme.spacing.xl};
+    max-width: 480px;
+  `,
+);
 
-const Title = styled.h1`
-  font-size: ${({ theme }) => theme.typography.fontSize.xxxl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text};
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+const StatsList = styled.ul(
+  ({ theme }) => css`
+    list-style: none;
+    padding: 0;
+    margin: 0 0 ${theme.spacing.xl};
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.sm};
+  `,
+);
 
-  [data-compact='true'] & {
-    font-size: ${({ theme }) => theme.typography.fontSize.xl};
-  }
-`;
+const StatItem = styled.li(
+  ({ theme }) => css`
+    font-size: ${theme.typography.fontSize.base};
+    color: ${theme.colors.text};
+  `,
+);
 
-const Message = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  color: ${({ theme }) => theme.colors.textMuted};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  max-width: 480px;
-  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
-`;
-
-const StatsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0 0 ${({ theme }) => theme.spacing.xl};
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
-
-const StatItem = styled.li`
-  font-size: ${({ theme }) => theme.typography.fontSize.base};
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+const ButtonGroup = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    gap: ${theme.spacing.md};
+    flex-wrap: wrap;
+    justify-content: center;
+  `,
+);
 
 export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const t = useTranslations('endGame');
-  const { score, total, outcome, onPlayAgain, isCompact } = props;
+  const { score, total, outcome, onPlayAgain } = props;
 
   const actionButtons = (
     <ButtonGroup>
@@ -97,8 +87,8 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
 
   if (outcome === 'success') {
     return (
-      <Container data-compact={String(isCompact)}>
-        <Title>{t('successTitle')}</Title>
+      <Container>
+        <Typography $variant="h1">{t('successTitle')}</Typography>
         <Message>
           {t(score === 1 ? 'successMessage' : 'successMessagePlural', { score, total })}
           {score === total && <> {t('perfectScore')}</>}
@@ -111,10 +101,12 @@ export const EndOfGameScreen = (props: EndOfGameScreenProps) => {
   const { placedCount, remainingCount, misplacedEventName, misplacedEventYear } = props;
 
   return (
-    <Container data-compact={String(isCompact)}>
-      <Title>{t('failureTitle')}</Title>
+    <Container>
+      <Typography $variant="h1">{t('failureTitle')}</Typography>
       <Message>
-        {t(score === 1 ? 'failureMessage' : 'failureMessagePlural', { score, total })}
+        <Typography $variant="light">
+          {t(score === 1 ? 'failureMessage' : 'failureMessagePlural', { score, total })}
+        </Typography>
       </Message>
       <StatsList>
         <StatItem>

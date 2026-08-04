@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Card } from '@/components/common/Card.tsx';
 import { SafeImage } from '@/components/common/SafeImage.tsx';
@@ -15,35 +15,43 @@ type EventCardProps = {
   isFailed?: boolean;
 };
 
-const ImageWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background-color: ${({ theme }) => theme.colors.surfaceHover};
-`;
+const ImageWrapper = styled.div(
+  ({ theme }) => css`
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: ${theme.colors.surfaceHover};
+  `,
+);
 
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.xs};
-  padding: ${({ theme }) => theme.spacing.md};
-`;
+const Content = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.xs};
+    padding: ${theme.spacing.md};
+  `,
+);
 
-const EventName = styled.h3`
-  margin: 0;
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text};
-  line-height: ${({ theme }) => theme.typography.lineHeight.tight};
-`;
+const EventName = styled.h3(
+  ({ theme }) => css`
+    margin: 0;
+    font-size: ${theme.typography.fontSize.sm};
+    font-weight: ${theme.typography.fontWeight.semibold};
+    color: ${theme.colors.text};
+    line-height: ${theme.typography.lineHeight.tight};
+  `,
+);
 
-const DateLabel = styled.span`
-  font-size: ${({ theme }) => theme.typography.fontSize.xs};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  color: ${({ theme }) => theme.colors.textMuted};
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-`;
+const DateLabel = styled.span(
+  ({ theme }) => css`
+    font-size: ${theme.typography.fontSize.xs};
+    font-weight: ${theme.typography.fontWeight.medium};
+    color: ${theme.colors.textMuted};
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  `,
+);
 
 const imageStyle = { objectFit: 'cover' as const };
 

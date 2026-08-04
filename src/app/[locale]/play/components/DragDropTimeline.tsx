@@ -17,7 +17,7 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // eslint-disable-next-line import/order
 import type { Event } from '@/types/event.ts';
@@ -44,23 +44,27 @@ const parseSlotIndex = (overId: string | number | null | undefined): number | nu
   return Number.isInteger(index) ? index : null;
 };
 
-const DraggableWrapper = styled.div<{ $isDragging: boolean }>`
-  cursor: grab;
-  touch-action: none;
-  /* Hide the source while dragging; the DragOverlay renders the moving copy. */
-  opacity: ${({ $isDragging }) => ($isDragging ? 0 : 1)};
+const DraggableWrapper = styled.div<{ $isDragging: boolean }>(
+  ({ $isDragging }) => css`
+    cursor: grab;
+    touch-action: none;
+    /* Hide the source while dragging; the DragOverlay renders the moving copy. */
+    opacity: ${$isDragging ? 0 : 1};
 
-  &:active {
-    cursor: grabbing;
-  }
-`;
+    &:active {
+      cursor: grabbing;
+    }
+  `,
+);
 
-const CurrentEventArea = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
+const CurrentEventArea = styled.section(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ${theme.spacing.md};
+  `,
+);
 
 const TimelineArea = styled.section`
   width: 100%;
@@ -249,7 +253,6 @@ export const DragDropTimeline = ({
             outcome="success"
             score={events.length - 1}
             total={events.length - 1}
-            isCompact
             onPlayAgain={onPlayAgain}
           />
         )}
@@ -262,7 +265,6 @@ export const DragDropTimeline = ({
             remainingCount={failure.remainingCount}
             misplacedEventName={failure.misplacedEvent.name}
             misplacedEventYear={failure.misplacedEvent.date.getFullYear()}
-            isCompact
             onPlayAgain={onPlayAgain}
           />
         )}

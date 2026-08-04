@@ -6,11 +6,12 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Button } from '@/components/common/Button.tsx';
 import { Card } from '@/components/common/Card.tsx';
 import { Page } from '@/components/common/Page.tsx';
+import { Typography } from '@/components/common/Typography.tsx';
 import {
   type SelectionDescriptor,
   resolveSelectedChapters,
@@ -21,169 +22,162 @@ import type { DifficultyLevel, ID, SchoolYear } from '@/types';
 /* ------------------------------------------------------------------ */
 /*  Styled components                                                 */
 /* ------------------------------------------------------------------ */
+const Section = styled.section(
+  ({ theme }) => css`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing.md};
+  `,
+);
 
-const Title = styled.h1`
-  font-size: ${({ theme }) => theme.typography.fontSize.xxl};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.text};
-  text-align: center;
-`;
+const ChapterGrid = styled.div(
+  ({ theme }) => css`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: ${theme.spacing.sm};
+  `,
+);
 
-const Section = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
-`;
+const ChapterButton = styled.button<{ $active: boolean; $disabled?: boolean }>(
+  ({ theme, $active, $disabled }) => css`
+    padding: ${`${theme.spacing.sm} ${theme.spacing.md}`};
+    border-radius: ${theme.radii.md};
+    border: 1px solid ${$active ? theme.colors.primary : theme.colors.border};
+    background: ${$active ? theme.colors.primaryMuted : theme.colors.surface};
+    color: ${$active ? theme.colors.primary : theme.colors.text};
+    font-weight: ${theme.typography.fontWeight.medium};
+    cursor: ${$disabled ? 'not-allowed' : 'pointer'};
+    opacity: ${$disabled ? 0.5 : 1};
+    pointer-events: ${$disabled ? 'none' : 'auto'};
+    transition: all 0.15s ease;
 
-const SectionLabel = styled.h2`
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.textMuted};
-`;
+    &:hover {
+      background: ${() => {
+        if ($disabled) return undefined;
+        return $active ? theme.colors.primaryMuted : theme.colors.surfaceHover;
+      }};
+    }
 
-const YearTitle = styled.h3`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.text};
-`;
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.primary};
+      outline-offset: 2px;
+    }
+  `,
+);
 
-const ChapterGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
+const ModeToggleGroup = styled(ToggleGroup.Root)(
+  ({ theme }) => css`
+    display: flex;
+    gap: ${theme.spacing.sm};
+    flex-wrap: wrap;
+  `,
+);
 
-const ChapterButton = styled.button<{ $active: boolean; $disabled?: boolean }>`
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
-  border-radius: ${({ theme }) => theme.radii.md};
-  border: 1px solid
-    ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.border)};
-  background: ${({ theme, $active }) =>
-    $active ? theme.colors.primaryMuted : theme.colors.surface};
-  color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
-  opacity: ${({ $disabled }) => ($disabled ? 0.5 : 1)};
-  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
-  transition: all 0.15s ease;
+const ModeToggle = styled(ToggleGroup.Item)<{ $pressed: boolean }>(
+  ({ theme, $pressed }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ${theme.spacing.xs};
+    padding: ${`${theme.spacing.md} ${theme.spacing.lg}`};
+    border-radius: ${theme.radii.round};
+    border: 1px solid ${$pressed ? theme.colors.primary : theme.colors.border};
+    background: ${$pressed ? theme.colors.primaryMuted : theme.colors.surface};
+    color: ${$pressed ? theme.colors.primary : theme.colors.text};
+    font-weight: ${theme.typography.fontWeight.medium};
+    cursor: pointer;
+    transition: all 0.15s ease;
 
-  &:hover {
-    background: ${({ theme, $active, $disabled }) => {
-      if ($disabled) return undefined;
-      return $active ? theme.colors.primaryMuted : theme.colors.surfaceHover;
-    }};
-  }
+    &:hover {
+      background: ${$pressed ? theme.colors.primaryMuted : theme.colors.surfaceHover};
+    }
 
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
-`;
+    &[data-state='on'] {
+      background: ${theme.colors.primaryMuted};
+      color: ${theme.colors.primary};
+      border-color: ${theme.colors.primary};
+    }
 
-const ModeToggleGroup = styled(ToggleGroup.Root)`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-  flex-wrap: wrap;
-`;
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.primary};
+      outline-offset: 2px;
+    }
+  `,
+);
 
-const ModeToggle = styled(ToggleGroup.Item)<{ $pressed: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs};
-  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`};
-  border-radius: ${({ theme }) => theme.radii.round};
-  border: 1px solid
-    ${({ theme, $pressed }) => ($pressed ? theme.colors.primary : theme.colors.border)};
-  background: ${({ theme, $pressed }) =>
-    $pressed ? theme.colors.primaryMuted : theme.colors.surface};
-  color: ${({ theme, $pressed }) => ($pressed ? theme.colors.primary : theme.colors.text)};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.medium};
-  cursor: pointer;
-  transition: all 0.15s ease;
+const DifficultyRadioGroup = styled(RadioGroup.Root)(
+  ({ theme }) => css`
+    display: flex;
+    gap: ${theme.spacing.sm};
+  `,
+);
 
-  &:hover {
-    background: ${({ theme, $pressed }) =>
-      $pressed ? theme.colors.primaryMuted : theme.colors.surfaceHover};
-  }
+const DifficultyItem = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacing.sm};
+  `,
+);
 
-  &[data-state='on'] {
-    background: ${({ theme }) => theme.colors.primaryMuted};
-    color: ${({ theme }) => theme.colors.primary};
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
+const DifficultyRadio = styled(RadioGroup.Item)(
+  ({ theme }) => css`
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: ${theme.radii.round};
+    border: 2px solid ${theme.colors.borderStrong};
+    background: ${theme.colors.surface};
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
-`;
+    &:focus-visible {
+      outline: 2px solid ${theme.colors.primary};
+      outline-offset: 2px;
+    }
 
-const DifficultyRadioGroup = styled(RadioGroup.Root)`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
+    &[data-state='checked'] {
+      border-color: ${theme.colors.primary};
+    }
+  `,
+);
 
-const DifficultyItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-`;
+const DifficultyIndicator = styled(RadioGroup.Indicator)(
+  ({ theme }) => css`
+    display: block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: ${theme.radii.round};
+    background: ${theme.colors.primary};
+    margin: auto;
+  `,
+);
 
-const DifficultyRadio = styled(RadioGroup.Item)`
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: ${({ theme }) => theme.radii.round};
-  border: 2px solid ${({ theme }) => theme.colors.borderStrong};
-  background: ${({ theme }) => theme.colors.surface};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const DifficultyLabel = styled.label<{ $active: boolean }>(
+  ({ theme, $active }) => css`
+    color: ${$active ? theme.colors.primary : theme.colors.text};
+    cursor: pointer;
+  `,
+);
 
-  &:focus-visible {
-    outline: 2px solid ${({ theme }) => theme.colors.primary};
-    outline-offset: 2px;
-  }
+const ModeToggleContent = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ${theme.spacing.xs};
+  `,
+);
 
-  &[data-state='checked'] {
-    border-color: ${({ theme }) => theme.colors.primary};
-  }
-`;
-
-const DifficultyIndicator = styled(RadioGroup.Indicator)`
-  display: block;
-  width: 0.6rem;
-  height: 0.6rem;
-  border-radius: ${({ theme }) => theme.radii.round};
-  background: ${({ theme }) => theme.colors.primary};
-  margin: auto;
-`;
-
-const DifficultyLabel = styled.label<{ $active: boolean }>`
-  color: ${({ theme, $active }) => ($active ? theme.colors.primary : theme.colors.text)};
-  cursor: pointer;
-`;
-
-const EmptyState = styled.p`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.textMuted};
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-`;
-
-const ModeToggleContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.xs};
-`;
-
-const ModeToggleDescription = styled.span`
-  font-size: ${({ theme }) => theme.typography.fontSize.sm};
-  color: ${({ theme }) => theme.colors.textMuted};
-  text-align: center;
-`;
+const ModeToggleDescription = styled.span(
+  ({ theme }) => css`
+    font-size: ${theme.typography.fontSize.sm};
+    color: ${theme.colors.textMuted};
+    text-align: center;
+  `,
+);
 
 /* ------------------------------------------------------------------ */
 /*  Sub-components                                                    */
@@ -254,9 +248,9 @@ const YearSection = ({
 
   return (
     <Card>
-      <YearTitle>
+      <Typography $variant="h3">
         {t('yearLabel')} {year.year}
-      </YearTitle>
+      </Typography>
       <ChapterGrid>
         {year.chapters.map((chapter) => {
           const active =
@@ -357,19 +351,25 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
   if (years.length === 0) {
     return (
       <Page>
-        <Title>{t('title')}</Title>
-        <EmptyState>{t('noChaptersAvailable')}</EmptyState>
+        <Typography $variant="h1" $centered>
+          {t('title')}
+        </Typography>
+        <Typography $variant="light" $centered>
+          {t('noChaptersAvailable')}
+        </Typography>
       </Page>
     );
   }
 
   return (
     <Page>
-      <Title>{t('title')}</Title>
+      <Typography $variant="h1" $centered>
+        {t('title')}
+      </Typography>
 
       {/* Mode toggles */}
       <Section>
-        <SectionLabel>{t('mode')}</SectionLabel>
+        <Typography $variant="h2">{t('mode')}</Typography>
         <ModeToggleGroup
           type="single"
           value={mode}
@@ -403,7 +403,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
 
       {/* Chapter list grouped by year */}
       <Section>
-        <SectionLabel>{t('title')}</SectionLabel>
+        <Typography $variant="h2">{t('title')}</Typography>
         {years.map((year) => (
           <YearSection
             key={year.id}
@@ -418,7 +418,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
 
       {/* Difficulty selector */}
       <Section>
-        <SectionLabel>{t('difficulty')}</SectionLabel>
+        <Typography $variant="h2">{t('difficulty')}</Typography>
         <DifficultyRadioGroup
           value={difficulty}
           onValueChange={handleDifficultyChange}

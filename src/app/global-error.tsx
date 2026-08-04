@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider, css } from 'styled-components';
 
 import { Button } from '@/components/common/Button.tsx';
 import { Typography } from '@/components/common/Typography.tsx';
@@ -15,27 +15,28 @@ type GlobalErrorProps = {
 
 const t = (key: keyof typeof frMessages.errors) => frMessages.errors[key];
 
-const StyledBody = styled.body`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  margin: 0;
-  font-family: ${({ theme }) => theme.typography.fontFamily.base};
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  text-align: center;
-  padding: ${({ theme }) => theme.spacing.xl};
-`;
+const StyledBody = styled.body(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: ${theme.typography.fontFamily.base};
+    background-color: ${theme.colors.background};
+    color: ${theme.colors.text};
+    text-align: center;
+    padding: ${theme.spacing.xl};
+  `,
+);
 
-const ErrorDescription = styled.p`
-  font-size: ${({ theme }) => theme.typography.fontSize.md};
-  color: ${({ theme }) => theme.colors.textMuted};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  max-width: 480px;
-  line-height: ${({ theme }) => theme.typography.lineHeight.relaxed};
-`;
+const DescriptionWrapper = styled.div(
+  ({ theme }) => css`
+    margin-bottom: ${theme.spacing.xl};
+    max-width: 480px;
+  `,
+);
 
 /**
  * Global error boundary lives outside the locale layout, so we import the
@@ -53,7 +54,9 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
           <Typography $variant="h1" $color="error">
             {t('dataLoadFailure')}
           </Typography>
-          <ErrorDescription>{t('dataLoadFailureDescription')}</ErrorDescription>
+          <DescriptionWrapper>
+            <Typography $variant="light">{t('dataLoadFailureDescription')}</Typography>
+          </DescriptionWrapper>
           <Button $variant="primary" onClick={reset} type="button">
             {t('retryLabel')}
           </Button>

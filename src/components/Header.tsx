@@ -1,22 +1,24 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { SafeImage } from './common/SafeImage.tsx';
 
-const HeaderContainer = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: ${({ theme }) => theme.spacing.md};
-  background-color: ${({ theme }) => theme.colors.surface};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  box-shadow: ${({ theme }) => theme.shadows.sm};
-  position: sticky;
-  top: 0;
-  z-index: ${({ theme }) => theme.zIndex.sticky};
-`;
+const HeaderContainer = styled.header(
+  ({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${theme.spacing.md};
+    background-color: ${theme.colors.surface};
+    border-bottom: 1px solid ${theme.colors.border};
+    box-shadow: ${theme.shadows.sm};
+    position: sticky;
+    top: 0;
+    z-index: ${theme.zIndex.sticky};
+  `,
+);
 
 const LogoLink = styled.a`
   display: flex;
@@ -28,12 +30,14 @@ const LogoLink = styled.a`
   }
 `;
 
-const LogoText = styled.span`
-  margin-left: ${({ theme }) => theme.spacing.sm};
-  font-size: ${({ theme }) => theme.typography.fontSize.lg};
-  font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
-`;
+const LogoText = styled.span(
+  ({ theme }) => css`
+    margin-left: ${theme.spacing.sm};
+    font-size: ${theme.typography.fontSize.lg};
+    font-weight: ${theme.typography.fontWeight.bold};
+    color: ${theme.colors.primary};
+  `,
+);
 
 export const Header = () => {
   const t = useTranslations('header');

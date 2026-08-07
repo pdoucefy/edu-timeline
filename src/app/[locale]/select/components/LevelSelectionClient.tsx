@@ -418,16 +418,18 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
           {t('title')}
         </Typography>
         <table>
-          {years.map((year) => (
-            <YearSection
-              key={year.id}
-              year={year}
-              selectedYearId={selectedYearId}
-              selectedChapterNumber={selectedChapterNumber}
-              disabled={mode === Mode.ForFun}
-              onSelectChapter={handleChapterClick}
-            />
-          ))}
+          <tbody>
+            {years.map((year) => (
+              <YearSection
+                key={year.id}
+                year={year}
+                selectedYearId={selectedYearId}
+                selectedChapterNumber={selectedChapterNumber}
+                disabled={mode === Mode.ForFun}
+                onSelectChapter={handleChapterClick}
+              />
+            ))}
+          </tbody>
         </table>
       </Section>
 

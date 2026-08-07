@@ -1,16 +1,16 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 import { SafeImage } from './common/SafeImage.tsx';
 
 const HeaderContainer = styled.header(
   ({ theme }) => css`
+    height: 64px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: ${theme.spacing.md};
     background-color: ${theme.colors.surface};
     border-bottom: 1px solid ${theme.colors.border};
     box-shadow: ${theme.shadows.sm};
@@ -20,15 +20,26 @@ const HeaderContainer = styled.header(
   `,
 );
 
-const LogoLink = styled.a`
-  display: flex;
-  align-items: center;
-  transition: opacity 0.2s ease;
+const StyledLink = styled(Link)(
+  ({ theme }) => css`
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+    height: 100%;
+    padding: ${theme.spacing.sm};
 
-  &:hover {
-    opacity: 0.8;
-  }
-`;
+    &:hover {
+      opacity: 0.5;
+      background-color: ${theme.colors.surfaceActive};
+    }
+  `,
+);
+
+const LogoLink = styled(StyledLink)(
+  ({ theme }) => css`
+    border-right: 1px solid ${theme.colors.border};
+  `,
+);
 
 const LogoText = styled.span(
   ({ theme }) => css`
@@ -40,14 +51,23 @@ const LogoText = styled.span(
 );
 
 export const Header = () => {
-  const t = useTranslations('header');
+  const t = useTranslations('common');
 
   return (
     <HeaderContainer>
       <LogoLink href="https://coopcvm.com/" target="_blank" rel="noopener noreferrer">
-        <SafeImage src="/logo-coopcvm.png" alt={t('logoAlt')} width={40} height={40} priority />
-        <LogoText>{t('logoText')}</LogoText>
+        <SafeImage
+          src="/logo-coopcvm.png"
+          alt={t('logoText')}
+          title={t('logoText')}
+          width={40}
+          height={40}
+          preload
+        />
       </LogoLink>
+      <StyledLink href="/" rel="noopener noreferrer">
+        <LogoText>{t('appName')}</LogoText>
+      </StyledLink>
     </HeaderContainer>
   );
 };

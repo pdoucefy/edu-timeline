@@ -1,0 +1,15 @@
+# Remaining Todos
+
+- scrolling vertically shouldn't be possible
+- weird background color when scrolling up/down
+- update description for the different modes
+- check mode "résumé" works as intended
+- add descriptions to difficulty levels?
+- change colors and theming
+- update favicon
+- add pre-commit hooks
+- have "multi-select" in selection page?
+- event date mismatch (Début de la Guerre de Cent Ans display as 1336)
+- can failed event on game over screen be out of view (ie gotta scroll to see it)? If yes -> scroll into view upon game over
+- disable clicking on timeline "hotspots" when game is over
+- rename "Frise Chrono" to final title (and other branding)

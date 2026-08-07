@@ -5,10 +5,7 @@
     "backToHome": "Retour à l'accueil",
     "loading": "Chargement…",
     "dismiss": "Fermer",
-    "genericError": "Une erreur est survenue. Veuillez réessayer."
-  },
-  "header": {
-    "logoAlt": "Logo CoopCVM — Coopérative de solidarité en éducation",
+    "genericError": "Une erreur est survenue. Veuillez réessayer.",
     "logoText": "CoopCVM"
   },
   "home": {

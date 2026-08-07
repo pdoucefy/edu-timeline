@@ -9,7 +9,6 @@ import { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Button } from '@/components/common/Button.tsx';
-import { Card } from '@/components/common/Card.tsx';
 import { Page } from '@/components/common/Page.tsx';
 import { Typography } from '@/components/common/Typography.tsx';
 import {
@@ -18,6 +17,7 @@ import {
   serializeChapters,
 } from '@/game/resolveSelectedChapters.ts';
 import type { DifficultyLevel, ID, SchoolYear } from '@/types';
+import { Mode } from '@/types/mode.ts';
 
 /* ------------------------------------------------------------------ */
 /*  Styled components                                                 */
@@ -27,21 +27,20 @@ const Section = styled.section(
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: ${theme.spacing.md};
+    gap: ${theme.spacing.sm};
   `,
 );
 
-const ChapterGrid = styled.div(
+const ChapterGroup = styled.td(
   ({ theme }) => css`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    display: flex;
     gap: ${theme.spacing.sm};
   `,
 );
 
 const ChapterButton = styled.button<{ $active: boolean; $disabled?: boolean }>(
   ({ theme, $active, $disabled }) => css`
-    padding: ${`${theme.spacing.sm} ${theme.spacing.md}`};
+    padding: ${theme.spacing.sm};
     border-radius: ${theme.radii.md};
     border: 1px solid ${$active ? theme.colors.primary : theme.colors.border};
     background: ${$active ? theme.colors.primaryMuted : theme.colors.surface};
@@ -70,7 +69,8 @@ const ModeToggleGroup = styled(ToggleGroup.Root)(
   ({ theme }) => css`
     display: flex;
     gap: ${theme.spacing.sm};
-    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-wrap: nowrap;
   `,
 );
 
@@ -80,8 +80,8 @@ const ModeToggle = styled(ToggleGroup.Item)<{ $pressed: boolean }>(
     flex-direction: column;
     align-items: center;
     gap: ${theme.spacing.xs};
-    padding: ${`${theme.spacing.md} ${theme.spacing.lg}`};
-    border-radius: ${theme.radii.round};
+    padding: ${theme.spacing.md};
+    border-radius: ${theme.radii.xl};
     border: 1px solid ${$pressed ? theme.colors.primary : theme.colors.border};
     background: ${$pressed ? theme.colors.primaryMuted : theme.colors.surface};
     color: ${$pressed ? theme.colors.primary : theme.colors.text};
@@ -173,7 +173,7 @@ const ModeToggleContent = styled.div(
 
 const ModeToggleDescription = styled.span(
   ({ theme }) => css`
-    font-size: ${theme.typography.fontSize.sm};
+    font-size: ${theme.typography.fontSize.xs};
     color: ${theme.colors.textMuted};
     text-align: center;
   `,
@@ -247,11 +247,13 @@ const YearSection = ({
   );
 
   return (
-    <Card>
-      <Typography $variant="h3">
-        {t('yearLabel')} {year.year}
-      </Typography>
-      <ChapterGrid>
+    <tr>
+      <td>
+        <Typography $variant="light">
+          {t('yearLabel')} {year.year}
+        </Typography>
+      </td>
+      <ChapterGroup>
         {year.chapters.map((chapter) => {
           const active =
             selectedYearId === year.id && selectedChapterNumber === chapter.chapterNumber;
@@ -266,8 +268,8 @@ const YearSection = ({
             />
           );
         })}
-      </ChapterGrid>
-    </Card>
+      </ChapterGroup>
+    </tr>
   );
 };
 
@@ -284,7 +286,7 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
   const t = useTranslations('select');
   const router = useRouter();
 
-  const [mode, setMode] = useState<'single' | 'summary' | 'forFun'>('single');
+  const [mode, setMode] = useState<Mode>(Mode.Single);
   const [selectedYearId, setSelectedYearId] = useState<ID | null>(null);
   const [selectedChapterNumber, setSelectedChapterNumber] = useState<number | null>(null);
   const [difficulty, setDifficulty] = useState<DifficultyLevel>('easy');
@@ -294,23 +296,21 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
       setSelectedYearId(yearId);
       setSelectedChapterNumber(chapterNumber);
       // If for-fun was active, switch back to single when a chapter is explicitly picked.
-      if (mode === 'forFun') {
-        setMode('single');
-      }
+      if (mode === Mode.ForFun) setMode(Mode.Single);
     },
     [mode],
   );
 
   const handleModeChange = useCallback((value: string) => {
     if (!value) return; // prevent unselecting the active mode
-    if (value === 'summary') {
-      setMode('summary');
-    } else if (value === 'forFun') {
-      setMode('forFun');
+    if (value === Mode.Summary) {
+      setMode(Mode.Summary);
+    } else if (value === Mode.ForFun) {
+      setMode(Mode.ForFun);
       setSelectedYearId(null);
       setSelectedChapterNumber(null);
     } else {
-      setMode('single');
+      setMode(Mode.Single);
     }
   }, []);
 
@@ -321,13 +321,13 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
   const handleStart = useCallback(() => {
     let selection: SelectionDescriptor;
 
-    if (mode === 'forFun') {
-      selection = { mode: 'forFun' };
+    if (mode === Mode.ForFun) {
+      selection = { mode: Mode.ForFun };
     } else if (selectedYearId !== null && selectedChapterNumber !== null) {
       selection =
-        mode === 'summary'
-          ? { mode: 'summary', yearId: selectedYearId, chapterNumber: selectedChapterNumber }
-          : { mode: 'single', yearId: selectedYearId, chapterNumber: selectedChapterNumber };
+        mode === Mode.Summary
+          ? { mode: Mode.Summary, yearId: selectedYearId, chapterNumber: selectedChapterNumber }
+          : { mode: Mode.Single, yearId: selectedYearId, chapterNumber: selectedChapterNumber };
     } else {
       // Nothing selected yet — do not navigate.
       return;
@@ -346,7 +346,8 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
     router.push(`/${locale}/play?${query.toString()}`);
   }, [mode, selectedYearId, selectedChapterNumber, difficulty, years, locale, router]);
 
-  const canStart = mode === 'forFun' || (selectedYearId !== null && selectedChapterNumber !== null);
+  const canStart =
+    mode === Mode.ForFun || (selectedYearId !== null && selectedChapterNumber !== null);
 
   if (years.length === 0) {
     return (
@@ -369,14 +370,20 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
 
       {/* Mode toggles */}
       <Section>
-        <Typography $variant="h2">{t('mode')}</Typography>
+        <Typography $variant="h3" $color="textMuted">
+          {t('mode')}
+        </Typography>
         <ModeToggleGroup
           type="single"
           value={mode}
           onValueChange={handleModeChange}
           aria-label={t('mode')}
         >
-          <ModeToggle value="single" $pressed={mode === 'single'} aria-pressed={mode === 'single'}>
+          <ModeToggle
+            value="single"
+            $pressed={mode === Mode.Single}
+            aria-pressed={mode === Mode.Single}
+          >
             <ModeToggleContent>
               <span>{t('standardToggle')}</span>
               <ModeToggleDescription>{t('standardDescription')}</ModeToggleDescription>
@@ -384,15 +391,19 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
           </ModeToggle>
           <ModeToggle
             value="summary"
-            $pressed={mode === 'summary'}
-            aria-pressed={mode === 'summary'}
+            $pressed={mode === Mode.Summary}
+            aria-pressed={mode === Mode.Summary}
           >
             <ModeToggleContent>
               <span>{t('summaryToggle')}</span>
               <ModeToggleDescription>{t('summaryDescription')}</ModeToggleDescription>
             </ModeToggleContent>
           </ModeToggle>
-          <ModeToggle value="forFun" $pressed={mode === 'forFun'} aria-pressed={mode === 'forFun'}>
+          <ModeToggle
+            value="forFun"
+            $pressed={mode === Mode.ForFun}
+            aria-pressed={mode === Mode.ForFun}
+          >
             <ModeToggleContent>
               <span>{t('forFunToggle')}</span>
               <ModeToggleDescription>{t('forFunDescription')}</ModeToggleDescription>
@@ -403,22 +414,28 @@ export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProp
 
       {/* Chapter list grouped by year */}
       <Section>
-        <Typography $variant="h2">{t('title')}</Typography>
-        {years.map((year) => (
-          <YearSection
-            key={year.id}
-            year={year}
-            selectedYearId={selectedYearId}
-            selectedChapterNumber={selectedChapterNumber}
-            disabled={mode === 'forFun'}
-            onSelectChapter={handleChapterClick}
-          />
-        ))}
+        <Typography $variant="h3" $color="textMuted">
+          {t('title')}
+        </Typography>
+        <table>
+          {years.map((year) => (
+            <YearSection
+              key={year.id}
+              year={year}
+              selectedYearId={selectedYearId}
+              selectedChapterNumber={selectedChapterNumber}
+              disabled={mode === Mode.ForFun}
+              onSelectChapter={handleChapterClick}
+            />
+          ))}
+        </table>
       </Section>
 
       {/* Difficulty selector */}
       <Section>
-        <Typography $variant="h2">{t('difficulty')}</Typography>
+        <Typography $variant="h3" $color="textMuted">
+          {t('difficulty')}
+        </Typography>
         <DifficultyRadioGroup
           value={difficulty}
           onValueChange={handleDifficultyChange}

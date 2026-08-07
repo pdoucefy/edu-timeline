@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // eslint-disable-next-line import/order
 import type { Event } from '@/types/event.ts';
@@ -33,16 +33,17 @@ const TimelineContainer = styled.div`
   justify-content: center;
   width: 100%;
   overflow-x: auto;
-  padding: ${({ theme }) => theme.spacing.md} 0;
 `;
 
-const TimelineTrack = styled.div`
-  display: flex;
-  align-items: stretch;
-  gap: ${({ theme }) => theme.spacing.md};
-  min-width: min-content;
-  padding: ${({ theme }) => theme.spacing.md};
-`;
+const TimelineTrack = styled.div(
+  ({ theme }) => css`
+    display: flex;
+    align-items: stretch;
+    gap: ${theme.spacing.md};
+    min-width: min-content;
+    padding: ${theme.spacing.md};
+  `,
+);
 
 export const Timeline = React.memo((props: TimelineProps) => {
   const { events, activeSlotIndex, onSlotClick, getSlotProps, failedEventId } = props;

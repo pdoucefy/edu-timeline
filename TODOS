@@ -1,7 +1,7 @@
 # Remaining Todos
 
-- scrolling vertically shouldn't be possible
-- weird background color when scrolling up/down
+- center title screen subtitle text
+- test on different screen sizes
 - update description for the different modes
 - check mode "résumé" works as intended
 - add descriptions to difficulty levels?

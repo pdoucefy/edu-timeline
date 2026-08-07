@@ -23,16 +23,13 @@ export type EndOfGameScreenProps = {
     }
 );
 
-const Container = styled.section(
-  ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: ${theme.spacing.xl};
-    text-align: center;
-  `,
-);
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`;
 
 const Message = styled.div(
   ({ theme }) => css`

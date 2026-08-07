@@ -12,18 +12,14 @@ const HeroSection = styled.section(
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 73px);
-    padding: ${theme.spacing.xl};
     text-align: center;
+    gap: ${theme.spacing.lg};
   `,
 );
 
-const Subtitle = styled.div(
-  ({ theme }) => css`
-    margin-bottom: ${theme.spacing.xxl};
-    max-width: 540px;
-  `,
-);
+const Subtitle = styled.div`
+  max-width: 540px;
+`;
 
 const Home = () => {
   const t = useTranslations('home');
@@ -34,6 +30,7 @@ const Home = () => {
       <Subtitle>
         <Typography $variant="light">{t('heroSubtitle')}</Typography>
       </Subtitle>
+      <div />
       <Button $variant="link" href="/select">
         {t('startButton')}
       </Button>

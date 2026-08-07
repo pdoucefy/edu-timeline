@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { Card } from '@/components/common/Card.tsx';
 import { SafeImage } from '@/components/common/SafeImage.tsx';
 import { PLACEHOLDER_IMAGE_PATH, resolveImagePath } from '@/data/loader.ts';
 import type { Event } from '@/types/event.ts';
@@ -29,8 +28,6 @@ const Content = styled.div(
     display: flex;
     flex-direction: column;
     gap: ${theme.spacing.xs};
-    padding: ${theme.spacing.md};
-    min-height: 6rem;
     justify-content: center;
   `,
 );
@@ -55,11 +52,32 @@ const DateLabel = styled.span(
   `,
 );
 
-const imageStyle = { objectFit: 'cover' as const };
+const imageStyle = {
+  objectFit: 'cover' as const,
+  userSelect: 'none' as const,
+  pointerEvents: 'none' as const,
+};
 
-const CardWrapper = styled.div`
-  width: 280px;
-`;
+const Card = styled.div<{ $failed?: boolean }>(
+  ({ theme, $failed }) => css`
+    display: flex;
+    flex-direction: column;
+    border-radius: ${theme.radii.lg};
+    background-color: ${theme.colors.surface};
+    border: 1px solid ${theme.colors.border};
+    box-shadow: ${theme.shadows.sm};
+    padding: ${theme.spacing.lg};
+    gap: ${theme.spacing.md};
+    overflow: hidden;
+    width: 280px;
+
+    ${$failed &&
+    css`
+      border: 2px solid ${theme.colors.error};
+      box-shadow: 0 0 12px ${theme.colors.errorMuted};
+    `}
+  `,
+);
 
 export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
   const t = useTranslations('game');
@@ -76,25 +94,22 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
     : errorsT('missingImageAlt', { eventName: event.name });
 
   return (
-    <CardWrapper>
-      <Card $failed={isFailed}>
-        <ImageWrapper>
-          <SafeImage
-            src={resolveImagePath(event.fileName)}
-            fallbackSrc={PLACEHOLDER_IMAGE_PATH}
-            alt={altText}
-            fill
-            imageName={event.name}
-            onFallback={handleImageError}
-            sizes="280px"
-            style={imageStyle}
-          />
-        </ImageWrapper>
-        <Content>
-          <EventName>{event.name}</EventName>
-          <DateLabel>{revealed ? `${t('yearLabel')} ${event.date.getFullYear()}` : '?'}</DateLabel>
-        </Content>
-      </Card>
-    </CardWrapper>
+    <Card $failed={isFailed}>
+      <ImageWrapper>
+        <SafeImage
+          src={resolveImagePath(event.fileName)}
+          fallbackSrc={PLACEHOLDER_IMAGE_PATH}
+          alt={altText}
+          fill
+          imageName={event.name}
+          onFallback={handleImageError}
+          style={imageStyle}
+        />
+      </ImageWrapper>
+      <Content>
+        <EventName>{event.name}</EventName>
+        <DateLabel>{revealed ? `${t('yearLabel')} ${event.date.getFullYear()}` : '?'}</DateLabel>
+      </Content>
+    </Card>
   );
 };

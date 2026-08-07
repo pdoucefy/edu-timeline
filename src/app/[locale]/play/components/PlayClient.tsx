@@ -22,9 +22,7 @@ const GameSurface = ({ originalPool }: { originalPool: Event[] }) => {
   const t = useTranslations('game');
   const { state, placeCurrent, startGame } = useGame();
 
-  const handlePlayAgain = () => {
-    startGame(originalPool);
-  };
+  const handlePlayAgain = () => startGame(originalPool);
 
   if (state.status === 'idle') return null;
 
@@ -38,7 +36,7 @@ const GameSurface = ({ originalPool }: { originalPool: Event[] }) => {
           <Typography $variant="h1" $centered>
             {t('placeEventPrompt')}
           </Typography>
-          <Typography $variant="light">
+          <Typography $variant="light" $color="textMuted">
             {t('eventCounter', { current: placedSoFar + 1, total: totalToPlace })}
           </Typography>
         </div>

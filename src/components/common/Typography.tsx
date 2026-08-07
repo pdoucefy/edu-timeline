@@ -23,7 +23,6 @@ const StyledHeader = styled.h1<TypographyProps>(
       font-size: ${theme.typography.fontSize[fontSize]};
       font-weight: ${theme.typography.fontWeight.bold};
       color: ${theme.colors[color]};
-      margin-bottom: ${theme.spacing.md};
       text-align: ${$centered ? 'center' : 'left'};
     `;
   },

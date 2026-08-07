@@ -1,43 +1,38 @@
 'use client';
 
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle`
-  html {
-    height: 100%;
-  }
+export const GlobalStyle = createGlobalStyle(
+  ({ theme }) => css`
+    html,
+    body {
+      max-width: 100vw;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      font-family: ${theme.typography.fontFamily.base};
 
-  html,
-  body {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-  body {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: ${({ theme }) => theme.typography.fontFamily.base};
-  }
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
 
-  * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  button,
-  input,
-  select,
-  textarea,
-  label {
-    font-family: inherit;
-  }
-`;
+    button,
+    input,
+    select,
+    textarea,
+    label {
+      font-family: inherit;
+    }
+  `,
+);

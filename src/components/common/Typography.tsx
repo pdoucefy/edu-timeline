@@ -43,7 +43,6 @@ type TypographyProps = PropsWithChildren<{
   $centered?: boolean;
 }>;
 
-// TODO: add different elements in "as" prop like Button.tsx?
 export const Typography = ({ children, ...props }: TypographyProps) => {
   switch (props.$variant) {
     case 'h1':

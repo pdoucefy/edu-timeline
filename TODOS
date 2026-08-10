@@ -1,11 +1,8 @@
 # Remaining Todos
 
-- center title screen subtitle text
-- test on different screen sizes
-- update description for the different modes
-- check mode "résumé" works as intended
 - add descriptions to difficulty levels?
 - change colors and theming
+- test on different screen sizes (after final event lists have been added)
 - update favicon
 - add pre-commit hooks
 - have "multi-select" in selection page?

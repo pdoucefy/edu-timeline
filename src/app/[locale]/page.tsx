@@ -28,7 +28,9 @@ const Home = () => {
     <HeroSection>
       <Typography $variant="h1">{t('heroTitle')}</Typography>
       <Subtitle>
-        <Typography $variant="light">{t('heroSubtitle')}</Typography>
+        <Typography $variant="light" $centered>
+          {t('heroSubtitle')}
+        </Typography>
       </Subtitle>
       <div />
       <Button $variant="link" href="/select">

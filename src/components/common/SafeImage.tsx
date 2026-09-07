@@ -12,11 +12,6 @@ type SafeImageProps = Omit<ImageProps, 'onError'> & {
   onFallback?: () => void;
 };
 
-/**
- * Wrapper around Next.js `<Image>` that falls back to a placeholder on error.
- * It logs a console warning and optionally calls a callback so consumers can
- * react (e.g. swap alt text to a placeholder description).
- */
 export const SafeImage = ({
   fallbackSrc = PLACEHOLDER_IMAGE_PATH,
   alt = '',
@@ -24,14 +19,16 @@ export const SafeImage = ({
   onFallback,
   ...props
 }: SafeImageProps) => {
+  const [hasError, setHasError] = useState(false);
+
   const originalSrc = typeof props.src === 'string' ? props.src : fallbackSrc;
-  const [src, setSrc] = useState<string | typeof props.src>(props.src);
+  const src = hasError ? fallbackSrc : props.src;
 
   const handleError = useCallback(() => {
     console.warn(`Failed to load image "${imageName || alt || 'unknown'}": ${originalSrc}`);
-    setSrc(fallbackSrc);
+    setHasError(true);
     onFallback?.();
-  }, [alt, fallbackSrc, imageName, onFallback, originalSrc]);
+  }, [alt, imageName, onFallback, originalSrc]);
 
   return <Image {...props} alt={alt} src={src} onError={handleError} />;
 };

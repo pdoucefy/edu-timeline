@@ -1,6 +1,7 @@
 # Remaining Todos
 
 - add descriptions to difficulty levels?
+- Consider adding a Date object in the Event type for more precise date handling (invalid dates for very ancient events), update tests
 - test on different screen sizes (after final event lists have been added)
 - add mode/year/chapter/difficulty info in game?
 - update favicon

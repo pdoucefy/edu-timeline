@@ -6,7 +6,6 @@ const event = (id: number): Event => ({
   id,
   name: `Event ${id}`,
   year: 2026,
-  fileName: `${id}.svg`,
 });
 
 const chapter = (id: number, easyIds: number[], hardIds: number[] = []): Chapter => ({

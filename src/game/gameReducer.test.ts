@@ -7,7 +7,6 @@ const event = (id: number, year: number): Event => ({
   id,
   name: `Event ${id}`,
   year,
-  fileName: `${id}.svg`,
 });
 
 // An already-sorted, deterministic pool. The reducer receives the pool exactly

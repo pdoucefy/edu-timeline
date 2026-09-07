@@ -9,8 +9,7 @@ import {
 const evt = (id: number, year: number): Event => ({
   id,
   name: `Event ${id}`,
-  date: new Date(year, 0, 1),
-  fileName: '',
+  year,
 });
 
 /**

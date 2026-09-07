@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "download-event-images": "tsx scripts/download-event-images.ts",
+    "replace-event-image": "tsx scripts/replace-event-image.ts",
     "prepare": "husky"
   },
   "dependencies": {

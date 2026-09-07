@@ -28,10 +28,6 @@ const IMAGE_QUALITY = 90;
  * The key is the event ID and the value is the exact Wikipedia article title.
  */
 const WIKIPEDIA_OVERRIDES: Record<number, string> = {
-  // ─────────────────────────────────────────────
-  // Section 1 — Préhistoire / Antiquité
-  // ─────────────────────────────────────────────
-
   1: 'Paléolithique inférieur',
   2: 'Homo habilis',
   3: 'Homo erectus',
@@ -94,11 +90,6 @@ const WIKIPEDIA_OVERRIDES: Record<number, string> = {
   51: 'Guerre de Cent Ans',
   52: 'Peste noire',
 
-  // ─────────────────────────────────────────────
-  // Section 2 — Renaissance / Réformes / Grandes
-  // découvertes
-  // ─────────────────────────────────────────────
-
   53: 'Géocentrisme',
   54: 'Johannes Gutenberg',
   55: 'Éloge de la folie',
@@ -123,10 +114,6 @@ const WIKIPEDIA_OVERRIDES: Record<number, string> = {
   71: 'Esclavage en Afrique',
   72: 'Tour du monde de Magellan',
 
-  // ─────────────────────────────────────────────
-  // Section 2 — Lumières / Révolutions
-  // ─────────────────────────────────────────────
-
   73: 'Siècle des Lumières',
   74: 'Boston Tea Party',
   75: "Guerre d'indépendance des États-Unis",
@@ -138,10 +125,6 @@ const WIKIPEDIA_OVERRIDES: Record<number, string> = {
   80: "Déclaration d'indépendance des États-Unis",
   81: 'Bataille de Yorktown',
   82: 'Terreur (Révolution française)',
-
-  // ─────────────────────────────────────────────
-  // Section 2 — Révolution industrielle
-  // ─────────────────────────────────────────────
 
   83: 'Machine à vapeur',
   84: 'Locomotive à vapeur',
@@ -155,10 +138,6 @@ const WIKIPEDIA_OVERRIDES: Record<number, string> = {
   91: 'Factory Act 1833',
   92: 'Salaire minimum',
 
-  // ─────────────────────────────────────────────
-  // Section 2 — Colonisation / Première Guerre mondiale
-  // ─────────────────────────────────────────────
-
   93: "Guerres d'indépendance en Amérique du Sud",
   94: 'Henry Morton Stanley',
   95: 'Conférence de Berlin',
@@ -171,10 +150,6 @@ const WIKIPEDIA_OVERRIDES: Record<number, string> = {
   101: 'Révolte des Héréros et des Namas',
   102: 'Crises marocaines',
 
-  // ─────────────────────────────────────────────
-  // Section 2 — Droits / Décolonisation
-  // ─────────────────────────────────────────────
-
   103: 'Droit de vote des femmes',
   104: "Déclaration universelle des droits de l'homme",
   105: "Indépendance de l'Inde",
@@ -186,21 +161,6 @@ const WIKIPEDIA_OVERRIDES: Record<number, string> = {
   110: 'Marche du sel',
   111: "Guerre d'Indochine",
   112: 'I Have a Dream',
-};
-
-/**
- * Alternative search terms for events where the event name itself isn't
- * a particularly good Wikipedia search query.
- *
- * These are only used for searching. They don't force a particular article.
- */
-const WIKIPEDIA_SEARCH_RENAMES: Record<number, string[]> = {
-  1: ['Paléolithique', 'Préhistoire'],
-
-  // Examples:
-  // 2: ['Homo habilis'],
-  // 3: ['Homo erectus'],
-  // 4: ['Homo sapiens'],
 };
 
 type WikipediaSearchResult = {
@@ -310,11 +270,9 @@ const cleanEventName = (name: string): string =>
  * Generate several search queries for an event.
  */
 const getSearchQueries = (event: Event): string[] => {
-  const renamedQueries = WIKIPEDIA_SEARCH_RENAMES[event.id] ?? [];
-
   const cleanedName = cleanEventName(event.name);
 
-  return [...renamedQueries, event.name, cleanedName].filter(
+  return [event.name, cleanedName].filter(
     (query, index, queries) =>
       query.length > 0 &&
       queries.findIndex((candidate) => normalizeText(candidate) === normalizeText(query)) === index,

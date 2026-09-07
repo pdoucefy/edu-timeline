@@ -1,7 +1,6 @@
+import type { Event } from '@/types/event.ts';
+
 export const PLACEHOLDER_IMAGE_PATH = '/events/placeholder.svg';
 
-export const resolveImagePath = (fileName: string): string => {
-  if (!fileName) return PLACEHOLDER_IMAGE_PATH;
-  if (fileName.startsWith('/')) return fileName;
-  return `/events/${fileName}`;
-};
+export const resolveImagePath = (event: Event): string =>
+  `/events/${String(event.id).padStart(3, '0')}.jpg`;

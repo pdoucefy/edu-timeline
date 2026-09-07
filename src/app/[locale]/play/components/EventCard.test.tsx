@@ -17,7 +17,6 @@ const baseEvent: Event = {
   id: 1,
   name: 'Bataille de Vouillé',
   year: 507,
-  fileName: 'battle.jpg',
 };
 
 const renderWithTheme = (ui: React.ReactElement) =>
@@ -48,9 +47,7 @@ describe('EventCard', () => {
     const img = screen.getByRole('img');
     fireEvent.error(img);
 
-    expect(warn).toHaveBeenCalledWith(
-      'Failed to load image for event "Bataille de Vouillé": battle.jpg',
-    );
+    expect(warn).toHaveBeenCalledWith('Failed to load image for event "Bataille de Vouillé"');
     warn.mockRestore();
   });
 

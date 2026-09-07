@@ -22,9 +22,9 @@ jest.mock('next/image', () => ({
 }));
 
 const events: Event[] = [
-  { id: 1, name: 'First Event', year: 1000, fileName: 'first.jpg' },
-  { id: 2, name: 'Second Event', year: 1500, fileName: 'second.jpg' },
-  { id: 3, name: 'Third Event', year: 2000, fileName: 'third.jpg' },
+  { id: 1, name: 'First Event', year: 1000 },
+  { id: 2, name: 'Second Event', year: 1500 },
+  { id: 3, name: 'Third Event', year: 2000 },
 ];
 
 const renderWithTheme = (ui: React.ReactElement) =>

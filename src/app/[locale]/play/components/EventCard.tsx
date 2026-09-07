@@ -84,9 +84,9 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
   const [isFallback, setIsFallback] = useState(false);
 
   const handleImageError = useCallback(() => {
-    console.warn(`Failed to load image for event "${event.name}": ${event.fileName}`);
+    console.warn(`Failed to load image for event "${event.name}"`);
     setIsFallback(true);
-  }, [event.name, event.fileName]);
+  }, [event.name]);
 
   const altText = isFallback
     ? errorsT('imagePlaceholder')
@@ -96,7 +96,7 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
     <Card $failed={isFailed}>
       <ImageWrapper>
         <SafeImage
-          src={resolveImagePath(event.fileName)}
+          src={resolveImagePath(event)}
           fallbackSrc={PLACEHOLDER_IMAGE_PATH}
           alt={altText}
           fill

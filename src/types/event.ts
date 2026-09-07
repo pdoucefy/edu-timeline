@@ -6,5 +6,4 @@ export type Event = {
   year: number;
   // TODO: Consider adding a Date object for more precise date handling (invalid dates for very ancient events)
   // date: Date;
-  fileName: string;
 };

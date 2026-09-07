@@ -26,11 +26,11 @@ export type TimelineProps = {
   getSlotProps?: (index: number) => SlotInjection;
   /** If provided, the event with this id is rendered as the failed (misplaced) card. */
   failedEventId?: number;
+  gameStatus?: 'playing' | 'won' | 'lost';
 };
 
 const TimelineContainer = styled.div`
   display: flex;
-  justify-content: center;
   width: 100%;
   overflow-x: auto;
 `;
@@ -42,11 +42,19 @@ const TimelineTrack = styled.div(
     gap: ${theme.spacing.md};
     min-width: min-content;
     padding: ${theme.spacing.md};
+    margin: auto;
   `,
 );
 
 export const Timeline = React.memo((props: TimelineProps) => {
-  const { events, activeSlotIndex, onSlotClick, getSlotProps, failedEventId } = props;
+  const {
+    events,
+    activeSlotIndex,
+    onSlotClick,
+    getSlotProps,
+    failedEventId,
+    gameStatus = 'playing',
+  } = props;
   const slotsCount = events.length + 1;
 
   return (
@@ -56,14 +64,16 @@ export const Timeline = React.memo((props: TimelineProps) => {
           const injected = getSlotProps?.(i);
           return (
             <React.Fragment key={`slot-${i}`}>
-              <DropZone
-                index={i}
-                isActive={activeSlotIndex === i}
-                onClick={onSlotClick}
-                data-testid={`slot-${i}`}
-                dropRef={injected?.dropRef}
-                dropAttributes={injected?.dropAttributes}
-              />
+              {gameStatus === 'playing' && (
+                <DropZone
+                  index={i}
+                  isActive={activeSlotIndex === i}
+                  onClick={onSlotClick}
+                  data-testid={`slot-${i}`}
+                  dropRef={injected?.dropRef}
+                  dropAttributes={injected?.dropAttributes}
+                />
+              )}
               {events[i] && (
                 <EventCard
                   key={`event-${events[i].id}`}

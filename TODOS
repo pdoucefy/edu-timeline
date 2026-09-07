@@ -1,13 +1,10 @@
 # Remaining Todos
 
 - add descriptions to difficulty levels?
-- Consider adding a Date object in the Event type for more precise date handling (invalid dates for very ancient events), update tests
-- test on different screen sizes (after final event lists have been added)
+- test on different screen sizes
+- consider adding a Date object in the Event type for more precise date handling (invalid dates for very ancient events), update tests
 - add mode/year/chapter/difficulty info in game?
 - update favicon
 - add pre-commit hooks
 - have "multi-select" in selection page?
-- event date mismatch (Début de la Guerre de Cent Ans display as 1336)
-- can failed event on game over screen be out of view (ie gotta scroll to see it)? If yes -> scroll into view upon game over
-- disable clicking on timeline "hotspots" when game is over
 - rename "Frise Chrono" to final title (and other branding)

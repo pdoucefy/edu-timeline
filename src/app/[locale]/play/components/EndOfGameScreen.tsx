@@ -35,6 +35,7 @@ const Message = styled.div(
   ({ theme }) => css`
     margin-bottom: ${theme.spacing.xl};
     max-width: 480px;
+    color: ${theme.colors.textMuted};
   `,
 );
 

@@ -230,10 +230,12 @@ export const DragDropTimeline = ({
 
   const registrars = useMemo(
     () =>
-      Array.from({ length: displaySlotCount }, (_, i) => (
-        <SlotDroppable key={`droppable-${i}`} index={i} onReady={registerInjection} />
-      )),
-    [displaySlotCount, registerInjection],
+      gameStatus === 'playing'
+        ? Array.from({ length: displaySlotCount }, (_, i) => (
+            <SlotDroppable key={`droppable-${i}`} index={i} onReady={registerInjection} />
+          ))
+        : [],
+    [displaySlotCount, registerInjection, gameStatus],
   );
 
   return (
@@ -276,6 +278,7 @@ export const DragDropTimeline = ({
           onSlotClick={handleSlotClick}
           getSlotProps={getSlotProps}
           failedEventId={failure?.misplacedEvent.id}
+          gameStatus={gameStatus}
         />
       </TimelineArea>
       <DragOverlay dropAnimation={{ duration: 200, easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)' }}>

@@ -3,22 +3,17 @@ import type { GameState } from '@/game/gameReducer.ts';
 import type { Event } from '@/types';
 
 /** Builds an event from a numeric id and an ISO date string. */
-const event = (id: number, iso: string): Event => ({
+const event = (id: number, year: number): Event => ({
   id,
   name: `Event ${id}`,
-  date: new Date(iso),
+  year,
   fileName: `${id}.svg`,
 });
 
 // An already-sorted, deterministic pool. The reducer receives the pool exactly
 // as passed (shuffling happens in the provider, never in the reducer), so tests
 // can rely on this ordering: seed = 2000, then 2010, 2020, 2030 are drawn.
-const orderedPool: Event[] = [
-  event(1, '2000-01-01T00:00:00Z'),
-  event(2, '2010-01-01T00:00:00Z'),
-  event(3, '2020-01-01T00:00:00Z'),
-  event(4, '2030-01-01T00:00:00Z'),
-];
+const orderedPool: Event[] = [event(1, 2000), event(2, 2010), event(3, 2020), event(4, 2030)];
 
 const startedState = (): GameState =>
   gameReducer(initialGameState, { type: 'START_GAME', pool: orderedPool });
@@ -38,7 +33,7 @@ describe('gameReducer', () => {
     it('wins immediately when the pool has only a seed (nothing to place)', () => {
       const state = gameReducer(initialGameState, {
         type: 'START_GAME',
-        pool: [event(1, '2000-01-01T00:00:00Z')],
+        pool: [event(1, 2000)],
       });
 
       expect(state.status).toBe('won');
@@ -69,11 +64,7 @@ describe('gameReducer', () => {
 
     it('keeps the timeline chronologically ordered when inserting at the start', () => {
       // Seed 2010, current 2000; place 2000 before the seed.
-      const pool: Event[] = [
-        event(2, '2010-01-01T00:00:00Z'),
-        event(1, '2000-01-01T00:00:00Z'),
-        event(3, '2020-01-01T00:00:00Z'),
-      ];
+      const pool: Event[] = [event(2, 2010), event(1, 2000), event(3, 2020)];
       const started = gameReducer(initialGameState, { type: 'START_GAME', pool });
       const state = gameReducer(started, { type: 'PLACE_CURRENT', index: 0 });
 

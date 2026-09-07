@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useMemo, useReducer } from 'react';
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import type { Event } from '../types';
 import { gameReducer, initialGameState } from './gameReducer.ts';
@@ -12,7 +12,7 @@ import { shuffle } from './shuffle.ts';
  * The value exposed by {@link useGame}: the live game state plus the actions
  * needed to drive gameplay.
  */
-export type GameContextValue = {
+type GameContextType = {
   /** The live game state (single source of truth for the play route). */
   state: GameState;
   /**
@@ -26,7 +26,7 @@ export type GameContextValue = {
   reset: () => void;
 };
 
-const GameContext = createContext<GameContextValue | null>(null);
+const GameContext = createContext<GameContextType | null>(null);
 
 /**
  * Client-side provider holding the global game state via `useReducer`. Wrap the
@@ -40,10 +40,9 @@ const GameContext = createContext<GameContextValue | null>(null);
 export const GameProvider = ({
   children,
   initialPool,
-}: {
-  children: ReactNode;
+}: PropsWithChildren<{
   initialPool?: Event[];
-}) => {
+}>) => {
   const [state, dispatch] = useReducer(gameReducer, initialPool, (pool) =>
     pool ? gameReducer(initialGameState, { type: 'START_GAME', pool }) : initialGameState,
   );
@@ -60,7 +59,7 @@ export const GameProvider = ({
     dispatch({ type: 'RESET' });
   }, []);
 
-  const value = useMemo<GameContextValue>(
+  const value = useMemo<GameContextType>(
     () => ({ state, startGame, placeCurrent, reset }),
     [state, startGame, placeCurrent, reset],
   );
@@ -72,7 +71,7 @@ export const GameProvider = ({
  * Reads the game state and actions. Must be used within a {@link GameProvider}.
  */
 // eslint-disable-next-line react-refresh/only-export-components
-export const useGame = (): GameContextValue => {
+export const useGame = (): GameContextType => {
   const value = useContext(GameContext);
 
   if (!value) throw new Error('useGame must be used within a GameProvider');

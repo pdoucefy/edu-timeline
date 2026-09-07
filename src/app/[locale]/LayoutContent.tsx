@@ -3,6 +3,8 @@
 import type { PropsWithChildren } from 'react';
 import styled, { css } from 'styled-components';
 
+import { DataProvider } from '@/data/DataProvider.tsx';
+
 const LayoutContentWrapper = styled.main(
   ({ theme }) => css`
     display: flex;
@@ -18,5 +20,7 @@ const LayoutContentWrapper = styled.main(
 );
 
 export const LayoutContent = ({ children }: PropsWithChildren) => (
-  <LayoutContentWrapper>{children}</LayoutContentWrapper>
+  <DataProvider>
+    <LayoutContentWrapper>{children}</LayoutContentWrapper>
+  </DataProvider>
 );

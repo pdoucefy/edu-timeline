@@ -2,6 +2,7 @@
 
 - add descriptions to difficulty levels?
 - test on different screen sizes (after final event lists have been added)
+- add mode/year/chapter/difficulty info in game?
 - update favicon
 - add pre-commit hooks
 - have "multi-select" in selection page?

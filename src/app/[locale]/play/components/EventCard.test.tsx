@@ -16,7 +16,7 @@ jest.mock('next-intl', () => ({
 const baseEvent: Event = {
   id: 1,
   name: 'Bataille de Vouillé',
-  date: new Date('507'),
+  year: 507,
   fileName: 'battle.jpg',
 };
 
@@ -39,12 +39,6 @@ describe('EventCard', () => {
     renderWithTheme(<EventCard event={baseEvent} revealed />);
     expect(screen.getByText(/507/)).toBeInTheDocument();
     expect(screen.queryByText('?')).not.toBeInTheDocument();
-  });
-
-  it('shows only the year — not the full date — when revealed', () => {
-    renderWithTheme(<EventCard event={baseEvent} revealed />);
-    const dateText = screen.getByText(/yearLabel/);
-    expect(dateText).toHaveTextContent(/yearLabel\s+507/);
   });
 
   it('falls back to the placeholder image on error and logs a warning', () => {

@@ -29,14 +29,13 @@
     "difficultyEasy": "Facile",
     "difficultyHard": "Difficile",
     "startGame": "Lancer la partie",
-    "yearLabel": "Année",
+    "yearLabel": "Secondaire",
     "noChaptersAvailable": "Aucun chapitre disponible pour le moment."
   },
   "game": {
     "title": "Jouer",
     "description": "Jeu de frise chronologique — Frise Chrono",
     "placeEventPrompt": "Placez cet événement sur la frise :",
-    "yearLabel": "Année",
     "submitAnswer": "Valider",
     "nextEvent": "Événement suivant",
     "eventCounter": "Événement {current} sur {total}",

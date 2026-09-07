@@ -264,7 +264,7 @@ export const DragDropTimeline = ({
             placedCount={failure.placedCount}
             remainingCount={failure.remainingCount}
             misplacedEventName={failure.misplacedEvent.name}
-            misplacedEventYear={failure.misplacedEvent.date.getFullYear()}
+            misplacedEventYear={failure.misplacedEvent.year}
             onPlayAgain={onPlayAgain}
           />
         )}

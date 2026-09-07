@@ -80,7 +80,6 @@ const Card = styled.div<{ $failed?: boolean }>(
 );
 
 export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
-  const t = useTranslations('game');
   const errorsT = useTranslations('errors');
   const [isFallback, setIsFallback] = useState(false);
 
@@ -108,7 +107,7 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
       </ImageWrapper>
       <Content>
         <EventName>{event.name}</EventName>
-        <DateLabel>{revealed ? `${t('yearLabel')} ${event.date.getFullYear()}` : '?'}</DateLabel>
+        <DateLabel>{revealed ? event.year.toString() : '?'}</DateLabel>
       </Content>
     </Card>
   );

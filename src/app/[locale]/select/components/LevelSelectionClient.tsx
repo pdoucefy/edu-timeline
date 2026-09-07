@@ -11,6 +11,7 @@ import styled, { css } from 'styled-components';
 import { Button } from '@/components/common/Button.tsx';
 import { Page } from '@/components/common/Page.tsx';
 import { Typography } from '@/components/common/Typography.tsx';
+import { useData } from '@/data/DataProvider.tsx';
 import {
   type SelectionDescriptor,
   resolveSelectedChapters,
@@ -239,9 +240,7 @@ const YearSection = ({
     (chapterId: ID) => {
       if (disabled) return;
       const chapter = year.chapters.find((c) => c.id === chapterId);
-      if (chapter) {
-        onSelectChapter(year.id, chapter.chapterNumber);
-      }
+      if (chapter) onSelectChapter(year.id, chapter.chapterNumber);
     },
     [year, onSelectChapter, disabled],
   );
@@ -277,14 +276,14 @@ const YearSection = ({
 /*  Main component                                                    */
 /* ------------------------------------------------------------------ */
 
-export type LevelSelectionClientProps = {
-  years: SchoolYear[];
+type LevelSelectionClientProps = {
   locale: string;
 };
 
-export const LevelSelectionClient = ({ years, locale }: LevelSelectionClientProps) => {
+export const LevelSelectionClient = ({ locale }: LevelSelectionClientProps) => {
   const t = useTranslations('select');
   const router = useRouter();
+  const { years } = useData();
 
   const [mode, setMode] = useState<Mode>(Mode.Single);
   const [selectedYearId, setSelectedYearId] = useState<ID | null>(null);

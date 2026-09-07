@@ -31,13 +31,13 @@ import type { Event } from '../types';
  * output for the same inputs.
  */
 export const validatePlacement = (timeline: Event[], inserted: Event, index: number): boolean => {
-  const insertedTime = inserted.date.getTime();
+  const insertedYear = inserted.year;
 
   const left = index > 0 ? timeline[index - 1] : undefined;
   const right = index < timeline.length ? timeline[index] : undefined;
 
-  const afterLeft = !left || left.date.getTime() <= insertedTime;
-  const beforeRight = !right || insertedTime <= right.date.getTime();
+  const afterLeft = !left || left.year <= insertedYear;
+  const beforeRight = !right || insertedYear <= right.year;
 
   return afterLeft && beforeRight;
 };

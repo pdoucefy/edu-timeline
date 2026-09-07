@@ -52,6 +52,7 @@ type ToastProps = {
   onClose?: (value?: boolean) => void;
 };
 
+/** UNUSED - Kept for future use */
 export const Toast = ({ message, open = true, duration = 5000, onClose }: ToastProps) => {
   const t = useTranslations('common');
 

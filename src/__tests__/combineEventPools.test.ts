@@ -5,7 +5,7 @@ import type { Chapter, Event } from '@/types';
 const event = (id: number): Event => ({
   id,
   name: `Event ${id}`,
-  date: new Date(`2024-01-${String(id).padStart(2, '0')}T00:00:00Z`),
+  year: 2026,
   fileName: `${id}.svg`,
 });
 
@@ -120,13 +120,14 @@ describe('combineEventPools', () => {
 
   describe('with real fixture data (cross-chapter duplicate)', () => {
     it('deduplicates the real duplicate event id 50 across chapters', () => {
-      const [, year2025] = schoolYears;
-      const [, chapter7, chapter8] = year2025.chapters;
+      const sec2 = schoolYears.at(1)!;
+      const chapter2 = sec2.chapters.at(1)!;
+      const chapter3 = sec2.chapters.at(2)!;
 
-      const pool = combineEventPools([chapter7, chapter8], 'easy');
+      const pool = combineEventPools([chapter2, chapter3], 'easy');
 
       const ids = pool.map((e: Event) => e.id);
-      expect(ids.filter((id: number) => id === 50)).toHaveLength(1);
+      expect(ids.filter((id: number) => id === 63)).toHaveLength(1);
     });
   });
 });

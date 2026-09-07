@@ -1,15 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getSchoolYears, initLoader } from '@/data/loader.ts';
-import { schoolYears } from '@/data/years.ts';
-import { parsePlayParams } from '@/game/parsePlayParams.ts';
-import { shuffle } from '@/game/shuffle.ts';
-import { redirect } from '@/i18n/navigation.ts';
-
-// eslint-disable-next-line import/order
 import { PlayClient } from './components/PlayClient.tsx';
-
-initLoader(schoolYears);
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const generateMetadata = async () => {
@@ -30,23 +21,9 @@ const PlayPage = async ({
 }>) => {
   const { locale } = await params;
   const query = await searchParams;
+  const seed = new Date().getTime();
 
-  const result = parsePlayParams(getSchoolYears(), {
-    chapters: query.chapters,
-    difficulty: query.difficulty,
-  });
-
-  // Missing/invalid params → seamless server-side redirect to the selection
-  // screen (locale-aware via next-intl navigation). This throws and terminates
-  // rendering, so there is no flash of an error state.
-  if (!result.valid) {
-    redirect({ href: '/select', locale });
-    return null;
-  }
-
-  // Shuffle server-side so the same order is used for SSR and hydration
-  // (avoiding a mismatch) and so refreshing always yields a fresh order.
-  return <PlayClient pool={shuffle(result.pool)} originalPool={result.pool} />;
+  return <PlayClient locale={locale} query={query} seed={seed} />;
 };
 
 // eslint-disable-next-line import/no-default-export

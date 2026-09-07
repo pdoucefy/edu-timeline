@@ -2,7 +2,6 @@
 /* eslint-disable no-console */
 import { access, mkdir } from 'node:fs/promises';
 import path from 'node:path';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import sharp from 'sharp';
 
 import { EVENTS } from '@/data/events.ts';

@@ -3,8 +3,8 @@ import { mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 
-const IMAGE_WIDTH = 800;
-const IMAGE_HEIGHT = 600;
+const IMAGE_WIDTH = 250;
+const IMAGE_HEIGHT = 175;
 const IMAGE_QUALITY = 90;
 
 const main = async (): Promise<void> => {

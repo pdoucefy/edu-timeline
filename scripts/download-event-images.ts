@@ -11,8 +11,6 @@ import type { Event } from '@/types/event.ts';
 const WIKIPEDIA_API = 'https://fr.wikipedia.org/w/api.php';
 const WIKIPEDIA_BASE_URL = 'https://fr.wikipedia.org/wiki/';
 
-const USER_AGENT = 'WikiTriviaEventImageDownloader/1.0 (https://github.com/your-user/your-repo)';
-
 const SEARCH_LIMIT = 5;
 const REQUEST_DELAY_MS = 500;
 const MAX_RETRIES = 3;
@@ -214,7 +212,6 @@ const fetchWithRetry = async (url: URL, options?: any): Promise<Response> => {
       const response = await fetch(url, {
         ...options,
         headers: {
-          'User-Agent': USER_AGENT,
           Accept: 'application/json',
           ...options?.headers,
         },

@@ -3,7 +3,6 @@
 ## After v1 meeting
 
 - test on 1366 × 768
-- weird white background color when scrolling vertically
 - put more emphasis on the date (bring it out of the card, color, make it bigger, …)
 - make event images a bit smaller?
 - change event layout to be title -> image -> year

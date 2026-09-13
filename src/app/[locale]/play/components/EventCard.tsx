@@ -53,6 +53,7 @@ const Card = styled.div<{ $failed?: boolean }>(
   ({ theme, $failed }) => css`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     border-radius: ${theme.radii.lg};
     background-color: ${theme.colors.surface};
     border: 1px solid ${theme.colors.border};

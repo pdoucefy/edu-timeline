@@ -3,8 +3,6 @@
 ## After v1 meeting
 
 - test on 1366 × 768
-- put more emphasis on the date (bring it out of the card, color, make it bigger, …)
-- make event images a bit smaller?
 - make the timeline auto-scroll to have the just placed event shown visible on screen?
 - sound queues for valid placements and invalid placements?
 

@@ -9,11 +9,14 @@ export const GlobalStyle = createGlobalStyle(
       max-width: 100vw;
       height: 100%;
       overflow-x: hidden;
-      overflow-y: hidden;
       font-family: ${theme.typography.fontFamily.base};
 
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      margin: 0;
     }
 
     * {

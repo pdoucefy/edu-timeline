@@ -56,8 +56,8 @@ const RootLayout = async ({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={font.variable} style={{ height: '100%', overflow: 'hidden' }}>
-      <body style={{ height: '100%', overflow: 'hidden', margin: 0 }}>
+    <html lang={locale} className={font.variable}>
+      <body>
         <StyledComponentsRegistry>
           <NextIntlClientProvider messages={messages}>
             <Header />

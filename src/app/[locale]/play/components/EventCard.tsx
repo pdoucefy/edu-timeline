@@ -23,15 +23,6 @@ const ImageWrapper = styled.div(
   `,
 );
 
-const Content = styled.div(
-  ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.spacing.xs};
-    justify-content: center;
-  `,
-);
-
 const EventName = styled.h3(
   ({ theme }) => css`
     margin: 0;
@@ -44,9 +35,9 @@ const EventName = styled.h3(
 
 const DateLabel = styled.span(
   ({ theme }) => css`
-    font-size: ${theme.typography.fontSize.xs};
+    font-size: ${theme.typography.fontSize.sm};
     font-weight: ${theme.typography.fontWeight.medium};
-    color: ${theme.colors.textMuted};
+    color: ${theme.colors.text};
     text-transform: uppercase;
     letter-spacing: 0.05em;
   `,
@@ -69,7 +60,7 @@ const Card = styled.div<{ $failed?: boolean }>(
     padding: ${theme.spacing.lg};
     gap: ${theme.spacing.md};
     overflow: hidden;
-    width: 280px;
+    width: 245px;
 
     ${$failed &&
     css`
@@ -78,6 +69,13 @@ const Card = styled.div<{ $failed?: boolean }>(
     `}
   `,
 );
+
+const getDateDisplay = (year: number, revealed: boolean): string => {
+  if (!revealed) return '?';
+
+  if (Math.abs(year) > 9999) return year.toLocaleString();
+  return year.toString();
+};
 
 export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
   const errorsT = useTranslations('errors');
@@ -94,6 +92,7 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
 
   return (
     <Card $failed={isFailed}>
+      <EventName>{event.name}</EventName>
       <ImageWrapper>
         <SafeImage
           src={resolveImagePath(event)}
@@ -105,10 +104,7 @@ export const EventCard = ({ event, revealed, isFailed }: EventCardProps) => {
           style={imageStyle}
         />
       </ImageWrapper>
-      <Content>
-        <EventName>{event.name}</EventName>
-        <DateLabel>{revealed ? event.year.toString() : '?'}</DateLabel>
-      </Content>
+      <DateLabel>{getDateDisplay(event.year, revealed)}</DateLabel>
     </Card>
   );
 };

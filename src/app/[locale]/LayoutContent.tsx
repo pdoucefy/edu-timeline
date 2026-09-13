@@ -15,7 +15,6 @@ const LayoutContentWrapper = styled.main(
     justify-content: center;
     align-items: center;
     background-color: ${theme.colors.background};
-    padding: 0px 60px;
   `,
 );
 

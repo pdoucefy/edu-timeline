@@ -23,6 +23,12 @@ import { Mode } from '@/types/mode.ts';
 /* ------------------------------------------------------------------ */
 /*  Styled components                                                 */
 /* ------------------------------------------------------------------ */
+const LevelSelectionPage = styled(Page)`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 60px;
+`;
+
 const Section = styled.section(
   ({ theme }) => css`
     width: 100%;
@@ -362,7 +368,7 @@ export const LevelSelectionClient = ({ locale }: LevelSelectionClientProps) => {
   }
 
   return (
-    <Page>
+    <LevelSelectionPage>
       <Typography $variant="h1" $centered>
         {t('title')}
       </Typography>
@@ -469,6 +475,6 @@ export const LevelSelectionClient = ({ locale }: LevelSelectionClientProps) => {
       >
         {t('startGame')}
       </Button>
-    </Page>
+    </LevelSelectionPage>
   );
 };

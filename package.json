@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev & open http://localhost:3000",
     "build": "next build",
+    "build:static": "bash scripts/build-static.sh",
     "start": "next start",
     "lint": "eslint .",
     "test": "jest",

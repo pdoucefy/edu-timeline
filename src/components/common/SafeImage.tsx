@@ -6,6 +6,8 @@ import { useCallback, useState } from 'react';
 
 import { PLACEHOLDER_IMAGE_PATH } from '@/data/loader.ts';
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 type SafeImageProps = Omit<ImageProps, 'onError'> & {
   fallbackSrc?: string;
   imageName?: string;
@@ -24,11 +26,13 @@ export const SafeImage = ({
   const originalSrc = typeof props.src === 'string' ? props.src : fallbackSrc;
   const src = hasError ? fallbackSrc : props.src;
 
+  const imageSrc = typeof src === 'string' && src.startsWith('/') ? `${BASE_PATH}${src}` : src;
+
   const handleError = useCallback(() => {
     console.warn(`Failed to load image "${imageName || alt || 'unknown'}": ${originalSrc}`);
     setHasError(true);
     onFallback?.();
   }, [alt, imageName, onFallback, originalSrc]);
 
-  return <Image {...props} alt={alt} src={src} onError={handleError} />;
+  return <Image {...props} alt={alt} src={imageSrc} onError={handleError} />;
 };

@@ -8,4 +8,6 @@ export const routing = defineRouting({
   // `always` guarantees the locale prefix is present on every URL, including
   // the home page (`/fr`). Locale-less URLs are redirected by the proxy.
   localePrefix: 'always',
+  // Disable automatic locale detection. Static exports require explicit locale prefixes.
+  localeDetection: false,
 });

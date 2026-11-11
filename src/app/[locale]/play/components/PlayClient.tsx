@@ -1,6 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 import { DragDropTimeline } from '@/app/[locale]/play/components/DragDropTimeline.tsx';
 import { Page } from '@/components/common/Page.tsx';
@@ -60,8 +62,6 @@ const GameSurface = ({ originalPool }: { originalPool: Event[] }) => {
 
 export type PlayClientProps = Readonly<{
   locale: string;
-  query: { [key: string]: string | string[] | undefined };
-  seed: number;
 }>;
 
 /**
@@ -70,8 +70,11 @@ export type PlayClientProps = Readonly<{
  * the pool is shuffled on the server, SSR and hydration agree, and refreshing
  * the URL starts a new game with a new order.
  */
-export const PlayClient = ({ locale, query, seed }: PlayClientProps) => {
+export const PlayClient = ({ locale }: PlayClientProps) => {
   const { years } = useData();
+  const searchParams = useSearchParams();
+  const query = Object.fromEntries(searchParams.entries());
+  const [seed] = useState(() => Date.now());
 
   const result = parsePlayParams(years, {
     chapters: query.chapters,
